@@ -38,7 +38,7 @@ export default function PortfolioLoader({ onComplete }) {
                       setUnderlineAnimation("animate-underline-bounce");
                       setTimeout(() => {
                         if (onComplete) onComplete();
-                      }, 2000);
+                      }, 2800);
                     }, 200);
                   }, 300);
                 }
@@ -63,6 +63,17 @@ export default function PortfolioLoader({ onComplete }) {
 
     return () => clearInterval(interval);
   }, [onComplete]);
+
+  useEffect(() => {
+    if (!underlineAnimation) return;
+
+    // Total duration = 2 loops × 1s = 2s + small buffer
+    const cleanup = setTimeout(() => {
+      setUnderlineAnimation(""); // Removes the snake class
+    }, 2200); // Wait slightly longer than 2 loops
+
+    return () => clearTimeout(cleanup);
+  }, [underlineAnimation]);
 
   return (
     <div className="inset-0 bg-black z-50">
@@ -99,18 +110,28 @@ export default function PortfolioLoader({ onComplete }) {
                   'ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, monospace',
               }}
             >
-              {typedText}
+              {typedText.split("").map((char, i) => (
+                <span
+                  key={i}
+                  className={underlineAnimation ? `wave-char delay-${i}` : ""}
+                  style={{
+                    display: "inline-block",
+                  }}
+                >
+                  {char}
+                </span>
+              ))}
               {typedText.length < 7 && <span className="animate-pulse">|</span>}
             </div>
 
             {showUnderline && (
-              <div className="relative w-[40px] h-[2px] mt-2">
+              <div className="relative w-[50px] h-[2px] mt-2">
                 <div
                   className={`absolute h-full bg-white ${
                     underlineAnimation ? "animate-underline-bounce" : ""
                   }`}
                   style={{
-                    width: "0%", // Start from 0%
+                    width: "40%", // Start from 0%
                   }}
                 />
               </div>
@@ -145,7 +166,7 @@ export default function PortfolioLoader({ onComplete }) {
         @keyframes underlineBounceCenter {
           0% {
             transform: translateX(0%);
-            width: 0%;
+            width: 40%;
             opacity: 1;
           }
           25% {
@@ -175,7 +196,52 @@ export default function PortfolioLoader({ onComplete }) {
         }
 
         .animate-underline-bounce {
-          animation: underlineBounceCenter 1.6s ease-out forwards;
+          animation: underlineBounceCenter 2.2s ease-out forwards;
+        }
+
+        @keyframes snakeWave {
+          0% {
+            transform: translateY(0%);
+          }
+          25% {
+            transform: translateY(-30%);
+          }
+          50% {
+            transform: translateY(0%);
+          }
+          75% {
+            transform: translateY(30%);
+          }
+          100% {
+            transform: translateY(0%);
+          }
+        }
+
+        .wave-char {
+          animation: snakeWave 1s ease-in-out 2;
+          animation-fill-mode: forwards;
+        }
+
+        .wave-char.delay-0 {
+          animation-delay: 0s;
+        }
+        .wave-char.delay-1 {
+          animation-delay: 0.05s;
+        }
+        .wave-char.delay-2 {
+          animation-delay: 0.1s;
+        }
+        .wave-char.delay-3 {
+          animation-delay: 0.15s;
+        }
+        .wave-char.delay-4 {
+          animation-delay: 0.2s;
+        }
+        .wave-char.delay-5 {
+          animation-delay: 0.25s;
+        }
+        .wave-char.delay-6 {
+          animation-delay: 0.3s;
         }
       `}</style>
     </div>
