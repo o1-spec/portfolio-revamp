@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import AnimatedCounter from "./AnimatedCounter";
 
 export default function PortfolioLoader({ onComplete }) {
   const [progress, setProgress] = useState(0);
@@ -118,17 +119,8 @@ export default function PortfolioLoader({ onComplete }) {
         </div>
       )}
 
-      <div
-        className="absolute bottom-4 left-6 text-white"
-        style={{
-          fontSize: "4.4rem",
-          fontWeight: "200",
-          fontFamily:
-            'ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, monospace',
-          letterSpacing: "0.05em",
-        }}
-      >
-        {String(Math.floor(progress)).padStart(3, "0")}%
+      <div className="absolute bottom-4 left-6">
+        <AnimatedCounter value={Math.floor(progress)} />
       </div>
 
       <style jsx>{`
