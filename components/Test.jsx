@@ -38,13 +38,17 @@ export default function PortfolioLoader({ onComplete }) {
                     // Animate underline left to right
                     setTimeout(() => {
                       setUnderlineAnimation("animate-underline-bounce");
+                      
+                      // After snake animation completes (2.2s), start zoom effect
                       setTimeout(() => {
                         setShowZoomEffect(true);
+                        
+                        // After zoom completes (1.5s), show next section
                         setTimeout(() => {
                           setShowNextSection(true);
                           if (onComplete) onComplete();
                         }, 1500);
-                      }, 2200);
+                      }, 2200); // Wait for snake animation to complete
                     }, 200);
                   }, 300);
                 }
@@ -73,16 +77,16 @@ export default function PortfolioLoader({ onComplete }) {
   useEffect(() => {
     if (!underlineAnimation) return;
 
-    // Total duration = 2 loops × 1s = 2s + small buffer
     const cleanup = setTimeout(() => {
-      setUnderlineAnimation(""); // Removes the snake class
-    }, 2200); // Wait slightly longer than 2 loops
+      setUnderlineAnimation("");
+    }, 2200);
 
     return () => clearTimeout(cleanup);
   }, [underlineAnimation]);
 
   return (
-    <div className="overflow-hidden fixed inset-0 bg-black z-50">
+    <div className="fixed inset-0 bg-black z-50 overflow-hidden">
+      {/* Loading Progress Bar */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-6 transition-transform duration-700 ease-in-out overflow-hidden h-[200px] w-[300px]">
         <div
           className={`relative bg-gray-800 overflow-hidden rounded-md h-[40px] w-full transition-transform duration-700 ease-out ${
@@ -99,12 +103,15 @@ export default function PortfolioLoader({ onComplete }) {
         </div>
       </div>
 
+      {/* Main Text Animation */}
       {showText && (
-        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 flex items-center justify-center">
           <div
             className={`relative flex flex-col items-center justify-center transition-all duration-300 ${
               showUnderline ? "-translate-y-4" : ""
-            } ${showZoomEffect ? "zoom-in-effect" : ""}`}
+            } ${
+              showZoomEffect ? "zoom-in-effect" : ""
+            }`}
           >
             <div
               className="relative text-white font-bold z-10"
@@ -131,11 +138,7 @@ export default function PortfolioLoader({ onComplete }) {
             </div>
 
             {showUnderline && (
-              <div
-                className={`relative w-[50px] h-[2px] mt-2 transition-opacity duration-300 ${
-                  showZoomEffect ? "opacity-0" : "opacity-100"
-                }`}
-              >
+              <div className="relative w-[50px] h-[2px] mt-2">
                 <div
                   className={`absolute h-full bg-white ${
                     underlineAnimation ? "animate-underline-bounce" : ""
@@ -150,9 +153,27 @@ export default function PortfolioLoader({ onComplete }) {
         </div>
       )}
 
+      {/* Progress Counter */}
       <div className="absolute bottom-4 left-6">
         <AnimatedCounter value={Math.floor(progress)} />
       </div>
+
+      {/* Next Section */}
+      {showNextSection && (
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-black slide-in-section">
+          <div className="flex items-center justify-center h-full">
+            <div className="text-center text-white space-y-6">
+              <h1 className="text-6xl font-bold mb-4 animate-fade-in-up">
+                Welcome
+              </h1>
+              <p className="text-xl opacity-80 animate-fade-in-up-delay">
+                Your portfolio experience begins now
+              </p>
+              <div className="w-24 h-1 bg-white mx-auto animate-scale-in"></div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style jsx>{`
         @keyframes sweepGlow {
@@ -254,28 +275,81 @@ export default function PortfolioLoader({ onComplete }) {
           animation-delay: 0.3s;
         }
 
+        /* Zoom Effect Animation */
         @keyframes zoomIn {
           0% {
-            transform: scale(1) rotate(0deg);
+            transform: scale(1) translateY(-1rem) rotate(0deg);
           }
           20% {
-            transform: scale(1.1) rotate(10deg);
+            transform: scale(1.1) translateY(-1rem) rotate(45deg);
           }
           40% {
-            transform: scale(2) rotate(10deg);
+            transform: scale(2) translateY(-1rem) rotate(45deg);
           }
           70% {
-            transform: scale(20) rotate(10deg);
+            transform: scale(15) translateY(-1rem) rotate(45deg);
             opacity: 1;
           }
           100% {
-            transform: scale(40) rotate(10deg);
-            opacity: 1;
+            transform: scale(25) translateY(-1rem) rotate(45deg);
+            opacity: 0;
           }
         }
 
         .zoom-in-effect {
           animation: zoomIn 1.5s ease-in-out forwards;
+        }
+
+        /* Next Section Slide In */
+        @keyframes slideInFromBottom {
+          0% {
+            transform: translateY(100%);
+            opacity: 0;
+          }
+          100% {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        .slide-in-section {
+          animation: slideInFromBottom 0.8s ease-out forwards;
+        }
+
+        /* Next Section Content Animations */
+        @keyframes fadeInUp {
+          0% {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes scaleIn {
+          0% {
+            transform: scaleX(0);
+          }
+          100% {
+            transform: scaleX(1);
+          }
+        }
+
+        .animate-fade-in-up {
+          animation: fadeInUp 0.8s ease-out 0.3s forwards;
+          opacity: 0;
+        }
+
+        .animate-fade-in-up-delay {
+          animation: fadeInUp 0.8s ease-out 0.6s forwards;
+          opacity: 0;
+        }
+
+        .animate-scale-in {
+          animation: scaleIn 0.6s ease-out 0.9s forwards;
+          transform: scaleX(0);
         }
       `}</style>
     </div>
