@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import AnimatedCounter from "./AnimatedCounter";
 
-export default function PortfolioLoader({ onComplete }) {
+export default function PortfolioLoader({
+  onComplete,
+  showNextSection,
+  setShowNextSection,
+}) {
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [showText, setShowText] = useState(false);
@@ -9,7 +13,7 @@ export default function PortfolioLoader({ onComplete }) {
   const [showUnderline, setShowUnderline] = useState(false);
   const [underlineAnimation, setUnderlineAnimation] = useState("");
   const [showZoomEffect, setShowZoomEffect] = useState(false);
-  const [showNextSection, setShowNextSection] = useState(false);
+  const [whiteOverlayVisible, setWhiteOverlayVisible] = useState(false);
 
   useEffect(() => {
     // Simulate realistic loading progress
@@ -41,8 +45,13 @@ export default function PortfolioLoader({ onComplete }) {
                       setTimeout(() => {
                         setShowZoomEffect(true);
                         setTimeout(() => {
-                          setShowNextSection(true);
-                          if (onComplete) onComplete();
+                          setWhiteOverlayVisible(true);
+                          setTimeout(() => {
+                            setShowNextSection(true);
+                            setTimeout(() => {
+                              if (onComplete) onComplete();
+                            }, 1500);
+                          }, 100);
                         }, 1500);
                       }, 2200);
                     }, 200);
@@ -147,6 +156,12 @@ export default function PortfolioLoader({ onComplete }) {
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {whiteOverlayVisible && (
+        <div className="white-overlay-emerge">
+          <div className="absolute inset-0 bg-white" />
         </div>
       )}
 
@@ -257,25 +272,54 @@ export default function PortfolioLoader({ onComplete }) {
         @keyframes zoomIn {
           0% {
             transform: scale(1) rotate(0deg);
-          }
-          20% {
-            transform: scale(1.1) rotate(10deg);
-          }
-          40% {
-            transform: scale(2) rotate(10deg);
-          }
-          70% {
-            transform: scale(20) rotate(10deg);
             opacity: 1;
           }
+      
           100% {
-            transform: scale(40) rotate(10deg);
+            transform: scale(50) rotate(20deg);
             opacity: 1;
           }
         }
 
         .zoom-in-effect {
-          animation: zoomIn 1.5s ease-in-out forwards;
+          animation: zoomIn 4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+          will-change: transform;
+          transform-origin: center center;
+        }
+
+        @keyframes whiteEmerge {
+          0% {
+            clip-path: circle(0% at 50% 50%);
+            opacity: 0;
+          }
+          100% {
+            clip-path: circle(150% at 50% 50%);
+            opacity: 1;
+          }
+        }
+
+        .white-overlay-emerge {
+          position: absolute;
+          inset: 0;
+          z-index: 60;
+          animation: whiteEmerge 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+          will-change: clip-path;
+        }
+
+        @keyframes sectionAppear {
+          0% {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        .next-section-appear {
+          animation: sectionAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+          z-index: 70;
         }
       `}</style>
     </div>

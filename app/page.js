@@ -1,8 +1,8 @@
 "use client"; // if using app directory
 
 import { useState, Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
 import PortfolioLoader from "../components/PortfolioLoader";
+import Homepage from "@/section/Homepage";
 
 // Your Three.js scene component
 function Scene() {
@@ -15,17 +15,22 @@ function Scene() {
 }
 
 export default function Home() {
+  const [showNextSection, setShowNextSection] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   if (isLoading) {
     return (
       <div style={{ width: "100vw", height: "100vh" }}>
-        <PortfolioLoader onComplete={() => setIsLoading(false)} />
+        <PortfolioLoader
+          onComplete={() => setIsLoading(false)}
+          showNextSection={showNextSection}
+          setShowNextSection={setShowNextSection}
+        />
       </div>
     );
   }
 
   return (
-    <></>
+    <>{showNextSection && <Homepage showNextSection={showNextSection} />}</>
   );
 }
