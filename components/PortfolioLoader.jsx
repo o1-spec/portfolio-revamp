@@ -12,8 +12,8 @@ export default function PortfolioLoader({
   const [typedText, setTypedText] = useState("");
   const [showUnderline, setShowUnderline] = useState(false);
   const [underlineAnimation, setUnderlineAnimation] = useState("");
-  const [showZoomEffect, setShowZoomEffect] = useState(false);
-  const [whiteOverlayVisible, setWhiteOverlayVisible] = useState(false);
+  const [hideCounter, setHideCounter] = useState(false);
+  const [hideTitle, setHideTitle] = useState(false);
 
   useEffect(() => {
     // Simulate realistic loading progress
@@ -39,21 +39,24 @@ export default function PortfolioLoader({
                   // After typing is complete, move text up and show underline
                   setTimeout(() => {
                     setShowUnderline(true);
-                    // Animate underline left to right
                     setTimeout(() => {
                       setUnderlineAnimation("animate-underline-bounce");
                       setTimeout(() => {
-                        setShowZoomEffect(true);
+                        // First hide the counter
+                        setHideCounter(true);
+                        // Then hide the title after a delay
                         setTimeout(() => {
-                          setWhiteOverlayVisible(true);
+                          setHideTitle(true);
+                          // Reduced delay - start next section right after wave animation
                           setTimeout(() => {
                             setShowNextSection(true);
+                            // Minimal delay before calling onComplete
                             setTimeout(() => {
                               if (onComplete) onComplete();
-                            }, 1500);
-                          }, 100);
-                        }, 1500);
-                      }, 2200);
+                            }, 200);
+                          }, 800);
+                        }, 800);
+                      }, 2300); // Slightly after wave animation completes (2.2s)
                     }, 200);
                   }, 300);
                 }
@@ -110,10 +113,14 @@ export default function PortfolioLoader({
 
       {showText && (
         <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+            <div className="h-[80px] overflow-hidden">
           <div
             className={`relative flex flex-col items-center justify-center transition-all duration-300 ${
               showUnderline ? "-translate-y-4" : ""
-            } ${showZoomEffect ? "zoom-in-effect" : ""}`}
+            } ${hideTitle ? "translate-y-[80px]" : "translate-y-0"}`}
+            style={{
+              transition: "all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+            }}
           >
             <div
               className="relative text-white font-bold z-10"
@@ -141,9 +148,7 @@ export default function PortfolioLoader({
 
             {showUnderline && (
               <div
-                className={`relative w-[50px] h-[2px] mt-2 transition-opacity duration-300 ${
-                  showZoomEffect ? "opacity-0" : "opacity-100"
-                }`}
+                className={`relative w-[50px] h-[2px] mt-2 transition-opacity duration-300`}
               >
                 <div
                   className={`absolute h-full bg-white ${
@@ -156,16 +161,15 @@ export default function PortfolioLoader({
               </div>
             )}
           </div>
+          </div>
         </div>
       )}
 
-      {whiteOverlayVisible && (
-        <div className="white-overlay-emerge">
-          <div className="absolute inset-0 bg-white" />
-        </div>
-      )}
-
-      <div className="absolute bottom-4 left-6">
+      <div
+        className={`absolute bottom-4 left-6 transition-all duration-700 ease-out ${
+          hideCounter ? "translate-y-24 opacity-0" : "translate-y-0 opacity-100"
+        }`}
+      >
         <AnimatedCounter value={Math.floor(progress)} />
       </div>
 
@@ -267,59 +271,6 @@ export default function PortfolioLoader({
         }
         .wave-char.delay-6 {
           animation-delay: 0.3s;
-        }
-
-        @keyframes zoomIn {
-          0% {
-            transform: scale(1) rotate(0deg);
-            opacity: 1;
-          }
-      
-          100% {
-            transform: scale(50) rotate(20deg);
-            opacity: 1;
-          }
-        }
-
-        .zoom-in-effect {
-          animation: zoomIn 4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-          will-change: transform;
-          transform-origin: center center;
-        }
-
-        @keyframes whiteEmerge {
-          0% {
-            clip-path: circle(0% at 50% 50%);
-            opacity: 0;
-          }
-          100% {
-            clip-path: circle(150% at 50% 50%);
-            opacity: 1;
-          }
-        }
-
-        .white-overlay-emerge {
-          position: absolute;
-          inset: 0;
-          z-index: 60;
-          animation: whiteEmerge 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-          will-change: clip-path;
-        }
-
-        @keyframes sectionAppear {
-          0% {
-            opacity: 0;
-            transform: scale(0.8);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        .next-section-appear {
-          animation: sectionAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-          z-index: 70;
         }
       `}</style>
     </div>
