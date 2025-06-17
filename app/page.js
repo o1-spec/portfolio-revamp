@@ -3,6 +3,7 @@
 import { useState, Suspense } from "react";
 import PortfolioLoader from "../components/PortfolioLoader";
 import Homepage from "@/section/Homepage";
+import CustomCursor from "@/components/CustomCursor";
 
 // Your Three.js scene component
 function Scene() {
@@ -21,6 +22,7 @@ export default function Home() {
   if (isLoading) {
     return (
       <div style={{ width: "100vw", height: "100vh" }}>
+        <CustomCursor />
         <PortfolioLoader
           onComplete={() => setIsLoading(false)}
           showNextSection={showNextSection}
@@ -31,6 +33,13 @@ export default function Home() {
   }
 
   return (
-    <>{showNextSection && <Homepage showNextSection={showNextSection} />}</>
+    <>
+      {showNextSection && (
+        <>
+          <CustomCursor />
+          <Homepage showNextSection={showNextSection} />
+        </>
+      )}
+    </>
   );
 }
