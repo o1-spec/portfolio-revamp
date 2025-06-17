@@ -4,6 +4,7 @@ import { useState, Suspense } from "react";
 import PortfolioLoader from "../components/PortfolioLoader";
 import Homepage from "@/section/Homepage";
 import CustomCursor from "@/components/CustomCursor";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 // Your Three.js scene component
 function Scene() {
@@ -37,6 +38,7 @@ export default function Home() {
       {showNextSection && (
         <>
           <CustomCursor />
+          <AnimatedBackground type="neural" />
           <Homepage showNextSection={showNextSection} />
         </>
       )}
