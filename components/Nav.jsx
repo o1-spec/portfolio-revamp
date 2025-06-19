@@ -22,19 +22,28 @@ export default function Nav() {
 
   return (
     <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-40">
+      {/* Thread with subtle swing */}
       <div
         className={`w-0.5 bg-gradient-to-b from-gray-600 to-gray-800 mx-auto transition-all duration-1500 ease-out ${
           isVisible ? "h-16" : "h-0"
         }`}
+        style={{
+          animation: isVisible ? "threadSwing 4s ease-in-out infinite" : "none",
+          transformOrigin: "top center",
+        }}
       />
+
+      {/* Nav container with hanging swing animation */}
       <div
         className={`bg-white/95 backdrop-blur-sm rounded-lg shadow-2xl px-8 py-4 border border-gray-200 relative transition-all duration-1000 ease-out w-[450px] ${
           isVisible ? "translate-y-0 opacity-100 rotate-0" : "-translate-y-8 opacity-0 rotate-3"
         }`}
         style={{
           transformOrigin: "top center",
+          animation: isVisible ? "navSwing 4s ease-in-out infinite" : "none",
         }}
       >
+        {/* Connection point */}
         <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gray-400 rounded-full border-2 border-gray-600 shadow-inner" />
         <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full" />
 
@@ -97,6 +106,30 @@ export default function Nav() {
       </div>
 
       <style jsx>{`
+        @keyframes navSwing {
+          0% { 
+            transform: rotate(-1.5deg); 
+          }
+          50% { 
+            transform: rotate(1.5deg); 
+          }
+          100% { 
+            transform: rotate(-1.5deg); 
+          }
+        }
+        
+        @keyframes threadSwing {
+          0% { 
+            transform: rotate(-1.5deg); 
+          }
+          50% { 
+            transform: rotate(1.5deg); 
+          }
+          100% { 
+            transform: rotate(-1.5deg); 
+          }
+        }
+        
         @keyframes shimmer {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(100%); }
