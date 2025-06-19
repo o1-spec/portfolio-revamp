@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 
-const AnimatedGrid = () => {
+const WhiteAnimatedGrid = () => {
   const [gridSize, setGridSize] = useState({ rows: 0, cols: 0 })
   const [animatedCells, setAnimatedCells] = useState(new Set())
 
@@ -53,12 +53,12 @@ const AnimatedGrid = () => {
               top: row * 40,
               width: 40,
               height: 40,
-              border: "1px solid rgba(255, 255, 255, 0.1)",
-              backgroundColor: isAnimated ? "rgba(255, 255, 255, 0.1)" : "transparent",
+              border: "1px solid rgba(0, 0, 0, 0.08)",
+              backgroundColor: isAnimated ? "rgba(0, 0, 0, 0.05)" : "transparent",
               transition: "all 0.5s ease-in-out",
               transform: isAnimated ? "scale(1.1)" : "scale(1)",
             }}
-          />
+          />,
         )
       }
     }
@@ -73,9 +73,9 @@ const AnimatedGrid = () => {
         left: 0,
         width: "100%",
         height: "100%",
-        background: "radial-gradient(circle at center, #1a1a1a 0%, #000000 100%)",
+        background: "radial-gradient(circle at center, #ffffff 0%, #f8f9fa 100%)",
         overflow: "hidden",
-        // zIndex:1,
+        zIndex: -1,
       }}
     >
       {renderGrid()}
@@ -83,4 +83,4 @@ const AnimatedGrid = () => {
   )
 }
 
-export default AnimatedGrid
+export default WhiteAnimatedGrid

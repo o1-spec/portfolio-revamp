@@ -60,11 +60,14 @@ const HeroSectionWithArrow = () => {
   ]
 
   const handleScrollDown = () => {
-    // Smooth scroll to next section
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: "smooth",
-    })
+    // Scroll to about section specifically
+    const aboutSection = document.getElementById("about-section")
+    if (aboutSection) {
+      aboutSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      })
+    }
   }
 
   return (
@@ -201,7 +204,7 @@ const HeroSectionWithArrow = () => {
       {/* Vertical Social Links - Left Side */}
       <div
         style={{
-          position: "absolute",
+          position: "fixed",
           left: "40px",
           top: "50%",
           transform: "translateY(-50%)",
@@ -299,7 +302,7 @@ const HeroSectionWithArrow = () => {
       {/* Standalone Download CV Button - Bottom Left */}
       <div
         style={{
-          position: "absolute",
+          position: "fixed",
           bottom: "40px",
           left: "6%",
           transform: "translateX(-50%)",
