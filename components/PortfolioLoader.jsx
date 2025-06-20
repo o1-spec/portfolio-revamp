@@ -3,7 +3,6 @@ import AnimatedCounter from "./AnimatedCounter";
 
 export default function PortfolioLoader({
   onComplete,
-  showNextSection,
   setShowNextSection,
 }) {
   const [progress, setProgress] = useState(0);

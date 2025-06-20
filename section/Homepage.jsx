@@ -3,13 +3,13 @@ import HeroSection from "@/components/HeroSection";
 import React from "react";
 import AboutSection from "@/components/AboutSection";
 
-function Homepage({ showNextSection }) {
+function Homepage() {
   return (
-    <>
+    <div className="overflow-x-hidden">
       <Nav />
       <HeroSection />
       <AboutSection />
-    </>
+    </div>
   );
 }
 
