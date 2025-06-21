@@ -64,6 +64,8 @@ const coreValues = [
   },
 ];
 
+// Keep your coreValues array as is
+
 const CoreValues = () => {
   const containerRef = useRef(null);
   const cardsRef = useRef(null);
@@ -76,16 +78,24 @@ const CoreValues = () => {
 
     // Calculate total width of all cards
     const cardElements = cards.children;
-    const cardWidth = 320; // w-80 = 320px
+    const cardWidth = 450; // Your card width is w-[450px]
     const gap = 32; // gap-8 = 32px
     const totalWidth = (cardWidth + gap) * cardElements.length;
     const viewportWidth = window.innerWidth;
+    
+    // Initial offset - make first card 30% visible
+    const initialOffset = viewportWidth - (cardWidth * 0.3);
+
+    // Set initial position without animation
+    gsap.set(cards, {
+      x: initialOffset,
+    });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container,
         start: "top top",
-        end: `+=${totalWidth + viewportWidth}`,
+        end: `+=${totalWidth + viewportWidth * 0.7}`, // Adjusted for initial visibility
         scrub: 1,
         pin: true,
         anticipatePin: 1,
@@ -93,14 +103,11 @@ const CoreValues = () => {
       },
     });
 
-    // Animate cards from right to left
-    tl.fromTo(
+    // Animate cards from initial position to end position
+    tl.to(
       cards,
       {
-        x: viewportWidth,
-      },
-      {
-        x: -totalWidth + viewportWidth * 0.2,
+        x: -totalWidth + viewportWidth * 0.3, // Leave 30% of the last card visible
         ease: "none",
       }
     );
@@ -111,7 +118,7 @@ const CoreValues = () => {
       {
         opacity: 0,
         scale: 0.9,
-        y: 50,
+        y: 30, // Reduced y movement for subtler animation
       },
       {
         opacity: 1,
@@ -183,12 +190,12 @@ const CoreValues = () => {
       </div>
 
       {/* Horizontal Scrolling Cards */}
-      <div className="absolute top-[70%] left-0 transform -translate-y-1/2">
-        <div ref={cardsRef} className="flex gap-8 pl-8">
+      <div className="absolute top-[70%] left-0 transform -translate-y-1/2 w-full">
+        <div ref={cardsRef} className="flex gap-8">
           {coreValues.map((value) => (
             <div
               key={value.title}
-              className="flex-shrink-0 w-[450px] h-[510px] bg-white/5 backdrop-blur-sm border border-white/10 p-8 hover:border-purple-500/50 transition-all duration-500 group"
+              className="flex-shrink-0 w-[450px] h-[510px] bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-8 hover:border-purple-500/50 transition-all duration-500 group"
             >
               <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <value.icon className="w-8 h-8 text-white" />
@@ -216,6 +223,14 @@ const CoreValues = () => {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Scroll hint (optional) */}
+      <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex items-center gap-2 text-gray-400 opacity-70 animate-pulse">
+        <span>Scroll to explore</span>
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
       </div>
 
       {/* Animated background elements */}
