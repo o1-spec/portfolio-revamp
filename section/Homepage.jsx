@@ -4,6 +4,8 @@ import React from "react";
 import AboutSection from "@/components/AboutSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
+import ExperienceSection from "@/components/ExperiencesSection";
+import CoreValues from "@/components/CoreValues";
 
 function Homepage() {
   return (
@@ -14,6 +16,8 @@ function Homepage() {
       {/* <div className="z-200 relative">
         <ProjectsSection />
       </div> */}
+      <CoreValues/>
+      <ExperienceSection/>
       <ContactSection />
     </div>
   );
