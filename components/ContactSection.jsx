@@ -1,115 +1,10 @@
 "use client"
 
-import { useState, useRef, useEffect, useCallback, useMemo } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, ArrowUpRight, Sparkles } from "lucide-react"
-
-// Optimized White Animated Grid Component
-const OptimizedWhiteAnimatedGrid = ({ isFixed, sectionHeight }) => {
-  const [gridSize, setGridSize] = useState({ rows: 0, cols: 0 })
-  const [animatedCells, setAnimatedCells] = useState(new Set())
-  const gridRef = useRef(null)
-
-  // Throttled resize handler
-  const updateGridSize = useCallback(() => {
-    const cellSize = 40
-    const height = Math.max(sectionHeight || window.innerHeight, window.innerHeight)
-    const rows = Math.ceil(height / cellSize) + 3 // Reduced extra rows
-    const cols = Math.ceil(window.innerWidth / cellSize) + 1 // Reduced extra cols
-    setGridSize({ rows, cols })
-  }, [sectionHeight])
-
-  // Debounced resize effect
-  useEffect(() => {
-    let timeoutId
-    const debouncedResize = () => {
-      clearTimeout(timeoutId)
-      timeoutId = setTimeout(updateGridSize, 100)
-    }
-
-    updateGridSize()
-    window.addEventListener("resize", debouncedResize)
-    return () => {
-      window.removeEventListener("resize", debouncedResize)
-      clearTimeout(timeoutId)
-    }
-  }, [updateGridSize])
-
-  // Optimized cell animation
-  useEffect(() => {
-    const animateRandomCells = () => {
-      const newAnimatedCells = new Set()
-      const numCells = Math.floor(Math.random() * 20) + 10 // Reduced number of animated cells
-
-      for (let i = 0; i < numCells; i++) {
-        const row = Math.floor(Math.random() * gridSize.rows)
-        const col = Math.floor(Math.random() * gridSize.cols)
-        newAnimatedCells.add(`${row}-${col}`)
-      }
-
-      setAnimatedCells(newAnimatedCells)
-    }
-
-    const interval = setInterval(animateRandomCells, 3000) // Increased interval
-    return () => clearInterval(interval)
-  }, [gridSize])
-
-  // Memoized grid rendering
-  const gridCells = useMemo(() => {
-    const cells = []
-    for (let row = 0; row < gridSize.rows; row++) {
-      for (let col = 0; col < gridSize.cols; col++) {
-        const key = `${row}-${col}`
-        const isAnimated = animatedCells.has(key)
-
-        cells.push(
-          <div
-            key={key}
-            style={{
-              position: "absolute",
-              left: col * 40,
-              top: row * 40,
-              width: 40,
-              height: 40,
-              border: "1px solid rgba(0, 0, 0, 0.06)", // Reduced opacity
-              backgroundColor: isAnimated ? "rgba(0, 0, 0, 0.03)" : "transparent", // Reduced opacity
-              transition: "all 0.3s ease-out", // Faster transition
-              transform: isAnimated ? "scale(1.05)" : "scale(1)", // Reduced scale
-              willChange: isAnimated ? "transform, background-color" : "auto",
-            }}
-          />,
-        )
-      }
-    }
-    return cells
-  }, [gridSize, animatedCells])
-
-  return (
-    <div
-      ref={gridRef}
-      style={{
-        position: isFixed ? "fixed" : "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: isFixed ? "100vh" : "100%",
-        minHeight: sectionHeight ? `${sectionHeight}px` : "100vh",
-        background: "radial-gradient(circle at center, #ffffff 0%, #f8f9fa 100%)",
-        overflow: "hidden",
-        zIndex: 1,
-        transition: "none", // Remove transition for better performance
-        transform: "translateZ(0)", // Force hardware acceleration
-        backfaceVisibility: "hidden",
-      }}
-    >
-      {gridCells}
-    </div>
-  )
-}
 
 export default function ContactSection() {
   const [isVisible, setIsVisible] = useState(false)
-  const [isGridFixed, setIsGridFixed] = useState(false)
-  const [sectionHeight, setSectionHeight] = useState(0)
   const [animatedElements, setAnimatedElements] = useState({
     header: false,
     form: false,
@@ -127,72 +22,7 @@ export default function ContactSection() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState("idle")
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const sectionRef = useRef(null)
-  const scrollTimeoutRef = useRef(null)
-  const lastScrollY = useRef(0)
-
-  // Optimized section height calculation
-  const updateSectionHeight = useCallback(() => {
-    if (sectionRef.current) {
-      setSectionHeight(sectionRef.current.offsetHeight)
-    }
-  }, [])
-
-  useEffect(() => {
-    const timeoutId = setTimeout(updateSectionHeight, 100)
-    window.addEventListener("resize", updateSectionHeight)
-    return () => {
-      window.removeEventListener("resize", updateSectionHeight)
-      clearTimeout(timeoutId)
-    }
-  }, [updateSectionHeight, isVisible])
-
-  // Throttled scroll handler with RAF
-  const handleScroll = useCallback(() => {
-    if (!sectionRef.current) return
-
-    const currentScrollY = window.scrollY
-
-    // Skip if scroll hasn't changed much
-    if (Math.abs(currentScrollY - lastScrollY.current) < 5) return
-    lastScrollY.current = currentScrollY
-
-    requestAnimationFrame(() => {
-      if (!sectionRef.current) return
-
-      const sectionRect = sectionRef.current.getBoundingClientRect()
-      const sectionTop = sectionRect.top
-      const sectionBottom = sectionRect.bottom
-      const windowHeight = window.innerHeight
-
-      const shouldBeFixed = sectionTop <= 0 && sectionBottom > windowHeight * 0.8
-
-      if (shouldBeFixed !== isGridFixed) {
-        setIsGridFixed(shouldBeFixed)
-      }
-    })
-  }, [isGridFixed])
-
-  // Optimized scroll listener
-  useEffect(() => {
-    const throttledScroll = () => {
-      if (scrollTimeoutRef.current) return
-
-      scrollTimeoutRef.current = requestAnimationFrame(() => {
-        handleScroll()
-        scrollTimeoutRef.current = null
-      })
-    }
-
-    window.addEventListener("scroll", throttledScroll, { passive: true })
-    return () => {
-      window.removeEventListener("scroll", throttledScroll)
-      if (scrollTimeoutRef.current) {
-        cancelAnimationFrame(scrollTimeoutRef.current)
-      }
-    }
-  }, [handleScroll])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -210,30 +40,6 @@ export default function ContactSection() {
 
     return () => observer.disconnect()
   }, [])
-
-  // Throttled mouse move handler
-  const handleMouseMove = useCallback((e) => {
-    requestAnimationFrame(() => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-    })
-  }, [])
-
-  useEffect(() => {
-    let timeoutId
-    const throttledMouseMove = (e) => {
-      if (timeoutId) return
-      timeoutId = setTimeout(() => {
-        handleMouseMove(e)
-        timeoutId = null
-      }, 16) // ~60fps
-    }
-
-    window.addEventListener("mousemove", throttledMouseMove, { passive: true })
-    return () => {
-      window.removeEventListener("mousemove", throttledMouseMove)
-      if (timeoutId) clearTimeout(timeoutId)
-    }
-  }, [handleMouseMove])
 
   // Staggered animation effect
   useEffect(() => {
@@ -344,25 +150,10 @@ export default function ContactSection() {
   ]
 
   return (
-    <section ref={sectionRef} className="min-h-screen text-gray-900 relative overflow-hidden mt-20 font-mono">
-      {/* Optimized White Animated Grid Background */}
-      <OptimizedWhiteAnimatedGrid isFixed={isGridFixed} sectionHeight={sectionHeight} />
-
-      {/* Optimized Dynamic Mouse-Following Gradient */}
-      <div
-        className="absolute w-80 h-80 rounded-full opacity-8 blur-2xl transition-transform duration-500 ease-out pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)",
-          transform: `translate(${mousePosition.x - 160}px, ${mousePosition.y - 160}px)`,
-          zIndex: isGridFixed ? 15 : 10,
-          position: isGridFixed ? "fixed" : "absolute",
-          willChange: "transform",
-        }}
-      />
-
-      {/* Content Overlay */}
-      <div className="relative z-20 container mx-auto px-4 py-20">
-        {/* Enhanced Header */}
+    <div ref={sectionRef} className="text-gray-900 mt-20 font-mono">
+      {/* Content */}
+      <div className="container mx-auto px-4 py-20">
+        {/* Header */}
         <div
           className="text-center mb-16"
           style={{
@@ -389,7 +180,7 @@ export default function ContactSection() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto">
-          {/* Enhanced Contact Form */}
+          {/* Contact Form */}
           <div
             className="space-y-8"
             style={{
@@ -399,7 +190,6 @@ export default function ContactSection() {
             }}
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-2xl blur-xl" />
               <div className="relative bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl p-8 hover:bg-white hover:border-gray-300 hover:shadow-xl transition-all duration-500 group shadow-lg">
                 <h3 className="text-4xl font-bold mb-4 tracking-tight text-gray-900">Send a Message</h3>
                 <p className="text-gray-600 mb-6 tracking-wide text-[18px]">
@@ -513,7 +303,7 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Enhanced Contact Information */}
+          {/* Contact Information */}
           <div className="space-y-8">
             <div
               style={{
@@ -528,7 +318,7 @@ export default function ContactSection() {
               </p>
             </div>
 
-            {/* Enhanced Contact Info Cards */}
+            {/* Contact Info Cards */}
             <div className="space-y-4">
               {contactInfo.map((info, index) => (
                 <a
@@ -564,7 +354,7 @@ export default function ContactSection() {
               ))}
             </div>
 
-            {/* Enhanced Social Links */}
+            {/* Social Links */}
             <div
               className="pt-8"
               style={{
@@ -597,7 +387,7 @@ export default function ContactSection() {
               </div>
             </div>
 
-            {/* Enhanced Availability Status */}
+            {/* Availability Status */}
             <div
               className="relative p-6 bg-gradient-to-r from-green-50/90 to-emerald-50/90 backdrop-blur-sm border border-green-200 rounded-xl overflow-hidden group hover:from-green-100/90 hover:to-emerald-100/90 hover:border-green-300 transition-all duration-500"
               style={{
@@ -618,7 +408,7 @@ export default function ContactSection() {
           </div>
         </div>
 
-        {/* Enhanced Bottom CTA */}
+        {/* Bottom CTA */}
         <div
           className="text-center mt-20 pt-16 border-t border-gray-200"
           style={{
@@ -645,6 +435,6 @@ export default function ContactSection() {
           </a>
         </div>
       </div>
-    </section>
+    </div>
   )
 }

@@ -1,11 +1,12 @@
-import Nav from "@/components/Nav";
-import HeroSection from "@/components/HeroSection";
-import React from "react";
-import AboutSection from "@/components/AboutSection";
-import ProjectsSection from "@/components/ProjectsSection";
-import ContactSection from "@/components/ContactSection";
-import ExperienceSection from "@/components/ExperiencesSection";
-import CoreValues from "@/components/CoreValues";
+"use client"
+
+import Nav from "@/components/Nav"
+import HeroSection from "@/components/HeroSection"
+import AboutSection from "@/components/AboutSection"
+import ContactSection from "@/components/ContactSection"
+import ExperienceSection from "@/components/ExperiencesSection"
+import CoreValues from "@/components/CoreValues"
+import AnimatedBackground from "@/components/WhiteGrid"
 
 function Homepage() {
   return (
@@ -16,11 +17,19 @@ function Homepage() {
       {/* <div className="z-200 relative">
         <ProjectsSection />
       </div> */}
-      <CoreValues/>
-      <ExperienceSection/>
-      <ContactSection />
+      <CoreValues />
+
+      {/* Experience Section with Animated Background */}
+        <ExperienceSection />
+      {/* <AnimatedBackground>
+      </AnimatedBackground> */}
+
+      {/* Contact Section with Animated Background */}
+      <AnimatedBackground>
+        <ContactSection />
+      </AnimatedBackground>
     </div>
-  );
+  )
 }
 
-export default Homepage;
+export default Homepage
