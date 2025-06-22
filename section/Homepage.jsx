@@ -8,6 +8,7 @@ import ExperienceSection from "@/components/ExperiencesSection";
 import CoreValues from "@/components/CoreValues";
 import AnimatedBackground from "@/components/WhiteGrid";
 import ProjectsSection from "@/components/ProjectsSection";
+import NoteworthyProjects from "@/components/NoteworthyProjects";
 
 function Homepage() {
   return (
@@ -15,19 +16,12 @@ function Homepage() {
       <Nav />
       <HeroSection />
       <AboutSection />
-      <div className="z-200 relative">
-        <ProjectsSection />
-      </div>
-      {/* <AnimatedBackground>
-        <CoreValues />
-      </AnimatedBackground> */}
-
-      {/* Experience Section with Animated Background */}
       <ExperienceSection />
-      {/* <AnimatedBackground>
-      </AnimatedBackground> */}
-
-      {/* Contact Section with Animated Background */}
+      <ProjectsSection />
+      <NoteworthyProjects />
+      <AnimatedBackground>
+        <CoreValues />
+      </AnimatedBackground>
       <AnimatedBackground>
         <ContactSection />
       </AnimatedBackground>

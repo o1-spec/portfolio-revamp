@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { useEffect, useState, useRef } from "react"
-import ProjectCard from "./ProjectCard"
+import Image from "next/image";
+import { useEffect, useState, useRef } from "react";
+import ProjectCard from "./ProjectCard";
 
 export default function ProjectsSection() {
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef(null)
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
 
   const featuredProjects = [
     {
       title: "Ernext Gadgets",
       description:
-        "A comprehensive e-commerce platform for electronics and gadgets. Features include real-time inventory management, secure payment processing, and responsive design. Built with modern web technologies for optimal performance.",
+        "A comprehensive e-commerce platform for electronics and gadgets. Features include real-time inventory management, secure payment processing, and responsive design. Built with modern web technologies for optimal performance and user experience.",
       image: "/images/image-1.png",
-      tech: ["Next JS", "Cloudinary", "AppWrite", "Framer Motion", "Redux"],
+      tech: ["Next.js", "Cloudinary", "AppWrite", "Framer Motion", "Redux"],
       github: "https://github.com/",
-      external: "https://marketplace.visualstudio.com/items?itemName=brittanychiang.halcyon-theme",
+      external:"https://www.ernextgadgets.ng/",
     },
     {
       title: "Chatter",
@@ -30,46 +30,50 @@ export default function ProjectsSection() {
     {
       title: "Citadela",
       description:
-        "A sleek and responsive business website showcasing modern web development practices. Features smooth animations, optimized performance, and cross-browser compatibility. Built with vanilla technologies for maximum efficiency.",
+        "A sleek and responsive business website showcasing modern web development practices. Features smooth animations, optimized performance, and cross-browser compatibility. Built with vanilla technologies for maximum efficiency and fast loading times.",
       image: "/images/image-3.png",
-      tech: ["HTML", "CSS", "JavaScript"],
+      tech: ["HTML5", "CSS3", "JavaScript", "GSAP"],
       github: "https://github.com/",
       external: "https://citadela.netlify.app/",
     },
     {
       title: "PopCorn Movies",
       description:
-        "A movie discovery application that helps users find and explore films. Features include movie search, detailed information, ratings, and personalized recommendations. Built with React and Redux for state management.",
+        "A movie discovery application that helps users find and explore films. Features include advanced search functionality, detailed movie information, user ratings, and personalized recommendations. Built with React and Redux for efficient state management.",
       image: "/images/image-4.png",
-      tech: ["React", "Redux"],
+      tech: ["React", "Redux", "TMDB API", "Styled Components"],
       github: "https://github.com/o1-spec/Popcorn-movies",
       external: "https://popcorn-movies-black.vercel.app/",
     },
-  ]
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true)
+          setIsVisible(true);
         }
       },
-      { threshold: 0.1 },
-    )
+      { threshold: 0.1, rootMargin: "100px" }
+    );
 
     if (sectionRef.current) {
-      observer.observe(sectionRef.current)
+      observer.observe(sectionRef.current);
     }
 
-    return () => observer.disconnect()
-  }, [])
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 pt-40 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto z-10">
+    <section
+      ref={sectionRef}
+      className="py-16 sm:py-20 lg:pt-40 px-4 sm:px-6 lg:px-8 bg-gray-900"
+      aria-labelledby="projects-heading"
+    >
+      <div className="max-w-7xl mx-auto">
         {/* Enhanced Header */}
-        <div
-          className="flex items-center gap-5 group"
+        <header
+          className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-16 lg:mb-24 group"
           style={{
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(30px)",
@@ -84,24 +88,33 @@ export default function ProjectsSection() {
                 width={50}
                 height={50}
                 className="grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110"
+                aria-hidden="true"
               />
-              {/* Subtle glow effect */}
-              <div className="absolute inset-0 bg-white/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md"></div>
+              {/* Enhanced glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md"></div>
             </div>
-            <h3 className="text-4xl font-bold text-white group-hover:text-white/90 transition-colors duration-300">
+            <h2
+              id="projects-heading"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white group-hover:text-purple-400 transition-colors duration-300"
+            >
               Some Projects I've Built
-            </h3>
+            </h2>
           </div>
-          <span className="block w-[300px] h-[1px] bg-slate-100/80 group-hover:bg-white transition-colors duration-500"></span>
-        </div>
+          <div className="hidden sm:block flex-1 h-[1px] bg-gradient-to-r from-slate-400/80 to-transparent group-hover:from-purple-400/80 transition-colors duration-500"></div>
+        </header>
 
         {/* Projects Grid */}
-        <div className="space-y-48 pt-16">
+        <div className="space-y-16 lg:space-y-40">
           {featuredProjects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} reverse={index % 2 !== 0} />
+            <ProjectCard
+              key={project.title}
+              project={project}
+              index={index}
+              reverse={index % 2 !== 0}
+            />
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

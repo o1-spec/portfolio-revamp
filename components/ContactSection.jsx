@@ -179,7 +179,7 @@ export default function ContactSection() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-16 container mx-auto">
           {/* Contact Form */}
           <div
             className="space-y-8"

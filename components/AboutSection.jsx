@@ -19,7 +19,7 @@ export default function AboutSection() {
     "Tailwind CSS",
     "Docker",
     "Three.js",
-    "GraphQL",
+    "Firebase",
   ]
 
   const passions = [
@@ -60,7 +60,7 @@ export default function AboutSection() {
       ref={sectionRef}
       className="min-h-screen text-white flex items-center justify-center p-4 relative overflow-hidden"
     >
-      <div className="max-w-7xl w-full relative z-10">
+      <div className="container w-full relative z-10">
         <div className="flex gap-7 items-center">
           <div className="flex flex-col gap-4 basis-[50%]">
             {/* Header with staggered animation */}

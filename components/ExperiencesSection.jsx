@@ -371,7 +371,7 @@ export default function ExperienceSection() {
                   className={`w-full text-left p-4 rounded-xl border transition-all duration-300 ${
                     selectedExperience === index
                       ? "bg-purple-900/30 border-purple-500 text-white"
-                      : "bg-gray-900/30 border-gray-800 text-gray-400 hover:border-gray-600"
+                      : "bg-white/5 border-gray-800 text-gray-400 hover:border-gray-600"
                   }`}
                   initial={{ opacity: 0, x: -30 }}
                   animate={
@@ -408,7 +408,7 @@ export default function ExperienceSection() {
           >
             <motion.div
               key={selectedExperience}
-              className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8"
+              className="bg-white/5 backdrop-blur-sm border border-gray-800 rounded-2xl p-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -489,7 +489,7 @@ export default function ExperienceSection() {
                     (tech, index) => (
                       <motion.span
                         key={tech}
-                        className="px-3 py-1 text-[17px] bg-gray-800 text-gray-300 text-sm rounded-full border border-gray-700 hover:border-purple-500/50 transition-colors"
+                        className="px-3 py-1 text-[17px] text-gray-300 text-sm rounded-full border border-gray-700 hover:border-purple-500/50 transition-colors"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: index * 0.05, duration: 0.3 }}
@@ -508,7 +508,7 @@ export default function ExperienceSection() {
                   (project, index) => (
                     <motion.div
                       key={project.name}
-                      className="bg-gray-800/50 rounded-lg p-4"
+                      className="bg-white/5 rounded-lg p-4"
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.2 + index * 0.1, duration: 0.4 }}

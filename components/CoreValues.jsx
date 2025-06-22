@@ -195,17 +195,17 @@ const CoreValues = () => {
           {coreValues.map((value) => (
             <div
               key={value.title}
-              className="flex-shrink-0 w-[450px] h-[510px] bg-black backdrop-blur-sm border border-white/10 rounded-xl p-8 hover:border-purple-500/50 transition-all duration-500 group"
+              className="flex-shrink-0 w-[450px] h-[510px] bg-white shadow-lg backdrop-blur-sm border border-white/10 rounded-xl p-8 hover:border-purple-500/50 transition-all duration-500 group"
             >
               <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <value.icon className="w-8 h-8 text-white" />
               </div>
 
-              <h4 className="text-3xl font-bold text-white mb-4 group-hover:text-purple-400 transition-colors">
+              <h4 className="text-3xl font-bold text-black mb-4 group-hover:text-purple-400 transition-colors">
                 {value.title}
               </h4>
 
-              <p className="text-gray-300 text-[18px] leading-relaxed mb-6">
+              <p className="text-black text-[18px] leading-relaxed mb-6">
                 {value.description}
               </p>
 

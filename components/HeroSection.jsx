@@ -15,7 +15,7 @@ const HeroSectionWithArrow = () => {
   // Drag state
   const [isDragging, setIsDragging] = useState(false)
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
-  const [cardPosition, setCardPosition] = useState({ x: 50, y: 20 }) // Initial position in pixels from right/top
+  const [cardPosition, setCardPosition] = useState({ x: 50, y: 20 })
 
   useEffect(() => {
     const handleMouseMove = (e) => {
