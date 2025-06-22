@@ -145,7 +145,7 @@ const CoreValues = () => {
   return (
     <section
       ref={containerRef}
-      className="h-screen relative overflow-hidden"
+      className="h-[110vh] relative overflow-hidden"
       style={{
         backgroundImage: `
         linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -175,14 +175,14 @@ const CoreValues = () => {
             </span>
           </motion.div>
 
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6 tracking-tight">
             Values &<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
               Mission
             </span>
           </h2>
 
-          <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
+          <p className="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed">
             The principles that guide my work and the mission that drives my
             passion for creating exceptional digital experiences.
           </p>
@@ -190,12 +190,12 @@ const CoreValues = () => {
       </div>
 
       {/* Horizontal Scrolling Cards */}
-      <div className="absolute top-[70%] left-0 transform -translate-y-1/2 w-full">
+      <div className="absolute top-[63%] left-0 transform -translate-y-1/2 w-full">
         <div ref={cardsRef} className="flex gap-8">
           {coreValues.map((value) => (
             <div
               key={value.title}
-              className="flex-shrink-0 w-[450px] h-[510px] bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-8 hover:border-purple-500/50 transition-all duration-500 group"
+              className="flex-shrink-0 w-[450px] h-[510px] bg-black backdrop-blur-sm border border-white/10 rounded-xl p-8 hover:border-purple-500/50 transition-all duration-500 group"
             >
               <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <value.icon className="w-8 h-8 text-white" />

@@ -37,7 +37,7 @@ export default function Home() {
     <>
       {showNextSection && (
         <>
-          <CustomCursor />
+          {/* <CustomCursor /> */}
           <AnimatedBackground type="neural" />
           <Homepage showNextSection={showNextSection} />
         </>

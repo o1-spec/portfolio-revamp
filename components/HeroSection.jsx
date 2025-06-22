@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react"
 import { Github, Mail, Phone, Linkedin, Download, ChevronDown } from "lucide-react"
+import Image from "next/image"
 
 const HeroSectionWithArrow = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -9,25 +10,69 @@ const HeroSectionWithArrow = () => {
   const [hoveredIcon, setHoveredIcon] = useState(null)
   const [isArrowHovered, setIsArrowHovered] = useState(false)
   const cardRef = useRef(null)
+  const [isCardFlipped, setIsCardFlipped] = useState(false)
+
+  // Drag state
+  const [isDragging, setIsDragging] = useState(false)
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
+  const [cardPosition, setCardPosition] = useState({ x: 50, y: 20 }) // Initial position in pixels from right/top
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
+
+      // Handle dragging
+      if (isDragging) {
+        const newX = e.clientX - dragOffset.x
+        const newY = e.clientY - dragOffset.y
+
+        // Convert to position from edges (keep the right/top positioning style)
+        const windowWidth = window.innerWidth
+        const windowHeight = window.innerHeight
+
+        setCardPosition({
+          x: Math.max(0, Math.min(windowWidth - 300, newX)), // 300 is card width
+          y: Math.max(0, Math.min(windowHeight - 380, newY)), // 380 is card height
+        })
+      }
+    }
+
+    const handleMouseUp = () => {
+      setIsDragging(false)
     }
 
     window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [])
+    window.addEventListener("mouseup", handleMouseUp)
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove)
+      window.removeEventListener("mouseup", handleMouseUp)
+    }
+  }, [isDragging, dragOffset])
+
+  const handleMouseDown = (e) => {
+    if (!cardRef.current) return
+
+    const rect = cardRef.current.getBoundingClientRect()
+    setDragOffset({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    })
+    setIsDragging(true)
+    e.preventDefault()
+  }
 
   const cardTransform = () => {
+    if (isDragging) return "" // No mouse-follow effect while dragging
+
     if (!cardRef.current) return ""
 
     const card = cardRef.current.getBoundingClientRect()
     const cardCenterX = card.left + card.width / 2
     const cardCenterY = card.top + card.height / 2
 
-    const deltaX = (mousePosition.x - cardCenterX) * 0.1
-    const deltaY = (mousePosition.y - cardCenterY) * 0.1
+    const deltaX = (mousePosition.x - cardCenterX) * 0.05 // Reduced effect when not dragging
+    const deltaY = (mousePosition.y - cardCenterY) * 0.05
 
     return `translate(${deltaX}px, ${deltaY}px) rotate(${deltaX * 0.1}deg)`
   }
@@ -59,6 +104,14 @@ const HeroSectionWithArrow = () => {
     },
   ]
 
+  const quotes = [
+    "Code is poetry written in logic.",
+    "Every bug is a puzzle waiting to be solved.",
+    "Innovation happens at the intersection of creativity and technology.",
+    "The best code is not just functional, but beautiful.",
+    "Dream in code, build in reality.",
+  ]
+
   const handleScrollDown = () => {
     // Scroll to about section specifically
     const aboutSection = document.getElementById("about-section")
@@ -71,7 +124,14 @@ const HeroSectionWithArrow = () => {
   }
 
   return (
-    <div style={{ position: "relative", width: "100vw", height: "100vh", overflow: "hidden" }}>
+    <div
+      style={{
+        position: "relative",
+        width: "100vw",
+        height: "100vh",
+        overflow: "hidden",
+      }}
+    >
       {/* Main Content */}
       <div
         style={{
@@ -440,84 +500,329 @@ const HeroSectionWithArrow = () => {
         />
       </div>
 
-      {/* Hanging Picture Card */}
+      {/* Draggable Picture Card */}
       <div
         ref={cardRef}
+        onMouseDown={handleMouseDown}
+        onClick={(e) => {
+          // Only flip if not dragging
+          if (!isDragging) {
+            setIsCardFlipped(!isCardFlipped)
+          }
+        }}
         style={{
           position: "absolute",
-          top: "20px",
-          right: "50px",
+          left: `${cardPosition.x}px`,
+          top: `${cardPosition.y}px`,
           width: "300px",
           height: "380px",
-          background: "rgba(255, 255, 255, 0.1)",
-          backdropFilter: "blur(10px)",
-          border: "2px solid rgba(255, 255, 255, 0.2)",
-          borderRadius: "25px",
-          padding: "30px",
-          transform: cardTransform(),
-          transition: "transform 0.1s ease-out",
-          cursor: "pointer",
-          zIndex: 20,
-          transformOrigin: "top center",
+          perspective: "1000px",
+          zIndex: isDragging ? 30 : 20,
+          userSelect: "none",
         }}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        {/* Hanging string */}
-        <div
-          style={{
-            position: "absolute",
-            top: "-20px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "2px",
-            height: "20px",
-            background: "rgba(255, 255, 255, 0.5)",
-          }}
-        />
+        {/* Hanging string - only show when not dragging */}
+        {!isDragging && (
+          <div
+            style={{
+              position: "absolute",
+              top: "-20px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "2px",
+              height: "20px",
+              background: "rgba(255, 255, 255, 0.5)",
+              transition: "opacity 0.3s ease",
+              zIndex: 1,
+            }}
+          />
+        )}
 
-        {/* Picture placeholder */}
+        {/* Card Inner Container for 3D flip */}
         <div
           style={{
+            position: "relative",
             width: "100%",
-            height: "150px",
-            background: "linear-gradient(45deg, #333, #555)",
-            borderRadius: "10px",
-            marginBottom: "15px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: "3rem",
-            color: "rgba(255, 255, 255, 0.7)",
+            height: "100%",
+            transformStyle: "preserve-3d",
+            transform: `${isDragging ? "scale(1.05)" : cardTransform()} ${
+              isCardFlipped ? "rotateY(180deg)" : "rotateY(0deg)"
+            }`,
+            transition: isDragging ? "transform 0.6s ease-in-out" : "transform 0.6s ease-in-out",
+            cursor: isDragging ? "grabbing" : "grab",
+            transformOrigin: "center",
           }}
         >
-          👨‍💻
-        </div>
+          {/* Front Side */}
+          <div
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              backfaceVisibility: "hidden",
+              background: "#191919",
+              backdropFilter: "blur(10px)",
+              border: isDragging ? "2px solid rgba(255, 255, 255, 0.4)" : "2px solid rgba(255, 255, 255, 0.2)",
+              borderRadius: "25px",
+              padding: "30px",
+              boxShadow: isDragging ? "0 20px 60px rgba(0,0,0,0.5)" : "0 10px 30px rgba(0,0,0,0.3)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {/* Picture */}
+            <div
+              style={{
+                width: "100%",
+                height: "200px",
+                background: "linear-gradient(45deg, #333, #555)",
+                borderRadius: "10px",
+                marginBottom: "15px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+                position: "relative",
+              }}
+            >
+              <Image
+                src="/images/luffy-2.jpg"
+                alt="Luffy"
+                width={250}
+                height={200}
+                className="object-cover grayscale hover:grayscale-0 transition-all duration-300 ease-in-out rounded-[10px]"
+                style={{
+                  maxHeight: "100%",
+                }}
+              />
+            </div>
 
-        <p
-          style={{
-            color: "white",
-            textAlign: "center",
-            fontSize: "0.9rem",
-            opacity: isHovering ? 1 : 0.7,
-            transition: "opacity 0.3s ease",
-          }}
-        >
-          Drag me around!
-        </p>
+            <p
+              style={{
+                color: "white",
+                textAlign: "center",
+                fontSize: "1.4rem",
+                opacity: isHovering || isDragging ? 1 : 0.7,
+                transition: "opacity 0.3s ease",
+                pointerEvents: "none",
+              }}
+            >
+              Meet my coding buddy! <br />
+            </p>
+            <p className="text-[15px] text-center pt-6 text-white/80">
+              {isDragging ? "Dragging..." : "Click to flip & see quotes!"}
+            </p>
+
+            {/* Drag indicator */}
+            <div
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                width: "20px",
+                height: "20px",
+                background: "rgba(255, 255, 255, 0.2)",
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "10px",
+                color: "rgba(255, 255, 255, 0.6)",
+                pointerEvents: "none",
+                opacity: isHovering || isDragging ? 1 : 0.5,
+                transition: "opacity 0.3s ease",
+              }}
+            >
+              ⋮⋮
+            </div>
+          </div>
+
+          {/* Back Side */}
+          <div
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              backfaceVisibility: "hidden",
+              transform: "rotateY(180deg)",
+              background: "linear-gradient(135deg, #1a1a1a, #2d2d2d)",
+              backdropFilter: "blur(10px)",
+              border: "2px solid rgba(255, 255, 255, 0.3)",
+              borderRadius: "25px",
+              padding: "30px",
+              boxShadow: "0 15px 40px rgba(0,0,0,0.4)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              overflow: "hidden",
+            }}
+          >
+            {/* Quotes Header */}
+            <div
+              style={{
+                textAlign: "center",
+                marginBottom: "20px",
+                animation: isCardFlipped ? "fadeInDown 0.8s ease-out 0.3s both" : "none",
+                zIndex: 2,
+              }}
+            >
+              <h3
+                style={{
+                  color: "white",
+                  fontSize: "1.5rem",
+                  fontWeight: "600",
+                  marginBottom: "5px",
+                }}
+              >
+                Daily Inspiration
+              </h3>
+              <div
+                style={{
+                  width: "60px",
+                  height: "2px",
+                  background: "linear-gradient(90deg, transparent, #fff, transparent)",
+                  margin: "0 auto",
+                }}
+              />
+            </div>
+
+            {/* Scrolling Quotes Container */}
+            <div
+              style={{
+                flex: 1,
+                width: "100%",
+                position: "relative",
+                overflow: "hidden",
+                mask: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
+                WebkitMask: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
+              }}
+            >
+              {/* Scrolling Quotes */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "15px",
+                  animation: isCardFlipped
+                    ? "initialQuotesFadeIn 2s ease-out 0.5s both, infiniteScroll 20s linear 3s infinite"
+                    : "none",
+                  transform: isCardFlipped ? "translateY(0)" : "translateY(100%)",
+                }}
+              >
+                {/* First set of quotes */}
+                {quotes.map((quote, index) => (
+                  <div
+                    key={`first-${index}`}
+                    style={{
+                      color: "rgba(255, 255, 255, 0.9)",
+                      fontSize: "0.9rem",
+                      textAlign: "center",
+                      fontStyle: "italic",
+                      padding: "12px 16px",
+                      background: "rgba(255, 255, 255, 0.05)",
+                      borderRadius: "12px",
+                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                      minHeight: "60px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
+                  >
+                    "{quote}"
+                  </div>
+                ))}
+
+                {/* Duplicate set for seamless loop */}
+                {quotes.map((quote, index) => (
+                  <div
+                    key={`second-${index}`}
+                    style={{
+                      color: "rgba(255, 255, 255, 0.9)",
+                      fontSize: "0.9rem",
+                      textAlign: "center",
+                      fontStyle: "italic",
+                      padding: "12px 16px",
+                      background: "rgba(255, 255, 255, 0.05)",
+                      borderRadius: "12px",
+                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                      minHeight: "60px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
+                  >
+                    "{quote}"
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Back button hint */}
+            <p
+              style={{
+                color: "rgba(255, 255, 255, 0.6)",
+                fontSize: "0.8rem",
+                textAlign: "center",
+                marginTop: "15px",
+                animation: isCardFlipped ? "fadeIn 1s ease-out 2s both" : "none",
+                zIndex: 2,
+              }}
+            >
+              Click again to flip back
+            </p>
+
+            {/* Flip indicator */}
+            <div
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                width: "20px",
+                height: "20px",
+                background: "rgba(255, 255, 255, 0.2)",
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "12px",
+                color: "rgba(255, 255, 255, 0.6)",
+                pointerEvents: "none",
+                animation: isCardFlipped ? "spin 2s ease-in-out infinite" : "none",
+                zIndex: 2,
+              }}
+            >
+              ↻
+            </div>
+          </div>
+        </div>
       </div>
 
       <style jsx>{`
         @keyframes typewriter1 {
-          from { width: 0; }
-          to { width: 100%; }
+          from {
+            width: 0;
+          }
+          to {
+            width: 100%;
+          }
         }
-        
+
         @keyframes typewriter2 {
-          from { width: 0; }
-          to { width: 100%; }
+          from {
+            width: 0;
+          }
+          to {
+            width: 100%;
+          }
         }
-        
+
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -528,12 +833,16 @@ const HeroSectionWithArrow = () => {
             transform: translateY(0);
           }
         }
-        
+
         @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
         }
-        
+
         @keyframes fadeInScale {
           from {
             opacity: 0;
@@ -544,7 +853,7 @@ const HeroSectionWithArrow = () => {
             transform: scale(1);
           }
         }
-        
+
         @keyframes fadeInBounce {
           0% {
             opacity: 0;
@@ -559,7 +868,7 @@ const HeroSectionWithArrow = () => {
             transform: translateX(-50%) translateY(0) scale(1);
           }
         }
-        
+
         @keyframes slideInUp {
           from {
             opacity: 0;
@@ -570,7 +879,7 @@ const HeroSectionWithArrow = () => {
             transform: translateX(-50%) translateY(0);
           }
         }
-        
+
         @keyframes slideInLeft {
           from {
             opacity: 0;
@@ -581,9 +890,13 @@ const HeroSectionWithArrow = () => {
             transform: translateY(-50%) translateX(0);
           }
         }
-        
+
         @keyframes bounce {
-          0%, 20%, 50%, 80%, 100% {
+          0%,
+          20%,
+          50%,
+          80%,
+          100% {
             transform: translateY(0);
           }
           40% {
@@ -593,9 +906,10 @@ const HeroSectionWithArrow = () => {
             transform: translateY(-8px);
           }
         }
-        
+
         @keyframes arrowPulse {
-          0%, 100% {
+          0%,
+          100% {
             opacity: 0.8;
             transform: translateY(0);
           }
@@ -604,7 +918,7 @@ const HeroSectionWithArrow = () => {
             transform: translateY(3px);
           }
         }
-        
+
         @keyframes ripple {
           0% {
             opacity: 0.6;
@@ -615,15 +929,78 @@ const HeroSectionWithArrow = () => {
             transform: translate(-50%, -50%) scale(1.5);
           }
         }
-        
+
         @keyframes pulse {
-          0%, 100% { opacity: 0.5; transform: scaleX(1); }
-          50% { opacity: 1; transform: scaleX(1.2); }
+          0%,
+          100% {
+            opacity: 0.5;
+            transform: scaleX(1);
+          }
+          50% {
+            opacity: 1;
+            transform: scaleX(1.2);
+          }
         }
-        
+
         @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-25px) rotate(8deg); }
+          0%,
+          100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-25px) rotate(8deg);
+          }
+        }
+
+        @keyframes fadeInDown {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes slideInQuote {
+          from {
+            opacity: 0;
+            transform: translateX(-30px) scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+          }
+        }
+
+        @keyframes spin {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes initialQuotesFadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes infiniteScroll {
+          from {
+            transform: translateY(0);
+          }
+          to {
+            transform: translateY(-50%);
+          }
         }
       `}</style>
     </div>
