@@ -15,7 +15,7 @@ const HeroSectionWithArrow = () => {
   // Drag state
   const [isDragging, setIsDragging] = useState(false)
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
-  const [cardPosition, setCardPosition] = useState({ x: 50, y: 20 })
+const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y: 20 })
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -81,25 +81,25 @@ const HeroSectionWithArrow = () => {
     {
       icon: Github,
       label: "GitHub",
-      href: "https://github.com/yourusername",
+      href: "https://github.com/o1-spec",
       color: "#ffffff",
     },
     {
       icon: Linkedin,
       label: "LinkedIn",
-      href: "https://linkedin.com/in/yourusername",
+      href: "https://www.linkedin.com/in/oluwafemionadokun",
       color: "#0077b5",
     },
     {
       icon: Mail,
       label: "Email",
-      href: "mailto:your.email@example.com",
+      href: "mailto:oluwafemionadokun@gmail.com",
       color: "#ea4335",
     },
     {
       icon: Phone,
       label: "Phone",
-      href: "tel:+1234567890",
+      href: "tel:+2347058266972",
       color: "#25d366",
     },
   ]

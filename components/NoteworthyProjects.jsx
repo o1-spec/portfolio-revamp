@@ -5,52 +5,52 @@ import { Folder, Github, ExternalLink } from "lucide-react";
 
 const projects = [
   {
-    title: "Integrating Algolia Search with WordPress Multisite",
+    title: "PDF API",
     description:
-      "Building a custom multisite compatible WordPress plugin to build global search with Algolia",
-    tech: ["Algolia", "WordPress", "PHP"],
-    github: "https://github.com/",
+      "Building a simple API to convert PDF files to text, images, and more. Built with Python and Django.",
+    tech: ["Python", "Django", "HTML / CSS"],
+    github: "https://github.com/o1-spec/Pdf-Api",
     external: "",
   },
   {
-    title: "Time to Have More Fun",
+    title: "Three.js Solar System",
     description:
-      "A single page web app for helping me choose where to travel, built with Next.js, Firebase, and Tailwind CSS",
-    tech: ["Next.js", "Tailwind CSS", "Firebase"],
-    github: "https://github.com/",
-    external: "https://example.com",
+      "A 3D solar system simulation using Three.js, showcasing planets and their orbits.",
+    tech: ["JavaScript", "Three.js", "CSS3"],
+    github: "https://github.com/o1-spec/Three-Js-Solar-System/",
+    external: "https://o1-spec-three-js-solar-system.vercel.app/",
   },
   {
-    title: "Building a Headless Mobile App CMS From Scratch",
+    title: "A Logistic Dashboard",
     description:
-      "Find out how we built a custom headless CMS with Node, Express, and Firebase for a project at Upstatement",
-    tech: ["Node", "Express", "Firebase", "Vue"],
-    github: "",
-    external: "https://example.com",
+      "A dashboard for managing logistics and cargo shipments. It includes features for tracking shipments, managing cargo, and viewing shipment history.",
+    tech: ["Render", "React", "Node.js","Jest"],
+    github: "https://github.com/o1-spec/Cargo-pulse-logistic-dashboard",
+    external: "https://cargo-pulse-logistic-dashboard.vercel.app/",
   },
-  {
-    title: "OctoProfile",
-    description:
-      "A nicer look at your GitHub profile and repo stats. Includes data visualizations of your top languages, starred repositories, and top repos.",
-    tech: ["Next.js", "Chart.js", "GitHub API"],
-    github: "https://github.com/",
-    external: "https://example.com",
-  },
-  {
-    title: "Google Keep Clone",
-    description: "A simple Google Keep clone built with Vue and Firebase.",
-    tech: ["Vue", "Firebase", "CSS3"],
-    github: "https://github.com/",
-    external: "https://example.com",
-  },
-  {
-    title: "Apple Music Embeddable Web Player Widget",
-    description:
-      "Embeddable web player widget for Apple Music that lets users log in and listen to full songs in the browser.",
-    tech: ["Spotify API", "Vue", "Scss"],
-    github: "",
-    external: "https://example.com",
-  },
+  // {
+  //   title: "OctoProfile",
+  //   description:
+  //     "A nicer look at your GitHub profile and repo stats. Includes data visualizations of your top languages, starred repositories, and top repos.",
+  //   tech: ["Next.js", "Chart.js", "GitHub API"],
+  //   github: "https://github.com/",
+  //   external: "https://example.com",
+  // },
+  // {
+  //   title: "Google Keep Clone",
+  //   description: "A simple Google Keep clone built with Vue and Firebase.",
+  //   tech: ["Vue", "Firebase", "CSS3"],
+  //   github: "https://github.com/",
+  //   external: "https://example.com",
+  // },
+  // {
+  //   title: "Apple Music Embeddable Web Player Widget",
+  //   description:
+  //     "Embeddable web player widget for Apple Music that lets users log in and listen to full songs in the browser.",
+  //   tech: ["Spotify API", "Vue", "Scss"],
+  //   github: "",
+  //   external: "https://example.com",
+  // },
 ];
 
 export default function NoteworthyProjects() {

@@ -15,16 +15,24 @@ function Homepage() {
     <div className="overflow-x-hidden">
       <Nav />
       <HeroSection />
-      <AboutSection />
-      <ExperienceSection />
-      <ProjectsSection />
-      <NoteworthyProjects />
-      <AnimatedBackground>
+      <div id="about">
+        <AboutSection />
+      </div>
+      <div id="Experiences">
+        <ExperienceSection />
+      </div>
+      <div id="projects">
+        <ProjectsSection />
+        <NoteworthyProjects />
+      </div>
+      <div id="core-values">
         <CoreValues />
-      </AnimatedBackground>
-      <AnimatedBackground>
-        <ContactSection />
-      </AnimatedBackground>
+      </div>
+      <div id="contact">
+        <AnimatedBackground>
+          <ContactSection />
+        </AnimatedBackground>
+      </div>
     </div>
   );
 }

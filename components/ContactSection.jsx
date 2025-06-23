@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, ArrowUpRight, Sparkles } from "lucide-react"
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, ArrowUpRight, Sparkles, X } from "lucide-react"
 
 export default function ContactSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -21,8 +21,10 @@ export default function ContactSection() {
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState("idle")
+  const [submitStatus, setSubmitStatus] = useState("idle") 
   const sectionRef = useRef(null)
+
+  const FORMSPREE_FORM_ID = "xjkraeby" 
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -41,7 +43,6 @@ export default function ContactSection() {
     return () => observer.disconnect()
   }, [])
 
-  // Staggered animation effect
   useEffect(() => {
     if (isVisible) {
       const animationSequence = [
@@ -90,18 +91,45 @@ export default function ContactSection() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitStatus("idle")
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setSubmitStatus("success")
-      setFormData({ name: "", email: "", subject: "", message: "" })
+    try {
+      const response = await fetch(`https://formspree.io/f/${FORMSPREE_FORM_ID}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          _replyto: formData.email, // This tells Formspree which email to reply to
+        }),
+      })
 
-      // Reset status after 3 seconds
+      if (response.ok) {
+        setSubmitStatus("success")
+        setFormData({ name: "", email: "", subject: "", message: "" })
+        
+        // Reset status after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus("idle")
+        }, 5000)
+      } else {
+        throw new Error('Form submission failed')
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setSubmitStatus("error")
+      
+      // Reset error status after 5 seconds
       setTimeout(() => {
         setSubmitStatus("idle")
-      }, 3000)
-    }, 2000)
+      }, 5000)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const contactInfo = [
@@ -123,7 +151,6 @@ export default function ContactSection() {
       icon: MapPin,
       label: "Location",
       value: "Lagos, Nigeria",
-      href: "#",
       color: "from-purple-500 to-pink-500",
     },
   ]
@@ -138,13 +165,13 @@ export default function ContactSection() {
     {
       icon: Linkedin,
       label: "LinkedIn",
-      href: "https://linkedin.com/in/onadokun",
+      href: "https://www.linkedin.com/in/oluwafemionadokunn",
       color: "hover:bg-blue-600 hover:text-white",
     },
     {
-      icon: Twitter,
+      icon: X,
       label: "Twitter",
-      href: "https://twitter.com/onadokun",
+      href: "https://x.com/Oluwafemi166",
       color: "hover:bg-sky-500 hover:text-white",
     },
   ]
@@ -196,6 +223,15 @@ export default function ContactSection() {
                   Fill out the form below and I'll get back to you within 24 hours.
                 </p>
 
+                {/* Status Messages */}
+                {submitStatus === "error" && (
+                  <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-red-700 text-sm">
+                      Sorry, there was an error sending your message. Please try again or contact me directly via email.
+                    </p>
+                  </div>
+                )}
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="group relative">
@@ -210,7 +246,8 @@ export default function ContactSection() {
                           value={formData.name}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 text-gray-900 placeholder-gray-500 tracking-wide hover:bg-white hover:border-gray-400"
+                          disabled={isSubmitting}
+                          className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 text-gray-900 placeholder-gray-500 tracking-wide hover:bg-white hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
                           placeholder="John Doe"
                         />
                       </div>
@@ -227,7 +264,8 @@ export default function ContactSection() {
                           value={formData.email}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 text-gray-900 placeholder-gray-500 tracking-wide hover:bg-white hover:border-gray-400"
+                          disabled={isSubmitting}
+                          className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 text-gray-900 placeholder-gray-500 tracking-wide hover:bg-white hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
                           placeholder="john@example.com"
                         />
                       </div>
@@ -246,7 +284,8 @@ export default function ContactSection() {
                         value={formData.subject}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 text-gray-900 placeholder-gray-500 tracking-wide hover:bg-white hover:border-gray-400"
+                        disabled={isSubmitting}
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 text-gray-900 placeholder-gray-500 tracking-wide hover:bg-white hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
                         placeholder="Project Discussion"
                       />
                     </div>
@@ -263,8 +302,9 @@ export default function ContactSection() {
                         value={formData.message}
                         onChange={handleInputChange}
                         required
+                        disabled={isSubmitting}
                         rows={6}
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 text-gray-900 placeholder-gray-500 resize-none tracking-wide hover:bg-white hover:border-gray-400"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 text-gray-900 placeholder-gray-500 resize-none tracking-wide hover:bg-white hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
                         placeholder="Tell me about your project..."
                       />
                     </div>
@@ -287,6 +327,13 @@ export default function ContactSection() {
                           <div className="w-2 h-2 bg-white rounded-full" />
                         </div>
                         <span className="tracking-wide text-[18px]">Message Sent!</span>
+                      </>
+                    ) : submitStatus === "error" ? (
+                      <>
+                        <div className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
+                          <X size={12} className="text-white" />
+                        </div>
+                        <span className="tracking-wide text-[18px]">Try Again</span>
                       </>
                     ) : (
                       <>

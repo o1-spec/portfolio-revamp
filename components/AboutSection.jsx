@@ -20,6 +20,8 @@ export default function AboutSection() {
     "Docker",
     "Three.js",
     "Firebase",
+    "Github",
+    "React Native"
   ]
 
   const passions = [
@@ -98,8 +100,7 @@ export default function AboutSection() {
               style={{ transitionDelay: "1.4s" }}
             >
               Hello! My name is Onadokun Oluwafemi, and I'm passionate about crafting digital experiences that make a
-              difference. My journey into software development began in 2022 when I started customizing blog layouts — a
-              simple experiment with HTML and CSS that sparked a deeper interest in building for the web.
+              difference. My journey into software development began in 2022, I have always been fascinated by how things work — from the logic behind everyday apps to the intelligence powering AI systems. I’ve always been curious about the "why" and "how" behind tech products. This curiosity led me to explore the world of software development, where I found my passion for creating innovative solutions that solve real-world problems.
             </p>
 
             {/* Second paragraph */}
@@ -111,7 +112,7 @@ export default function AboutSection() {
             >
               Today, I work at TECHSERVICES, where we build and sell custom applications to businesses. I've contributed
               to the development of a core banking system and a digital banking platform — both built to deliver secure
-              and scalable solutions for financial institutions. Outside of coding, I enjoy reading books, exploring
+              and scalable solutions for financial institutions — as well as other applications for industries . Outside of coding, I enjoy reading books, exploring
               technical documentation, and strengthening my problem-solving skills through data structures and
               algorithms.
             </p>
@@ -121,7 +122,7 @@ export default function AboutSection() {
               {passions.map((passion, index) => (
                 <div
                   key={index}
-                  className={`bg-white/5 backdrop-blur-sm w-[200px] rounded-xl p-4 py-6 border border-white/10 hover:bg-white/10 transition-all duration-1200 ease-out group hover:scale-105 hover:-translate-y-2 hover:shadow-2xl ${
+                  className={`bg-white/5 backdrop-blur-sm w-[250px] rounded-xl p-4 py-6 border border-white/10 hover:bg-white/10 transition-all duration-1200 ease-out group hover:scale-105 hover:-translate-y-2 hover:shadow-2xl ${
                     isVisible ? "opacity-100 translate-y-0 rotate-0" : "opacity-0 translate-y-32 rotate-12"
                   }`}
                   style={{

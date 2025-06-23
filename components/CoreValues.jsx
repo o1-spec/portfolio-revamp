@@ -82,9 +82,9 @@ const CoreValues = () => {
     const gap = 32; // gap-8 = 32px
     const totalWidth = (cardWidth + gap) * cardElements.length;
     const viewportWidth = window.innerWidth;
-    
+
     // Initial offset - make first card 30% visible
-    const initialOffset = viewportWidth - (cardWidth * 0.3);
+    const initialOffset = viewportWidth - cardWidth * 0.3;
 
     // Set initial position without animation
     gsap.set(cards, {
@@ -104,13 +104,10 @@ const CoreValues = () => {
     });
 
     // Animate cards from initial position to end position
-    tl.to(
-      cards,
-      {
-        x: -totalWidth + viewportWidth * 0.3, // Leave 30% of the last card visible
-        ease: "none",
-      }
-    );
+    tl.to(cards, {
+      x: -totalWidth + viewportWidth * 0.3, // Leave 30% of the last card visible
+      ease: "none",
+    });
 
     // Stagger animation for individual cards appearing
     gsap.fromTo(
@@ -175,37 +172,39 @@ const CoreValues = () => {
             </span>
           </motion.div>
 
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
             Values &<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
               Mission
             </span>
           </h2>
 
-          <p className="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed">
+          <p className="text-white/70 text-lg max-w-3xl mx-auto leading-relaxed">
             The principles that guide my work and the mission that drives my
             passion for creating exceptional digital experiences.
           </p>
         </div>
       </div>
 
-      {/* Horizontal Scrolling Cards */}
       <div className="absolute top-[63%] left-0 transform -translate-y-1/2 w-full">
         <div ref={cardsRef} className="flex gap-8">
           {coreValues.map((value) => (
             <div
               key={value.title}
-              className="flex-shrink-0 w-[450px] h-[510px] bg-white shadow-lg backdrop-blur-sm border border-white/10 rounded-xl p-8 hover:border-purple-500/50 transition-all duration-500 group"
+              className="flex-shrink-0 w-[450px] h-[510px] bg-white/5 shadow-lg backdrop-blur-sm border border-white/10 rounded-xl p-8 hover:border-purple-500/50 transition-all duration-500 group hover:shadow-[0_20px_50px_-12px_rgba(147,51,234,0.3)] hover:-translate-y-4"
+              style={{
+                transformOrigin: "center bottom",
+              }}
             >
               <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <value.icon className="w-8 h-8 text-white" />
               </div>
 
-              <h4 className="text-3xl font-bold text-black mb-4 group-hover:text-purple-400 transition-colors">
+              <h4 className="text-3xl font-bold text-white/80 mb-4 group-hover:text-purple-400 transition-colors">
                 {value.title}
               </h4>
 
-              <p className="text-black text-[18px] leading-relaxed mb-6">
+              <p className="text-white text-[18px] leading-relaxed mb-6">
                 {value.description}
               </p>
 
@@ -225,15 +224,23 @@ const CoreValues = () => {
         </div>
       </div>
 
-      {/* Scroll hint (optional) */}
-      <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex items-center gap-2 text-gray-400 opacity-70 animate-pulse">
+      <div className="absolute bottom-[20%] left-1/2 transform -translate-x-1/2 flex items-center gap-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500 animate-pulse">
         <span>Scroll to explore</span>
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
         </svg>
       </div>
 
-      {/* Animated background elements */}
       <div className="absolute top-32 left-16 w-4 h-4 bg-purple-500 rounded-full opacity-30 animate-pulse" />
       <div className="absolute top-96 right-24 w-2 h-2 bg-blue-400 rounded-full opacity-40 animate-pulse" />
       <div className="absolute bottom-48 left-1/4 w-3 h-3 bg-green-400 rounded-full opacity-35 animate-pulse" />

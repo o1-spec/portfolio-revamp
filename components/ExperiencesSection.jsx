@@ -17,34 +17,59 @@ import Image from "next/image";
 const experiences = [
   {
     id: 1,
-    company: "TECHSERVICES",
-    role: "Senior Full Stack Developer",
+    company: "TECHSERVICES LIMITED",
+    role: "Frontend Developer",
     type: "Full-time",
     location: "Remote",
-    duration: "2022 - Present",
-    period: "2+ years",
+    duration: "2025",
+    period: "6 Months",
     description:
-      "Leading the development of core banking systems and digital banking platforms, serving millions of users with 99.9% uptime.",
+      "development of core banking systems serving millions of users with 99.9% uptime.",
     achievements: [
-      "Architected and built a core banking system handling $2M+ daily transactions",
-      "Led a team of 6 developers in delivering critical financial applications",
-      "Implemented microservices architecture reducing system downtime by 40%",
-      "Developed real-time fraud detection system preventing $500K+ in losses",
+      "Contributed to the development of a core banking system supporting day-to-day operations such as customer onboarding, transaction processing, and account management.",
+      // "Contributed to the development of a core banking system supporting day-to-day operations such as customer onboarding, transaction processing, and account management. Currently in use by Turbo Microfinance Bank.",
+      "Collaborated with a team of 6 developers to deliver secure and scalable financial products used internally by bank staff",
+      "Assisted in implementing modular services architecture to improve maintainability and reduce system outages",
+      "Built key components for sections like user management, loan processing, and audit logging essential to banking operations",
     ],
     technologies: [
       "Next.js",
       "TypeScript",
-      "PostgreSQL",
-      "Redis",
-      "Docker",
-      "AWS",
+      "Material-UI",
+      "React Query",
+      "MIFOS",
     ],
     projects: [
       {
         name: "Banking Core System",
-        impact: "$2M+ daily transactions",
+        impact: "2M+ daily transactions",
         users: "50K+ active users",
       },
+    ],
+    companyInfo: {
+      industry: "Custom Software Solutions",
+      size: "20+ employees",
+      website: "https://techservicehub.io/",
+    },
+  },
+  {
+    id: 2,
+    company: "TECHSERVICES LIMITED",
+    role: "Frontend Developer",
+    type: "Full-time",
+    location: "Remote",
+    duration: "2025",
+    period: "4 Months",
+    description:
+      "development of digital banking systems serving millions of users with 99.9% uptime.",
+    achievements: [
+      "Contributed to the development of a digital banking platform enabling customers to manage accounts, view transactions, and perform transfers online",
+      "Built and integrated user-facing components such as login, dashboard views, and transaction history using modern frontend technologies",
+      "Implemented role-based access control and secure authentication flows to ensure data protection and compliance",
+      "Worked closely with backend engineers to connect APIs for real-time balance updates, payment processing, and notifications",
+    ],
+    technologies: ["Next.js", "TypeScript", "Material-UI", "React Query"],
+    projects: [
       {
         name: "Digital Banking Platform",
         impact: "99.9% uptime achieved",
@@ -52,165 +77,82 @@ const experiences = [
       },
     ],
     companyInfo: {
-      industry: "Financial Technology",
-      size: "500+ employees",
-      website: "https://techservices.com",
-    },
-  },
-  {
-    id: 2,
-    company: "DevConnect Inc.",
-    role: "Lead Frontend Developer",
-    type: "Contract",
-    location: "San Francisco, CA",
-    duration: "2021 - 2022",
-    period: "1 year",
-    description:
-      "Spearheaded the development of a revolutionary developer networking platform, growing the user base from 1K to 10K+ active developers.",
-    achievements: [
-      "Built real-time collaboration tools supporting 1000+ concurrent users",
-      "Implemented AI-powered project matching algorithm with 85% success rate",
-      "Optimized application performance resulting in 60% faster load times",
-      "Mentored 3 junior developers and established coding standards",
-    ],
-    technologies: [
-      "React",
-      "Node.js",
-      "Socket.io",
-      "MongoDB",
-      "GraphQL",
-      "Docker",
-    ],
-    projects: [
-      {
-        name: "DevConnect Platform",
-        impact: "900% user growth",
-        users: "10K+ developers",
-      },
-      {
-        name: "Real-time Collaboration Suite",
-        impact: "1000+ concurrent users",
-        users: "85% success rate",
-      },
-    ],
-    companyInfo: {
-      industry: "Developer Tools",
-      size: "50-100 employees",
-      website: "https://devconnect.com",
+      industry: "Custom Software Solutions",
+      size: "20+ employees",
+      website: "https://techservicehub.io/",
     },
   },
   {
     id: 3,
-    company: "Analytics Pro",
+    company: "Ernext Gadgets",
     role: "Frontend Developer",
-    type: "Full-time",
-    location: "New York, NY",
-    duration: "2020 - 2021",
-    period: "1 year",
+    type: "Contract",
+    location: "Lagos, Nigeria",
+    duration: "March 2025 - May 2025",
+    period: "3 Months",
     description:
-      "Developed advanced analytics dashboards and data visualization tools for e-commerce platforms, processing millions of data points daily.",
+      "Built a full-featured e-commerce application for a technology gadget hub, enabling customers to seamlessly browse, order, and purchase gadgets online with secure checkout and real-time inventory updates.",
     achievements: [
-      "Created interactive dashboards processing 10M+ data points daily",
-      "Implemented real-time data streaming with 99.5% accuracy",
-      "Reduced dashboard load times by 70% through optimization",
-      "Built custom charting library used across 5+ products",
+      "Developed a complete e-commerce platform for a tech gadget hub with features like product browsing, cart, checkout, and order tracking",
+      "Integrated secure payment gateways and real-time inventory management to enhance shopping experience",
+      "Optimized frontend performance, resulting in faster page loads and smoother navigation across devices",
+      "Implemented an admin dashboard for product and order management, improving operational efficiency for store staff",
     ],
-    technologies: [
-      "Vue.js",
-      "D3.js",
-      "Python",
-      "FastAPI",
-      "PostgreSQL",
-      "Redis",
-    ],
+    technologies: ["React", "Redux", "Appwrite", "Cloudinary", "Typescript"],
     projects: [
       {
-        name: "E-commerce Analytics Dashboard",
-        impact: "10M+ data points/day",
-        users: "15K+ businesses",
-      },
-      {
-        name: "Real-time Visualization Engine",
-        impact: "70% faster load times",
-        users: "99.5% accuracy",
+        name: "E-Commerce Application",
+        impact: "200 concurrent users",
+        users: "85% success rate",
       },
     ],
     companyInfo: {
-      industry: "Business Intelligence",
-      size: "100-200 employees",
-      website: "https://analyticspro.com",
+      industry: "E-commerce & Retail Technology",
+      size: "5+ employees",
+      website: "https://www.ernextgadgets.ng/",
     },
   },
   {
     id: 4,
-    company: "StartupLab",
-    role: "Junior Full Stack Developer",
-    type: "Full-time",
-    location: "Austin, TX",
-    duration: "2019 - 2020",
-    period: "1 year",
+    company: "HOTKEYS MASTER",
+    role: "Frontend Developer",
+    type: "Freelance",
+    location: "Remote",
+    duration: "Oct 2024 – November 2024",
+    period: "2 Months",
     description:
-      "Started my professional journey building MVPs and prototypes for various startups, learning to work in fast-paced environments.",
+      "Built an interactive, gamified web application that helps users master keyboard shortcuts for popular software like VS Code and Photoshop. Collaborated closely with a backend engineer to implement real-time features and performance tracking tools.",
     achievements: [
-      "Delivered 8+ MVP applications within tight deadlines",
-      "Collaborated with designers to implement pixel-perfect UIs",
-      "Integrated 15+ third-party APIs and services",
-      "Participated in code reviews and agile development processes",
+      "Designed and implemented the interactive 'game booth' for practicing keyboard shortcuts",
+      "Collaborated with a backend engineer to integrate APIs for leaderboards and performance tracking",
+      "Created responsive and engaging UI using modern frontend frameworks",
+      "Contributed to a learning platform that blends gamification with productivity training",
     ],
     technologies: [
-      "React",
-      "Express.js",
-      "MongoDB",
-      "Firebase",
-      "Stripe",
-      "Heroku",
+      "Next.js",
+      "Tailwind CSS",
+      "TypeScript",
+      "Framer Motion",
+      "Appwrite",
     ],
     projects: [
       {
-        name: "Multiple MVP Applications",
-        impact: "8+ successful launches",
-        users: "Various startups",
+        name: "Interactive Game Booth",
+        impact: "Hands-on learning for keyboard shortcuts",
+        users: "Developers, designers, and power users",
       },
       {
-        name: "API Integration Suite",
-        impact: "15+ integrations",
-        users: "Multiple clients",
+        name: "Leaderboard & Tracking API Integration",
+        impact: "Encouraged engagement and performance monitoring",
+        users: "Global user base (beta)",
       },
     ],
     companyInfo: {
-      industry: "Startup Incubator",
-      size: "20-50 employees",
-      website: "https://startuplab.com",
+      industry: "Productivity & Learning",
+      size: "Freelance/Small Team",
+      website: "https://hotkeysmaster.com/",
+      engagement: "Freelance",
     },
-  },
-];
-
-const skills = [
-  {
-    name: "Frontend Development",
-    level: 95,
-    color: "from-blue-500 to-cyan-500",
-  },
-  {
-    name: "Backend Development",
-    level: 90,
-    color: "from-green-500 to-emerald-500",
-  },
-  {
-    name: "System Architecture",
-    level: 85,
-    color: "from-purple-500 to-pink-500",
-  },
-  {
-    name: "Database Design",
-    level: 88,
-    color: "from-yellow-500 to-orange-500",
-  },
-  { name: "DevOps & Cloud", level: 80, color: "from-red-500 to-pink-500" },
-  {
-    name: "Team Leadership",
-    level: 85,
-    color: "from-indigo-500 to-purple-500",
   },
 ];
 
@@ -315,41 +257,6 @@ export default function ExperienceSection() {
             from junior developer to leading complex projects and teams.
           </motion.p>
         </motion.div>
-
-        {/* Skills Overview */}
-        {/* <motion.div
-          className="mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ delay: 0.7, duration: 0.6 }}
-        >
-          <h3 className="text-2xl font-bold text-white mb-8 text-center">Core Competencies</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {skills.map((skill, index) => (
-              <motion.div
-                key={skill.name}
-                className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-purple-500/50 transition-all duration-300"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-                transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-white font-medium">{skill.name}</span>
-                  <span className="text-gray-400 text-sm">{skill.level}%</span>
-                </div>
-                <div className="w-full bg-gray-700 rounded-full h-2">
-                  <motion.div
-                    className={`h-2 rounded-full bg-gradient-to-r ${skill.color}`}
-                    initial={{ width: 0 }}
-                    animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
-                    transition={{ delay: 1 + index * 0.1, duration: 1, ease: "easeOut" }}
-                  />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div> */}
 
         {/* Experience Timeline */}
         <div className="flex flex-col lg:flex-row gap-12 pt-6">

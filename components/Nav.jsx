@@ -1,24 +1,40 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import Link from "next/link"
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function Nav() {
-  const [isVisible, setIsVisible] = useState(false)
-  const [hoveredLink, setHoveredLink] = useState(null)
+  const [isVisible, setIsVisible] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsVisible(true)
-    }, 500)
-    return () => clearTimeout(timer)
-  }, [])
+      setIsVisible(true);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleScrollToSection = (e, href) => {
+    e.preventDefault();
+    const targetId = href.replace("#", "");
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    }
+  };
 
   const navLinks = [
     { href: "#about", label: "About" },
-    { href: "#work", label: "Work" },
+    { href: "#Experiences", label: "Experiences" },
+    { href: "#projects", label: "Projects" },
+    { href: "#core-values", label: "Core Values" },
     { href: "#contact", label: "Contact" },
-  ]
+  ];
 
   return (
     <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-40">
@@ -33,10 +49,11 @@ export default function Nav() {
         }}
       />
 
-      {/* Nav container with hanging swing animation */}
       <div
-        className={`bg-white/95 backdrop-blur-sm rounded-lg shadow-2xl px-8 py-4 border border-gray-200 relative transition-all duration-1000 ease-out w-[450px] ${
-          isVisible ? "translate-y-0 opacity-100 rotate-0" : "-translate-y-8 opacity-0 rotate-3"
+        className={`bg-white/95 backdrop-blur-sm rounded-lg shadow-2xl px-8 py-4 border border-gray-200 relative transition-all duration-1000 ease-out w-[780px] ${
+          isVisible
+            ? "translate-y-0 opacity-100 rotate-0"
+            : "-translate-y-8 opacity-0 rotate-3"
         }`}
         style={{
           transformOrigin: "top center",
@@ -48,14 +65,16 @@ export default function Nav() {
         <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full" />
 
         <div className="flex items-center justify-between space-x-10">
-          {/* Logo */}
-          <div className="text-xl font-bold text-gray-900 font-mono tracking-wider">o1-spec</div>
+          <div className="text-2xl font-bold text-gray-900 font-mono tracking-wider">
+            o1-spec
+          </div>
 
           <div className="flex space-x-8 relative">
             {navLinks.map((link, index) => (
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={(e) => handleScrollToSection(e, link.href)}
                 className="relative text-gray-700 font-medium transition-all duration-300 ease-out group overflow-hidden"
                 onMouseEnter={() => setHoveredLink(index)}
                 onMouseLeave={() => setHoveredLink(null)}
@@ -107,57 +126,63 @@ export default function Nav() {
 
       <style jsx>{`
         @keyframes navSwing {
-          0% { 
-            transform: rotate(-1.5deg); 
+          0% {
+            transform: rotate(-1.5deg);
           }
-          50% { 
-            transform: rotate(1.5deg); 
+          50% {
+            transform: rotate(1.5deg);
           }
-          100% { 
-            transform: rotate(-1.5deg); 
+          100% {
+            transform: rotate(-1.5deg);
           }
         }
-        
+
         @keyframes threadSwing {
-          0% { 
-            transform: rotate(-1.5deg); 
+          0% {
+            transform: rotate(-1.5deg);
           }
-          50% { 
-            transform: rotate(1.5deg); 
+          50% {
+            transform: rotate(1.5deg);
           }
-          100% { 
-            transform: rotate(-1.5deg); 
+          100% {
+            transform: rotate(-1.5deg);
           }
         }
-        
+
         @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
         }
-        
+
         @keyframes float-up {
-          0% { 
-            opacity: 0; 
-            transform: translateY(0) translateX(-50%); 
+          0% {
+            opacity: 0;
+            transform: translateY(0) translateX(-50%);
           }
-          50% { 
-            opacity: 1; 
+          50% {
+            opacity: 1;
           }
-          100% { 
-            opacity: 0; 
-            transform: translateY(-12px) translateX(-50%); 
+          100% {
+            opacity: 0;
+            transform: translateY(-12px) translateX(-50%);
           }
         }
-        
+
         @keyframes pulse-glow {
-          0%, 100% { 
-            box-shadow: 0 0 5px rgba(59, 130, 246, 0.3); 
+          0%,
+          100% {
+            box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
           }
-          50% { 
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 30px rgba(147, 51, 234, 0.3); 
+          50% {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6),
+              0 0 30px rgba(147, 51, 234, 0.3);
           }
         }
       `}</style>
     </div>
-  )
+  );
 }
