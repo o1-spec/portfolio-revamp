@@ -12,59 +12,53 @@ gsap.registerPlugin(ScrollTrigger);
 const coreValues = [
   {
     icon: Code,
-    title: "Excellence in Craft",
+    title: "Problem-Solving through Code",
     description:
-      "Every line of code is written with precision and purpose. I believe in creating solutions that are not just functional, but elegant and maintainable.",
+      "I enjoy tackling coding challenges and applying logical thinking to break down complex problems. Problem-solving sharpens my skills and shapes how I build.",
     principles: [
-      "Clean, readable code architecture",
-      "Comprehensive testing and documentation",
-      "Performance optimization at every level",
-      "Continuous learning and improvement",
+      "Consistent practice with data structures and algorithms",
+      "Strategic debugging and optimization",
+      "Breaking problems into manageable parts",
     ],
     color: "from-purple-500 to-blue-500",
   },
   {
-    icon: Users,
-    title: "Human-Centered Design",
+    icon: Lightbulb,
+    title: "Real-World Impact",
     description:
-      "Technology should serve people, not the other way around. I prioritize user experience and accessibility in every project I undertake.",
+      "I believe the true value of technology lies in its ability to solve real-world problems. I aim to build solutions that are practical, meaningful, and improve lives in measurable ways.",
     principles: [
-      "Intuitive and accessible interfaces",
-      "User feedback integration",
-      "Inclusive design practices",
-      "Empathy-driven development",
+      "Understanding the 'why' before building",
+      "Designing systems that solve actual user pain points",
+      "Prioritizing business value and scalability",
+    ],
+    color: "from-orange-500 to-pink-500",
+  },
+  {
+    icon: Users,
+    title: "Delightful User Interfaces",
+    description:
+      "Good UI isn't just about beauty — it's about clarity and usability. I craft intuitive, accessible, and engaging interfaces that leave users with good impressions.",
+    principles: [
+      "Consistent, readable design patterns",
+      "Accessibility and mobile responsiveness",
+      "Micro-interactions and thoughtful animations",
     ],
     color: "from-blue-500 to-cyan-500",
   },
   {
     icon: Shield,
-    title: "Security & Trust",
+    title: "Innovation & Growth",
     description:
-      "In an interconnected world, security isn't optional. I build systems with security-first mindset and maintain the highest standards of data protection.",
+      "I'm always exploring better ways to build, think, and deliver. I embrace new technologies, tools, and mindsets that help me grow and stay ahead in a fast-moving industry.",
     principles: [
-      "End-to-end encryption implementation",
-      "Regular security audits and updates",
-      "Privacy by design approach",
-      "Transparent security practices",
+      "Staying curious and open to learning",
+      "Experimenting with new tools and frameworks",
+      "Sharing knowledge and contributing to communities",
     ],
     color: "from-green-500 to-emerald-500",
   },
-  {
-    icon: Lightbulb,
-    title: "Innovation & Growth",
-    description:
-      "I embrace emerging technologies and methodologies to solve complex problems in creative ways, always pushing the boundaries of what's possible.",
-    principles: [
-      "Exploring cutting-edge technologies",
-      "Creative problem-solving approaches",
-      "Rapid prototyping and iteration",
-      "Knowledge sharing and mentoring",
-    ],
-    color: "from-yellow-500 to-orange-500",
-  },
 ];
-
-// Keep your coreValues array as is
 
 const CoreValues = () => {
   const containerRef = useRef(null);

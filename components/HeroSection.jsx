@@ -1,81 +1,91 @@
-"use client"
+"use client";
 
-import { useEffect, useState, useRef } from "react"
-import { Github, Mail, Phone, Linkedin, Download, ChevronDown } from "lucide-react"
-import Image from "next/image"
+import { useEffect, useState, useRef } from "react";
+import {
+  Github,
+  Mail,
+  Phone,
+  Linkedin,
+  Download,
+  ChevronDown,
+} from "lucide-react";
+import Image from "next/image";
 
 const HeroSectionWithArrow = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [isHovering, setIsHovering] = useState(false)
-  const [hoveredIcon, setHoveredIcon] = useState(null)
-  const [isArrowHovered, setIsArrowHovered] = useState(false)
-  const cardRef = useRef(null)
-  const [isCardFlipped, setIsCardFlipped] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+  const [hoveredIcon, setHoveredIcon] = useState(null);
+  const [isArrowHovered, setIsArrowHovered] = useState(false);
+  const cardRef = useRef(null);
+  const [isCardFlipped, setIsCardFlipped] = useState(false);
 
   // Drag state
-  const [isDragging, setIsDragging] = useState(false)
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
-const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y: 20 })
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [cardPosition, setCardPosition] = useState({
+    x: window.innerWidth - 450,
+    y: 20,
+  });
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
+      setMousePosition({ x: e.clientX, y: e.clientY });
 
       // Handle dragging
       if (isDragging) {
-        const newX = e.clientX - dragOffset.x
-        const newY = e.clientY - dragOffset.y
+        const newX = e.clientX - dragOffset.x;
+        const newY = e.clientY - dragOffset.y;
 
         // Convert to position from edges (keep the right/top positioning style)
-        const windowWidth = window.innerWidth
-        const windowHeight = window.innerHeight
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
 
         setCardPosition({
           x: Math.max(0, Math.min(windowWidth - 300, newX)), // 300 is card width
           y: Math.max(0, Math.min(windowHeight - 380, newY)), // 380 is card height
-        })
+        });
       }
-    }
+    };
 
     const handleMouseUp = () => {
-      setIsDragging(false)
-    }
+      setIsDragging(false);
+    };
 
-    window.addEventListener("mousemove", handleMouseMove)
-    window.addEventListener("mouseup", handleMouseUp)
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("mouseup", handleMouseUp)
-    }
-  }, [isDragging, dragOffset])
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging, dragOffset]);
 
   const handleMouseDown = (e) => {
-    if (!cardRef.current) return
+    if (!cardRef.current) return;
 
-    const rect = cardRef.current.getBoundingClientRect()
+    const rect = cardRef.current.getBoundingClientRect();
     setDragOffset({
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
-    })
-    setIsDragging(true)
-    e.preventDefault()
-  }
+    });
+    setIsDragging(true);
+    e.preventDefault();
+  };
 
   const cardTransform = () => {
-    if (isDragging) return "" // No mouse-follow effect while dragging
+    if (isDragging) return ""; // No mouse-follow effect while dragging
 
-    if (!cardRef.current) return ""
+    if (!cardRef.current) return "";
 
-    const card = cardRef.current.getBoundingClientRect()
-    const cardCenterX = card.left + card.width / 2
-    const cardCenterY = card.top + card.height / 2
+    const card = cardRef.current.getBoundingClientRect();
+    const cardCenterX = card.left + card.width / 2;
+    const cardCenterY = card.top + card.height / 2;
 
-    const deltaX = (mousePosition.x - cardCenterX) * 0.05 // Reduced effect when not dragging
-    const deltaY = (mousePosition.y - cardCenterY) * 0.05
+    const deltaX = (mousePosition.x - cardCenterX) * 0.05; // Reduced effect when not dragging
+    const deltaY = (mousePosition.y - cardCenterY) * 0.05;
 
-    return `translate(${deltaX}px, ${deltaY}px) rotate(${deltaX * 0.1}deg)`
-  }
+    return `translate(${deltaX}px, ${deltaY}px) rotate(${deltaX * 0.1}deg)`;
+  };
 
   const socialLinks = [
     {
@@ -102,7 +112,7 @@ const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y
       href: "tel:+2347058266972",
       color: "#25d366",
     },
-  ]
+  ];
 
   const quotes = [
     "Code is poetry written in logic.",
@@ -110,55 +120,29 @@ const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y
     "Innovation happens at the intersection of creativity and technology.",
     "The best code is not just functional, but beautiful.",
     "Dream in code, build in reality.",
-  ]
+  ];
 
   const handleScrollDown = () => {
     // Scroll to about section specifically
-    const aboutSection = document.getElementById("about-section")
+    const aboutSection = document.getElementById("about-section");
     if (aboutSection) {
       aboutSection.scrollIntoView({
         behavior: "smooth",
         block: "start",
-      })
+      });
     }
-  }
+  };
 
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100vw",
-        height: "100vh",
-        overflow: "hidden",
-      }}
-    >
+    <div className="relative w-screen h-screen overflow-hidden">
       {/* Main Content */}
-      <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          marginTop: "0px",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          textAlign: "center",
-          zIndex: 10,
-        }}
-      >
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10">
         {/* First Name - Smaller */}
         <h1
+          className="text-[5rem] font-light text-white/80 mb-2 animate-typewriter1 border-r-4 border-white whitespace-nowrap overflow-hidden w-fit mx-auto tracking-[4px]"
           style={{
-            fontSize: "5rem",
-            fontWeight: "300",
-            color: "rgba(255, 255, 255, 0.8)",
-            marginBottom: "0.5rem",
             textShadow: "2px 2px 4px rgba(0,0,0,0.8)",
             animation: "typewriter1 2s steps(20) 0.5s both",
-            borderRight: "3px solid white",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            width: "fit-content",
-            margin: "0 auto 0.5rem auto",
-            letterSpacing: "4px",
           }}
         >
           ONADOKUN
@@ -166,19 +150,10 @@ const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y
 
         {/* Last Name - Bigger */}
         <h1
+          className="text-[7.5rem] font-black text-white mb-8 animate-typewriter2 border-r-4 border-white whitespace-nowrap overflow-hidden w-fit mx-auto tracking-[5px]"
           style={{
-            fontSize: "7.5rem",
-            fontWeight: "900",
-            color: "white",
-            marginBottom: "2rem",
             textShadow: "3px 3px 6px rgba(0,0,0,0.8)",
             animation: "typewriter2 2.5s steps(25) 2.5s both",
-            borderRight: "3px solid white",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            width: "fit-content",
-            margin: "0 auto 2rem auto",
-            letterSpacing: "5px",
           }}
         >
           OLUWAFEMI
@@ -186,76 +161,46 @@ const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y
 
         {/* Enhanced Subtitle */}
         <p
-          style={{
-            fontSize: "2.2rem",
-            color: "rgba(255, 255, 255, 0.9)",
-            marginBottom: "1rem",
-            animation: "fadeInUp 2s ease-out 4s both",
-            fontWeight: "400",
-            letterSpacing: "1px",
-          }}
+          className="text-[2.2rem] text-white/90 mb-4 font-normal tracking-[1px] animate-fadeInUp"
+          style={{ animation: "fadeInUp 2s ease-out 4s both" }}
         >
           Creative Technologist & Code Artist
         </p>
 
         {/* Secondary subtitle */}
         <p
-          style={{
-            fontSize: "1.3rem",
-            color: "rgba(255, 255, 255, 0.7)",
-            marginBottom: "2rem",
-            animation: "fadeInUp 2s ease-out 4.5s both",
-            fontStyle: "italic",
-          }}
+          className="text-[1.3rem] text-white/70 mb-8 italic animate-fadeInUp"
+          style={{ animation: "fadeInUp 2s ease-out 4.5s both" }}
         >
           Building Tomorrow's Web, One Line at a Time
         </p>
 
         {/* Animated underline */}
         <div
+          className="w-[350px] h-[3px] mx-auto animate-pulse"
           style={{
-            width: "350px",
-            height: "3px",
-            background: "linear-gradient(90deg, transparent, white, transparent)",
-            margin: "0 auto",
-            animation: "pulse 2s ease-in-out infinite, fadeIn 1s ease-out 5s both",
+            background:
+              "linear-gradient(90deg, transparent, white, transparent)",
+            animation:
+              "pulse 2s ease-in-out infinite, fadeIn 1s ease-out 5s both",
           }}
         />
-
         {/* Floating symbols */}
         <div
-          style={{
-            position: "absolute",
-            top: "-100px",
-            left: "-180px",
-            fontSize: "3.5rem",
-            color: "rgba(255, 255, 255, 0.25)",
-            animation: "float 3s ease-in-out infinite",
-          }}
+          className="absolute -top-[100px] -left-[180px] text-[3.5rem]text-white/25 animate-float"
+          style={{ animation: "float 3s ease-in-out infinite" }}
         >
           {"</>"}
         </div>
         <div
-          style={{
-            position: "absolute",
-            top: "-70px",
-            right: "-150px",
-            fontSize: "2.5rem",
-            color: "rgba(255, 255, 255, 0.2)",
-            animation: "float 4s ease-in-out infinite reverse",
-          }}
+          className="absolute -top-[70px] -right-[150px] text-[2.5rem] text-white/20 animate-float"
+          style={{ animation: "float 4s ease-in-out infinite reverse" }}
         >
           {"{}"}
         </div>
         <div
-          style={{
-            position: "absolute",
-            bottom: "-120px",
-            left: "-120px",
-            fontSize: "3rem",
-            color: "rgba(255, 255, 255, 0.25)",
-            animation: "float 3.5s ease-in-out infinite",
-          }}
+          className="absolute -bottom-[120px] -left-[120px] text-[3rem] text-white/25"
+          style={{ animation: "float 3.5s ease-in-out infinite" }}
         >
           {"()"}
         </div>
@@ -263,93 +208,63 @@ const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y
 
       {/* Vertical Social Links - Left Side */}
       <div
-        style={{
-          position: "fixed",
-          left: "40px",
-          top: "50%",
-          transform: "translateY(-50%)",
-          zIndex: 15,
-          animation: "slideInLeft 1s ease-out 5.5s both",
-        }}
+        className="fixed left-[40px] top-1/2 transform -translate-y-1/2 z-15"
+        style={{ animation: "slideInLeft 1s ease-out 5.5s both" }}
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "20px",
-            padding: "25px 15px",
-            background: "rgba(0, 0, 0, 0.4)",
-            backdropFilter: "blur(20px)",
-            border: "1px solid rgba(255, 255, 255, 0.2)",
-            borderRadius: "60px",
-            boxShadow: "0 10px 40px rgba(0,0,0,0.3)",
-          }}
-        >
+        <div className="flex flex-col items-center gap-5 py-6 px-4 bg-black/40 backdrop-blur-[20px] border border-white/20 rounded-[60px] shadow-2xl">
           {/* Social Icons */}
           {socialLinks.map((social, index) => {
-            const IconComponent = social.icon
+            const IconComponent = social.icon;
             return (
               <a
                 key={social.label}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                className={`flex items-center justify-center w-[50px] h-[50px] rounded-[50%] cursor-pointer transition-all duration-300 ${
+                  hoveredIcon === index
+                    ? "scale-110 translate-x-[5px"
+                    : "scale-100"
+                }`}
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "50px",
-                  height: "50px",
                   background:
                     hoveredIcon === index
                       ? `linear-gradient(135deg, ${social.color}30, ${social.color}10)`
                       : "rgba(255, 255, 255, 0.1)",
-                  border: hoveredIcon === index ? `2px solid ${social.color}` : "2px solid rgba(255, 255, 255, 0.2)",
-                  borderRadius: "50%",
-                  color: hoveredIcon === index ? social.color : "rgba(255, 255, 255, 0.8)",
-                  transition: "all 0.3s ease",
-                  cursor: "pointer",
-                  transform: hoveredIcon === index ? "scale(1.1) translateX(5px)" : "scale(1)",
-                  animation: `fadeInScale 0.6s ease-out ${5.8 + index * 0.1}s both`,
+                  border:
+                    hoveredIcon === index
+                      ? `2px solid ${social.color}`
+                      : "2px solid rgba(255, 255, 255, 0.2)",
+                  color:
+                    hoveredIcon === index
+                      ? social.color
+                      : "rgba(255, 255, 255, 0.8)",
+                  animation: `fadeInScale 0.6s ease-out ${
+                    5.8 + index * 0.1
+                  }s both`,
                 }}
                 onMouseEnter={() => setHoveredIcon(index)}
                 onMouseLeave={() => setHoveredIcon(null)}
               >
                 <IconComponent size={20} />
               </a>
-            )
+            );
           })}
         </div>
 
         {/* Tooltip for hovered icon */}
         {hoveredIcon !== null && (
           <div
+            className="absolute left-[80px] bg-black/90 text-white px-[12px] py-[8px] rounded-[8px] text-[12px] font-medium whitespace-nowrap z-20 animate-fadeIn"
             style={{
-              position: "absolute",
-              left: "80px",
               top: `${hoveredIcon * 70 + 40}px`,
-              background: "rgba(0, 0, 0, 0.9)",
-              color: "white",
-              padding: "8px 12px",
-              borderRadius: "8px",
-              fontSize: "12px",
-              fontWeight: "500",
-              whiteSpace: "nowrap",
-              animation: "fadeIn 0.2s ease-out",
               border: `1px solid ${socialLinks[hoveredIcon].color}`,
-              zIndex: 20,
             }}
           >
             {socialLinks[hoveredIcon].label}
             <div
+              className="absolute -left-[6px] top-1/2 transform -translate-y-1/2 w-0 h-0"
               style={{
-                position: "absolute",
-                left: "-6px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                width: 0,
-                height: 0,
                 borderTop: "6px solid transparent",
                 borderBottom: "6px solid transparent",
                 borderRight: `6px solid ${socialLinks[hoveredIcon].color}`,
@@ -361,44 +276,28 @@ const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y
 
       {/* Standalone Download CV Button - Bottom Left */}
       <div
-        style={{
-          position: "fixed",
-          bottom: "40px",
-          left: "6%",
-          transform: "translateX(-50%)",
-          zIndex: 15,
-          animation: "slideInUp 1s ease-out 6.2s both",
-        }}
+        className="fixed bottom-[40px] left-[6%] transform -translate-x-1/2 z-15"
+        style={{ animation: "slideInUp 1s ease-out 6.2s both" }}
       >
         <button
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            padding: "14px 24px",
-            background: "linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1))",
-            border: "2px solid rgba(255, 255, 255, 0.3)",
-            borderRadius: "30px",
-            color: "white",
-            fontSize: "16px",
-            fontWeight: "600",
-            cursor: "pointer",
-            transition: "all 0.3s ease",
-            boxShadow: "0 8px 20px rgba(0,0,0,0.3)",
-            backdropFilter: "blur(10px)",
-          }}
+          className="flex items-center gap-[10px] px-[24px] py-[14px] bg-gradient-to-br from-white/20 to-white/10 border-2 border-white/30 rounded-[30px] text-white text-base font-semibold cursor-pointer transition-all duration-300 shadow-xl backdrop-blur-[10px]"
           onMouseEnter={(e) => {
-            e.target.style.transform = "scale(1.05) translateY(-5px)"
-            e.target.style.background = "linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15))"
-            e.target.style.boxShadow = "0 12px 25px rgba(0,0,0,0.4)"
+            e.target.style.transform = "scale(1.05) translateY(-5px)";
+            e.target.style.background =
+              "linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15))";
+            e.target.style.boxShadow = "0 12px 25px rgba(0,0,0,0.4)";
           }}
           onMouseLeave={(e) => {
-            e.target.style.transform = "scale(1) translateY(0)"
-            e.target.style.background = "linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1))"
-            e.target.style.boxShadow = "0 8px 20px rgba(0,0,0,0.3)"
+            e.target.style.transform = "scale(1) translateY(0)";
+            e.target.style.background =
+              "linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1))";
+            e.target.style.boxShadow = "0 8px 20px rgba(0,0,0,0.3)";
+          }}
+          style={{
+            boxShadow: "0 8px 20px rgba(0,0,0,0.3)",
           }}
           onClick={() => {
-            console.log("Downloading CV...")
+            console.log("Downloading CV...");
           }}
         >
           <Download size={18} />
@@ -408,95 +307,49 @@ const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y
 
       {/* Animated Bouncing Arrow - Bottom Center */}
       <div
-        style={{
-          position: "absolute",
-          bottom: "30px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 15,
-          animation: "fadeInBounce 1.5s ease-out 7s both",
-        }}
+        className="absolute bottom-[30px] left-1/2 transform -translate-x-1/2 z-15"
+        style={{ animation: "fadeInBounce 1.5s ease-out 7s both" }}
       >
         <button
           onClick={handleScrollDown}
+          className={`flex items-center justify-center w-[60px] h-[60px] rounded-full text-white cursor-pointer transition-all duration-300 animate-bounce`}
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "60px",
-            height: "60px",
             background: isArrowHovered
               ? "linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15))"
               : "linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05))",
             backdropFilter: "blur(15px)",
             border: "2px solid rgba(255, 255, 255, 0.3)",
-            borderRadius: "50%",
-            color: "white",
-            cursor: "pointer",
-            transition: "all 0.3s ease",
-            animation: "bounce 2s ease-in-out infinite",
-            boxShadow: isArrowHovered ? "0 15px 35px rgba(255, 255, 255, 0.2)" : "0 10px 25px rgba(0, 0, 0, 0.3)",
-            transform: isArrowHovered ? "scale(1.1)" : "scale(1)",
+            boxShadow: isArrowHovered
+              ? "0 15px 35px rgba(255, 255, 255, 0.2)"
+              : "0 10px 25px rgba(0, 0, 0, 0.3)",
           }}
           onMouseEnter={() => setIsArrowHovered(true)}
           onMouseLeave={() => setIsArrowHovered(false)}
         >
           <ChevronDown
             size={28}
-            style={{
-              animation: "arrowPulse 2s ease-in-out infinite",
-            }}
+            style={{ animation: "arrowPulse 2s ease-in-out infinite" }}
           />
         </button>
 
         {/* Scroll hint text */}
         <div
-          style={{
-            position: "absolute",
-            top: "-40px",
-            left: "-55%",
-            transform: "translateX(-50%)",
-            color: "rgba(255, 255, 255, 0.7)",
-            fontSize: "12px",
-            textTransform: "uppercase",
-            fontWeight: "500",
-            whiteSpace: "nowrap",
-            opacity: isArrowHovered ? 1 : 0.6,
-            transition: "opacity 0.3s ease",
-            animation: "fadeInUp 1s ease-out 7.5s both",
-          }}
+          className={`absolute -top-10 left-1/2 transform -translate-x-1/2 text-white/70 text-xs uppercase font-medium whitespace-nowrap transition-opacity duration-300 ${
+            isArrowHovered ? "opacity-100" : "opacity-60"
+          }`}
+          style={{ animation: "fadeInUp 1s ease-out 7.5s both" }}
         >
-          Scroll to explore
+          Click to explore
         </div>
 
         {/* Animated rings around the button */}
         <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "80px",
-            height: "80px",
-            border: "2px solid rgba(255, 255, 255, 0.2)",
-            borderRadius: "50%",
-            animation: "ripple 3s ease-out infinite",
-            pointerEvents: "none",
-          }}
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 border-2 border-white/20 rounded-full pointer-events-none"
+          style={{ animation: "ripple 3s ease-out infinite" }}
         />
         <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "100px",
-            height: "100px",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            borderRadius: "50%",
-            animation: "ripple 3s ease-out infinite 1s",
-            pointerEvents: "none",
-          }}
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-25 h-25 border border-white/10 rounded-full pointer-events-none"
+          style={{ animation: "ripple 3s ease-out infinite 1s" }}
         />
       </div>
 
@@ -507,17 +360,16 @@ const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y
         onClick={(e) => {
           // Only flip if not dragging
           if (!isDragging) {
-            setIsCardFlipped(!isCardFlipped)
+            setIsCardFlipped(!isCardFlipped);
           }
         }}
+        className={`absolute w-[300px] h-[380px] select-none ${
+          isDragging ? "z-30" : "z-20"
+        }`}
         style={{
-          position: "absolute",
           left: `${cardPosition.x}px`,
           top: `${cardPosition.y}px`,
-          width: "300px",
-          height: "380px",
           perspective: "1000px",
-          zIndex: isDragging ? 30 : 20,
           userSelect: "none",
         }}
         onMouseEnter={() => setIsHovering(true)}
@@ -525,91 +377,54 @@ const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y
       >
         {/* Hanging string - only show when not dragging */}
         {!isDragging && (
-          <div
-            style={{
-              position: "absolute",
-              top: "-20px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "2px",
-              height: "20px",
-              background: "rgba(255, 255, 255, 0.5)",
-              transition: "opacity 0.3s ease",
-              zIndex: 1,
-            }}
-          />
+          <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 w-0.5 h-5 bg-white/50 transition-opacity duration-300 z-1" />
         )}
 
         {/* Card Inner Container for 3D flip */}
         <div
+          className={`relative w-full h-full transition-transform duration-600 ease-in-out ${
+            isDragging ? "cursor-grabbing scale-105" : "cursor-grab"
+          }`}
           style={{
-            position: "relative",
-            width: "100%",
-            height: "100%",
             transformStyle: "preserve-3d",
             transform: `${isDragging ? "scale(1.05)" : cardTransform()} ${
               isCardFlipped ? "rotateY(180deg)" : "rotateY(0deg)"
             }`,
-            transition: isDragging ? "transform 0.6s ease-in-out" : "transform 0.6s ease-in-out",
-            cursor: isDragging ? "grabbing" : "grab",
             transformOrigin: "center",
           }}
         >
           {/* Front Side */}
           <div
+            className={`absolute w-full h-full bg-[#191919] backdrop-blur-[10px] rounded-3xl p-8 flex flex-col items-center justify-center ${
+              isDragging
+                ? "border-2 border-white/40 shadow-3xl"
+                : "border-2 border-white/20 shadow-xl"
+            }`}
             style={{
-              position: "absolute",
-              width: "100%",
-              height: "100%",
               backfaceVisibility: "hidden",
-              background: "#191919",
-              backdropFilter: "blur(10px)",
-              border: isDragging ? "2px solid rgba(255, 255, 255, 0.4)" : "2px solid rgba(255, 255, 255, 0.2)",
-              borderRadius: "25px",
-              padding: "30px",
-              boxShadow: isDragging ? "0 20px 60px rgba(0,0,0,0.5)" : "0 10px 30px rgba(0,0,0,0.3)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
+              border: isDragging
+                ? "2px solid rgba(255, 255, 255, 0.4)"
+                : "2px solid rgba(255, 255, 255, 0.2)",
+              boxShadow: isDragging
+                ? "0 20px 60px rgba(0,0,0,0.5)"
+                : "0 10px 30px rgba(0,0,0,0.3)",
             }}
           >
             {/* Picture */}
-            <div
-              style={{
-                width: "100%",
-                height: "200px",
-                background: "linear-gradient(45deg, #333, #555)",
-                borderRadius: "10px",
-                marginBottom: "15px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                overflow: "hidden",
-                position: "relative",
-              }}
-            >
+            <div className="w-full h-50 bg-gradient-to-br from-gray-700 to-gray-500 rounded-[10px] mb-4 flex items-center justify-center overflow-hidden relative">
               <Image
                 src="/images/luffy-2.jpg"
                 alt="Luffy"
                 width={250}
                 height={200}
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-300 ease-in-out rounded-[10px]"
-                style={{
-                  maxHeight: "100%",
-                }}
+                className="object-cover grayscale hover:grayscale-0 transition-all duration-300 ease-in-out rounded-[10px] max-h-full"
               />
             </div>
 
             <p
-              style={{
-                color: "white",
-                textAlign: "center",
-                fontSize: "1.4rem",
-                opacity: isHovering || isDragging ? 1 : 0.7,
-                transition: "opacity 0.3s ease",
-                pointerEvents: "none",
-              }}
+              className={`text-white text-center text-[1.4rem] pointer-events-none transition-opacity duration-300 ${
+                isHovering || isDragging ? "opacity-100" : "opacity-70"
+              }`}
             >
               Meet my coding buddy! <br />
             </p>
@@ -619,23 +434,9 @@ const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y
 
             {/* Drag indicator */}
             <div
-              style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                width: "20px",
-                height: "20px",
-                background: "rgba(255, 255, 255, 0.2)",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "10px",
-                color: "rgba(255, 255, 255, 0.6)",
-                pointerEvents: "none",
-                opacity: isHovering || isDragging ? 1 : 0.5,
-                transition: "opacity 0.3s ease",
-              }}
+              className={`absolute top-2.5 right-2.5 w-5 h-5 bg-white/20 rounded-full flex items-center justify-center text-[10px] text-white/60 pointer-events-none transition-opacity duration-300 ${
+                isHovering || isDragging ? "opacity-100" : "opacity-50"
+              }`}
             >
               ⋮⋮
             </div>
@@ -643,96 +444,54 @@ const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y
 
           {/* Back Side */}
           <div
+            className="absolute w-full h-full backdrop-blur-[10px] border-2 border-white/30 rounded-3xl p-8 flex flex-col items-center justify-start overflow-hidden shadow-2xl"
             style={{
-              position: "absolute",
-              width: "100%",
-              height: "100%",
               backfaceVisibility: "hidden",
               transform: "rotateY(180deg)",
-              background: "linear-gradient(135deg, #1a1a1a, #2d2d2d)",
-              backdropFilter: "blur(10px)",
-              border: "2px solid rgba(255, 255, 255, 0.3)",
-              borderRadius: "25px",
-              padding: "30px",
-              boxShadow: "0 15px 40px rgba(0,0,0,0.4)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "flex-start",
-              overflow: "hidden",
+               background:"linear-gradient(135deg, #1a1a1a, #2d2d2d)"
             }}
           >
             {/* Quotes Header */}
             <div
+              className="text-center mb-5 z-2"
               style={{
-                textAlign: "center",
-                marginBottom: "20px",
-                animation: isCardFlipped ? "fadeInDown 0.8s ease-out 0.3s both" : "none",
-                zIndex: 2,
+                animation: isCardFlipped
+                  ? "fadeInDown 0.8s ease-out 0.3s both"
+                  : "none",
               }}
             >
-              <h3
-                style={{
-                  color: "white",
-                  fontSize: "1.5rem",
-                  fontWeight: "600",
-                  marginBottom: "5px",
-                }}
-              >
+              <h3 className="text-white text-[1.5rem] font-semibold mb-1">
                 Daily Inspiration
               </h3>
-              <div
-                style={{
-                  width: "60px",
-                  height: "2px",
-                  background: "linear-gradient(90deg, transparent, #fff, transparent)",
-                  margin: "0 auto",
-                }}
-              />
+              <div className="w-15 h-0.5 mx-auto bg-gradient-to-r from-transparent via-white to-transparent" />
             </div>
 
             {/* Scrolling Quotes Container */}
             <div
+              className="flex-1 w-full relative overflow-hidden"
               style={{
-                flex: 1,
-                width: "100%",
-                position: "relative",
-                overflow: "hidden",
                 mask: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
-                WebkitMask: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
+                WebkitMask:
+                  "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
               }}
             >
               {/* Scrolling Quotes */}
               <div
+                className="flex flex-col gap-4"
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "15px",
                   animation: isCardFlipped
                     ? "initialQuotesFadeIn 2s ease-out 0.5s both, infiniteScroll 20s linear 3s infinite"
                     : "none",
-                  transform: isCardFlipped ? "translateY(0)" : "translateY(100%)",
+                  transform: isCardFlipped
+                    ? "translateY(0)"
+                    : "translateY(100%)",
                 }}
               >
                 {/* First set of quotes */}
                 {quotes.map((quote, index) => (
                   <div
                     key={`first-${index}`}
-                    style={{
-                      color: "rgba(255, 255, 255, 0.9)",
-                      fontSize: "0.9rem",
-                      textAlign: "center",
-                      fontStyle: "italic",
-                      padding: "12px 16px",
-                      background: "rgba(255, 255, 255, 0.05)",
-                      borderRadius: "12px",
-                      border: "1px solid rgba(255, 255, 255, 0.1)",
-                      minHeight: "60px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                    }}
+                    className="text-white/90 text-sm text-center italic px-4 py-3 bg-white/5 rounded-xl border border-white/10 min-h-15 flex items-center justify-center flex-shrink-0"
                   >
                     "{quote}"
                   </div>
@@ -742,21 +501,7 @@ const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y
                 {quotes.map((quote, index) => (
                   <div
                     key={`second-${index}`}
-                    style={{
-                      color: "rgba(255, 255, 255, 0.9)",
-                      fontSize: "0.9rem",
-                      textAlign: "center",
-                      fontStyle: "italic",
-                      padding: "12px 16px",
-                      background: "rgba(255, 255, 255, 0.05)",
-                      borderRadius: "12px",
-                      border: "1px solid rgba(255, 255, 255, 0.1)",
-                      minHeight: "60px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                    }}
+                    className="text-white/90 text-[0.9rem] text-center italic px-4 py-3 bg-white/5 rounded-xl border border-white/10 min-h-15 flex items-center justify-center flex-shrink-0"
                   >
                     "{quote}"
                   </div>
@@ -766,13 +511,11 @@ const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y
 
             {/* Back button hint */}
             <p
+              className="text-white/60 text-[0.8rem] text-center mt-4 z-2"
               style={{
-                color: "rgba(255, 255, 255, 0.6)",
-                fontSize: "0.8rem",
-                textAlign: "center",
-                marginTop: "15px",
-                animation: isCardFlipped ? "fadeIn 1s ease-out 2s both" : "none",
-                zIndex: 2,
+                animation: isCardFlipped
+                  ? "fadeIn 1s ease-out 2s both"
+                  : "none",
               }}
             >
               Click again to flip back
@@ -780,22 +523,11 @@ const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y
 
             {/* Flip indicator */}
             <div
+              className="absolute top-2.5 right-2.5 w-5 h-5 bg-white/20 rounded-full flex items-center justify-center text-xs text-white/60 pointer-events-none z-2"
               style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                width: "20px",
-                height: "20px",
-                background: "rgba(255, 255, 255, 0.2)",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "12px",
-                color: "rgba(255, 255, 255, 0.6)",
-                pointerEvents: "none",
-                animation: isCardFlipped ? "spin 2s ease-in-out infinite" : "none",
-                zIndex: 2,
+                animation: isCardFlipped
+                  ? "spin 2s ease-in-out infinite"
+                  : "none",
               }}
             >
               ↻
@@ -1004,7 +736,7 @@ const [cardPosition, setCardPosition] = useState({ x: window.innerWidth - 450, y
         }
       `}</style>
     </div>
-  )
-}
+  );
+};
 
-export default HeroSectionWithArrow
+export default HeroSectionWithArrow;
