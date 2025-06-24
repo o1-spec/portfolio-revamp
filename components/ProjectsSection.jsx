@@ -12,16 +12,16 @@ export default function ProjectsSection() {
     {
       title: "Ernext Gadgets",
       description:
-        "A comprehensive e-commerce platform for electronics and gadgets. Features include real-time inventory management, secure payment processing, and responsive design. Built with modern web technologies for optimal performance and user experience.",
+        "A robust and fully responsive e-commerce platform built for a tech gadget hub. Users can browse products, place orders, and complete secure payments with ease. The platform features real-time inventory updates, sleek animations, and an intuitive admin dashboard. Built with Next.js and AppWrite for high performance, scalability, and a seamless shopping experience across devices.",
       image: "/images/image-1.png",
       tech: ["Next.js", "Cloudinary", "AppWrite", "Framer Motion", "Redux"],
       github: "https://github.com/",
-      external:"https://www.ernextgadgets.ng/",
+      external: "https://www.ernextgadgets.ng/",
     },
     {
       title: "Chatter",
       description:
-        "A modern blogging platform that enables writers to create, share, and discover engaging content. Features include rich text editing, social interactions, real-time notifications, and a clean, distraction-free reading experience.",
+        "A modern and interactive blogging platform designed for writers and readers alike. Chatter offers rich text editing, social features like likes and comments, and real-time notifications to enhance engagement. Built with React and Firebase, it provides a distraction-free reading experience with smooth transitions powered by Framer Motion. Ideal for sharing thoughtful content and building community.",
       image: "/images/image-2.png",
       tech: ["React", "Firebase", "Context API", "Framer Motion", "TypeScript"],
       github: "https://github.com/o1-spec/Chatter",
@@ -30,9 +30,9 @@ export default function ProjectsSection() {
     {
       title: "Citadela",
       description:
-        "A sleek and responsive business website showcasing modern web development practices. Features smooth animations, optimized performance, and cross-browser compatibility. Built with vanilla technologies for maximum efficiency and fast loading times.",
+        "An elegant and responsive e-commerce website built for a fictional restaurant. As one of my first projects, it showcases my early work with HTML, CSS, and JavaScript — featuring smooth animations, clean UI, and a fully functional layout designed to highlight dishes and enable orders. The interface remains one of my favorite builds for its simplicity and visual appeal.",
       image: "/images/image-3.png",
-      tech: ["HTML5", "CSS3", "JavaScript", "GSAP"],
+      tech: ["HTML5", "CSS3", "JavaScript"],
       github: "https://github.com/",
       external: "https://citadela.netlify.app/",
     },
