@@ -13,7 +13,7 @@ export default function ProjectsSection() {
       title: "Ernext Gadgets",
       description:
         "A robust and fully responsive e-commerce platform built for a tech gadget hub. Users can browse products, place orders, and complete secure payments with ease. The platform features real-time inventory updates, sleek animations, and an intuitive admin dashboard. Built with Next.js and AppWrite for high performance, scalability, and a seamless shopping experience across devices.",
-      image: "/images/image-1.png",
+      image: "/images/project-1.png",
       tech: ["Next.js", "Cloudinary", "AppWrite", "Framer Motion", "Redux"],
       github: "https://github.com/",
       external: "https://www.ernextgadgets.ng/",
@@ -22,7 +22,7 @@ export default function ProjectsSection() {
       title: "Chatter",
       description:
         "A modern and interactive blogging platform designed for writers and readers alike. Chatter offers rich text editing, social features like likes and comments, and real-time notifications to enhance engagement. Built with React and Firebase, it provides a distraction-free reading experience with smooth transitions powered by Framer Motion. Ideal for sharing thoughtful content and building community.",
-      image: "/images/image-2.png",
+      image: "/images/project-2.png",
       tech: ["React", "Firebase", "Context API", "Framer Motion", "TypeScript"],
       github: "https://github.com/o1-spec/Chatter",
       external: "https://chatter-jade.vercel.app/blog/feed",
@@ -31,7 +31,7 @@ export default function ProjectsSection() {
       title: "Citadela",
       description:
         "An elegant and responsive e-commerce website built for a fictional restaurant. As one of my first projects, it showcases my early work with HTML, CSS, and JavaScript — featuring smooth animations, clean UI, and a fully functional layout designed to highlight dishes and enable orders. The interface remains one of my favorite builds for its simplicity and visual appeal.",
-      image: "/images/image-3.png",
+      image: "/images/project-3.png",
       tech: ["HTML5", "CSS3", "JavaScript"],
       github: "https://github.com/",
       external: "https://citadela.netlify.app/",
@@ -40,7 +40,7 @@ export default function ProjectsSection() {
       title: "PopCorn Movies",
       description:
         "A movie discovery application that helps users find and explore films. Features include advanced search functionality, detailed movie information, user ratings, and personalized recommendations. Built with React and Redux for efficient state management.",
-      image: "/images/image-4.png",
+      image: "/images/project-4.png",
       tech: ["React", "Redux", "TMDB API", "Styled Components"],
       github: "https://github.com/o1-spec/Popcorn-movies",
       external: "https://popcorn-movies-black.vercel.app/",

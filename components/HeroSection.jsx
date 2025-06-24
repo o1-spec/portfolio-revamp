@@ -253,17 +253,19 @@ const HeroSectionWithArrow = () => {
         </div>
 
         {/* Tooltip for hovered icon */}
+        {/* Tooltip for hovered icon */}
         {hoveredIcon !== null && (
           <div
-            className="absolute left-[80px] bg-black/90 text-white px-[12px] py-[8px] rounded-[8px] text-[12px] font-medium whitespace-nowrap z-20 animate-fadeIn"
+            className="absolute bg-black/90 text-white px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap z-20 animate-fadeIn"
             style={{
-              top: `${hoveredIcon * 70 + 40}px`,
+              left: "calc(100% + 15px)", 
+              top: `${46 * hoveredIcon + 30}px`,
               border: `1px solid ${socialLinks[hoveredIcon].color}`,
             }}
           >
             {socialLinks[hoveredIcon].label}
             <div
-              className="absolute -left-[6px] top-1/2 transform -translate-y-1/2 w-0 h-0"
+              className="absolute top-1/2 -left-[6px] -translate-y-1/2 w-0 h-0"
               style={{
                 borderTop: "6px solid transparent",
                 borderBottom: "6px solid transparent",
@@ -276,11 +278,11 @@ const HeroSectionWithArrow = () => {
 
       {/* Standalone Download CV Button - Bottom Left */}
       <div
-        className="fixed bottom-[40px] left-[8%] transform -translate-x-1/2 z-15"
-        style={{ animation: "slideInUp 1s ease-out 6.2s both" }}
+        className="fixed bottom-[40px] left-[8%] transform -translate-x-1/2"
+        style={{ animation: "slideInUp 1s ease-out 6.2s both", zIndex: 192828282 }}
       >
         <button
-          className="flex items-center gap-[6px] px-[15px] py-[10px] bg-gradient-to-br from-white/20 to-white/10 border-2 border-white/30 rounded-[30px] text-white text-base font-semibold cursor-pointer transition-all duration-300 shadow-xl backdrop-blur-[10px]"
+          className="flex items-center gap-[6px] px-[15px] py-[10px] bg-gradient-to-br from-white/20 to-white/10 border-2 border-white/30 rounded-[30px] text-white text-base font-semibold cursor-pointer transition-all duration-300 shadow-xl backdrop-blur-[10px] "
           onMouseEnter={(e) => {
             e.target.style.transform = "scale(1.05) translateY(-5px)";
             e.target.style.background =
@@ -448,7 +450,7 @@ const HeroSectionWithArrow = () => {
             style={{
               backfaceVisibility: "hidden",
               transform: "rotateY(180deg)",
-               background:"linear-gradient(135deg, #1a1a1a, #2d2d2d)"
+              background: "linear-gradient(135deg, #1a1a1a, #2d2d2d)",
             }}
           >
             {/* Quotes Header */}
