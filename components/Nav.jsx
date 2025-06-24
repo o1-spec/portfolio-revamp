@@ -41,7 +41,7 @@ export default function Nav() {
       {/* Thread with subtle swing */}
       <div
         className={`w-0.5 bg-gradient-to-b from-gray-600 to-gray-800 mx-auto transition-all duration-1500 ease-out ${
-          isVisible ? "h-16" : "h-0"
+          isVisible ? "h-10" : "h-0"
         }`}
         style={{
           animation: isVisible ? "threadSwing 4s ease-in-out infinite" : "none",
@@ -50,7 +50,7 @@ export default function Nav() {
       />
 
       <div
-        className={`bg-white/95 backdrop-blur-sm rounded-lg shadow-2xl px-8 py-4 border border-gray-200 relative transition-all duration-1000 ease-out w-[780px] ${
+        className={`bg-white/95 backdrop-blur-sm rounded-lg shadow-2xl px-6 py-3 border border-gray-200 relative transition-all duration-1000 ease-out w-[700px] ${
           isVisible
             ? "translate-y-0 opacity-100 rotate-0"
             : "-translate-y-8 opacity-0 rotate-3"
@@ -65,7 +65,7 @@ export default function Nav() {
         <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full" />
 
         <div className="flex items-center justify-between space-x-10">
-          <div className="text-2xl font-bold text-gray-900 font-mono tracking-wider">
+          <div className="text-xl font-bold text-gray-900 font-mono tracking-wider">
             o1-spec
           </div>
 
@@ -75,7 +75,7 @@ export default function Nav() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleScrollToSection(e, link.href)}
-                className="relative text-gray-700 font-medium transition-all duration-300 ease-out group overflow-hidden"
+                className="relative text-gray-700 font-medium transition-all text-[15px] duration-300 ease-out group overflow-hidden"
                 onMouseEnter={() => setHoveredLink(index)}
                 onMouseLeave={() => setHoveredLink(null)}
               >

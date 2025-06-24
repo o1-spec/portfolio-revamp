@@ -98,12 +98,12 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
             : "lg:right-0 lg:items-end text-left lg:text-right"
         } ${isHovered ? "transform lg:translate-y-[-4px]" : ""}`}
       >
-        <p className="text-white/60 font-mono text-sm sm:text-base mb-2 tracking-wide transition-colors duration-300 group-hover:text-white/80">
+        <p className="text-white/60 font-mono text-sm sm:text-[14px] mb-2 tracking-wide transition-colors duration-300 group-hover:text-white/80">
           Featured Project
         </p>
 
         <h3
-          className={`text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-200 mb-4 transition-all duration-300 ${
+          className={`text-2xl sm:text-3xl lg:text-3xl font-bold text-slate-200 mb-4 transition-all duration-300 ${
             isHovered ? "text-white transform scale-105" : "hover:text-white"
           }`}
         >
@@ -112,7 +112,7 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
               href={project.external}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-purple-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded"
+              className="group-hover:text-purple-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded"
               onKeyDown={(e) => handleKeyDown(e, project.external)}
             >
               {project.title}
@@ -131,7 +131,7 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
           }`}
         >
           <p
-            className={`text-gray-300 leading-relaxed text-base sm:text-lg ${
+            className={`text-gray-300 leading-relaxed text-base sm:text-[15px] ${
               reverse ? "text-left" : "text-left lg:text-right"
             }`}
           >
@@ -148,7 +148,7 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
           {project.tech.map((tech, index) => (
             <motion.span
               key={index}
-              className="px-3 py-1 text-[17px] text-gray-300 text-sm rounded-full border border-gray-700 hover:border-purple-500/50 transition-colors"
+              className="px-2 py-1 text-[14px] text-gray-300 text-sm rounded-full border border-gray-700 hover:border-purple-500/50 transition-colors"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.05, duration: 0.3 }}
@@ -174,7 +174,7 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
               aria-label={`View ${project.title} source code on GitHub`}
               onKeyDown={(e) => handleKeyDown(e, project.github)}
             >
-              <Github size={24} />
+              <Github size={20} />
             </a>
           )}
           {project.external && (
@@ -186,7 +186,7 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
               aria-label={`Visit ${project.title} live site`}
               onKeyDown={(e) => handleKeyDown(e, project.external)}
             >
-              <ExternalLink size={24} />
+              <ExternalLink size={20} />
             </a>
           )}
         </div>

@@ -124,7 +124,7 @@ export default function PortfolioLoader({
             <div
               className="relative text-white font-bold z-10"
               style={{
-                fontSize: "2.5rem",
+                fontSize: "2rem",
                 fontWeight: "600",
                 letterSpacing: "0.15em",
                 fontFamily:

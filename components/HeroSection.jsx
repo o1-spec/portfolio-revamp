@@ -23,7 +23,7 @@ const HeroSectionWithArrow = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [cardPosition, setCardPosition] = useState({
-    x: window.innerWidth - 450,
+    x: window.innerWidth - 350,
     y: 20,
   });
 
@@ -139,7 +139,7 @@ const HeroSectionWithArrow = () => {
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10">
         {/* First Name - Smaller */}
         <h1
-          className="text-[5rem] font-light text-white/80 mb-2 animate-typewriter1 border-r-4 border-white whitespace-nowrap overflow-hidden w-fit mx-auto tracking-[4px]"
+          className="text-[4rem] font-light text-white/80 mb-2 animate-typewriter1 border-r-4 border-white whitespace-nowrap overflow-hidden w-fit mx-auto tracking-[4px]"
           style={{
             textShadow: "2px 2px 4px rgba(0,0,0,0.8)",
             animation: "typewriter1 2s steps(20) 0.5s both",
@@ -150,7 +150,7 @@ const HeroSectionWithArrow = () => {
 
         {/* Last Name - Bigger */}
         <h1
-          className="text-[7.5rem] font-black text-white mb-8 animate-typewriter2 border-r-4 border-white whitespace-nowrap overflow-hidden w-fit mx-auto tracking-[5px]"
+          className="text-[5.8rem] font-black text-white mb-8 animate-typewriter2 border-r-4 border-white whitespace-nowrap overflow-hidden w-fit mx-auto tracking-[5px]"
           style={{
             textShadow: "3px 3px 6px rgba(0,0,0,0.8)",
             animation: "typewriter2 2.5s steps(25) 2.5s both",
@@ -161,7 +161,7 @@ const HeroSectionWithArrow = () => {
 
         {/* Enhanced Subtitle */}
         <p
-          className="text-[2.2rem] text-white/90 mb-4 font-normal tracking-[1px] animate-fadeInUp"
+          className="text-[1.7rem] text-white/90 mb-4 font-normal tracking-[1px] animate-fadeInUp"
           style={{ animation: "fadeInUp 2s ease-out 4s both" }}
         >
           Creative Technologist & Code Artist
@@ -169,7 +169,7 @@ const HeroSectionWithArrow = () => {
 
         {/* Secondary subtitle */}
         <p
-          className="text-[1.3rem] text-white/70 mb-8 italic animate-fadeInUp"
+          className="text-[0.9rem] text-white/70 mb-8 italic animate-fadeInUp"
           style={{ animation: "fadeInUp 2s ease-out 4.5s both" }}
         >
           Building Tomorrow's Web, One Line at a Time
@@ -177,7 +177,7 @@ const HeroSectionWithArrow = () => {
 
         {/* Animated underline */}
         <div
-          className="w-[350px] h-[3px] mx-auto animate-pulse"
+          className="w-[300px] h-[3px] mx-auto animate-pulse"
           style={{
             background:
               "linear-gradient(90deg, transparent, white, transparent)",
@@ -187,7 +187,7 @@ const HeroSectionWithArrow = () => {
         />
         {/* Floating symbols */}
         <div
-          className="absolute -top-[100px] -left-[180px] text-[3.5rem]text-white/25 animate-float"
+          className="absolute -top-[60px] -left-[180px] text-[2.5rem] text-white/25 animate-float"
           style={{ animation: "float 3s ease-in-out infinite" }}
         >
           {"</>"}
@@ -199,7 +199,7 @@ const HeroSectionWithArrow = () => {
           {"{}"}
         </div>
         <div
-          className="absolute -bottom-[120px] -left-[120px] text-[3rem] text-white/25"
+          className="absolute -bottom-[120px] -left-[120px] text-[2.5rem] text-white/25"
           style={{ animation: "float 3.5s ease-in-out infinite" }}
         >
           {"()"}
@@ -208,10 +208,10 @@ const HeroSectionWithArrow = () => {
 
       {/* Vertical Social Links - Left Side */}
       <div
-        className="fixed left-[40px] top-1/2 transform -translate-y-1/2 z-15"
+        className="fixed left-[32px] top-1/2 transform -translate-y-1/2 z-15"
         style={{ animation: "slideInLeft 1s ease-out 5.5s both" }}
       >
-        <div className="flex flex-col items-center gap-5 py-6 px-4 bg-black/40 backdrop-blur-[20px] border border-white/20 rounded-[60px] shadow-2xl">
+        <div className="flex flex-col items-center gap-3 py-6 px-3 bg-black/40 backdrop-blur-[20px] border border-white/20 rounded-[60px] shadow-2xl">
           {/* Social Icons */}
           {socialLinks.map((social, index) => {
             const IconComponent = social.icon;
@@ -221,7 +221,7 @@ const HeroSectionWithArrow = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center justify-center w-[50px] h-[50px] rounded-[50%] cursor-pointer transition-all duration-300 ${
+                className={`flex items-center justify-center w-[40px] h-[40px] rounded-[50%] cursor-pointer transition-all duration-300 ${
                   hoveredIcon === index
                     ? "scale-110 translate-x-[5px"
                     : "scale-100"
@@ -246,7 +246,7 @@ const HeroSectionWithArrow = () => {
                 onMouseEnter={() => setHoveredIcon(index)}
                 onMouseLeave={() => setHoveredIcon(null)}
               >
-                <IconComponent size={20} />
+                <IconComponent size={18} />
               </a>
             );
           })}
@@ -276,11 +276,11 @@ const HeroSectionWithArrow = () => {
 
       {/* Standalone Download CV Button - Bottom Left */}
       <div
-        className="fixed bottom-[40px] left-[6%] transform -translate-x-1/2 z-15"
+        className="fixed bottom-[40px] left-[8%] transform -translate-x-1/2 z-15"
         style={{ animation: "slideInUp 1s ease-out 6.2s both" }}
       >
         <button
-          className="flex items-center gap-[10px] px-[24px] py-[14px] bg-gradient-to-br from-white/20 to-white/10 border-2 border-white/30 rounded-[30px] text-white text-base font-semibold cursor-pointer transition-all duration-300 shadow-xl backdrop-blur-[10px]"
+          className="flex items-center gap-[6px] px-[15px] py-[10px] bg-gradient-to-br from-white/20 to-white/10 border-2 border-white/30 rounded-[30px] text-white text-base font-semibold cursor-pointer transition-all duration-300 shadow-xl backdrop-blur-[10px]"
           onMouseEnter={(e) => {
             e.target.style.transform = "scale(1.05) translateY(-5px)";
             e.target.style.background =
@@ -312,7 +312,7 @@ const HeroSectionWithArrow = () => {
       >
         <button
           onClick={handleScrollDown}
-          className={`flex items-center justify-center w-[60px] h-[60px] rounded-full text-white cursor-pointer transition-all duration-300 animate-bounce`}
+          className={`flex items-center justify-center w-[45px] h-[45px] rounded-full text-white cursor-pointer transition-all duration-300 animate-bounce`}
           style={{
             background: isArrowHovered
               ? "linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15))"
@@ -327,14 +327,14 @@ const HeroSectionWithArrow = () => {
           onMouseLeave={() => setIsArrowHovered(false)}
         >
           <ChevronDown
-            size={28}
+            size={20}
             style={{ animation: "arrowPulse 2s ease-in-out infinite" }}
           />
         </button>
 
         {/* Scroll hint text */}
         <div
-          className={`absolute -top-10 left-1/2 transform -translate-x-1/2 text-white/70 text-xs uppercase font-medium whitespace-nowrap transition-opacity duration-300 ${
+          className={`absolute -top-[60%] -left-[60%] transform -translate-x-1/2 text-white/70 text-xs uppercase font-medium whitespace-nowrap transition-opacity duration-300 ${
             isArrowHovered ? "opacity-100" : "opacity-60"
           }`}
           style={{ animation: "fadeInUp 1s ease-out 7.5s both" }}
@@ -363,7 +363,7 @@ const HeroSectionWithArrow = () => {
             setIsCardFlipped(!isCardFlipped);
           }
         }}
-        className={`absolute w-[300px] h-[380px] select-none ${
+        className={`absolute w-[250px] h-[320px] select-none ${
           isDragging ? "z-30" : "z-20"
         }`}
         style={{
@@ -415,20 +415,20 @@ const HeroSectionWithArrow = () => {
               <Image
                 src="/images/luffy-2.jpg"
                 alt="Luffy"
-                width={250}
+                width={200}
                 height={200}
                 className="object-cover grayscale hover:grayscale-0 transition-all duration-300 ease-in-out rounded-[10px] max-h-full"
               />
             </div>
 
             <p
-              className={`text-white text-center text-[1.4rem] pointer-events-none transition-opacity duration-300 ${
+              className={`text-white text-center text-[1.1rem] pointer-events-none transition-opacity duration-300 ${
                 isHovering || isDragging ? "opacity-100" : "opacity-70"
               }`}
             >
               Meet my coding buddy! <br />
             </p>
-            <p className="text-[15px] text-center pt-6 text-white/80">
+            <p className="text-[13px] text-center pt-6 text-white/80">
               {isDragging ? "Dragging..." : "Click to flip & see quotes!"}
             </p>
 
@@ -460,7 +460,7 @@ const HeroSectionWithArrow = () => {
                   : "none",
               }}
             >
-              <h3 className="text-white text-[1.5rem] font-semibold mb-1">
+              <h3 className="text-white text-[1.1rem] font-semibold mb-1">
                 Daily Inspiration
               </h3>
               <div className="w-15 h-0.5 mx-auto bg-gradient-to-r from-transparent via-white to-transparent" />
@@ -501,7 +501,7 @@ const HeroSectionWithArrow = () => {
                 {quotes.map((quote, index) => (
                   <div
                     key={`second-${index}`}
-                    className="text-white/90 text-[0.9rem] text-center italic px-4 py-3 bg-white/5 rounded-xl border border-white/10 min-h-15 flex items-center justify-center flex-shrink-0"
+                    className="text-white/90 text-[0.7rem] text-center italic px-4 py-3 bg-white/5 rounded-xl border border-white/10 min-h-15 flex items-center justify-center flex-shrink-0"
                   >
                     "{quote}"
                   </div>

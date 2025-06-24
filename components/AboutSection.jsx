@@ -62,7 +62,7 @@ export default function AboutSection() {
       ref={sectionRef}
       className="min-h-screen text-white flex items-center justify-center p-4 relative overflow-hidden"
     >
-      <div className="container w-full relative z-10">
+      <div className="max-w-7xl w-full relative z-10">
         <div className="flex gap-7 items-center">
           <div className="flex flex-col gap-4 basis-[50%]">
             {/* Header with staggered animation */}
@@ -75,15 +75,15 @@ export default function AboutSection() {
               <Image
                 src="/images/shaka-2.jpg"
                 alt="Onadokun Oluwafemi"
-                width={40}
-                height={40}
+                width={32}
+                height={32}
                 className={`transition-all duration-1200 ease-out ${
                   isVisible ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-0 rotate-180"
                 }`}
                 style={{ transitionDelay: "0.8s" }}
               />
               <span
-                className={`font-semibold text-[34px] transition-all duration-1600 ease-out ${
+                className={`font-semibold text-[26px] transition-all duration-1600 ease-out ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}
                 style={{ transitionDelay: "1.0s" }}
@@ -94,7 +94,7 @@ export default function AboutSection() {
 
             {/* First paragraph with typewriter effect */}
             <p
-              className={`text-[22px] pb-2 transition-all duration-2000 ease-out ${
+              className={`text-[17px] pb-2 transition-all duration-2000 ease-out ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
               }`}
               style={{ transitionDelay: "1.4s" }}
@@ -105,7 +105,7 @@ export default function AboutSection() {
 
             {/* Second paragraph */}
             <p
-              className={`text-[22px] transition-all duration-2000 ease-out ${
+              className={`text-[17px] transition-all duration-2000 ease-out ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
               }`}
               style={{ transitionDelay: "2.0s" }}
@@ -122,7 +122,7 @@ export default function AboutSection() {
               {passions.map((passion, index) => (
                 <div
                   key={index}
-                  className={`bg-white/5 backdrop-blur-sm w-[250px] rounded-xl p-4 py-6 border border-white/10 hover:bg-white/10 transition-all duration-1200 ease-out group hover:scale-105 hover:-translate-y-2 hover:shadow-2xl ${
+                  className={`bg-white/5 backdrop-blur-sm w-[200px] rounded-xl p-4 py-4 border border-white/10 hover:bg-white/10 transition-all duration-1200 ease-out group hover:scale-105 hover:-translate-y-2 hover:shadow-2xl ${
                     isVisible ? "opacity-100 translate-y-0 rotate-0" : "opacity-0 translate-y-32 rotate-12"
                   }`}
                   style={{
@@ -190,13 +190,13 @@ export default function AboutSection() {
 
             {/* Tech Arsenal with enhanced animations */}
             <div
-              className={`bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 transition-all duration-1800 ease-out ${
+              className={`bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10 transition-all duration-1800 ease-out ${
                 isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-20"
               }`}
               style={{ transitionDelay: "2.4s" }}
             >
               <h3
-                className={`text-2xl font-bold mb-4 text-white transition-all duration-1400 ease-out ${
+                className={`text-xl font-bold mb-3 text-white transition-all duration-1400 ease-out ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"
                 }`}
                 style={{ transitionDelay: "2.8s" }}
@@ -207,7 +207,7 @@ export default function AboutSection() {
                 {techStacks.map((tech, index) => (
                   <span
                     key={index}
-                    className={`px-4 py-2 rounded-full text-[17px] border cursor-pointer transition-all duration-500 ease-out hover:scale-110 hover:-translate-y-1 hover:shadow-lg hover:bg-white/20 hover:border-purple-400 hover:text-purple-300 ${
+                    className={`px-2 py-2 rounded-full text-[14px] border cursor-pointer transition-all duration-500 ease-out hover:scale-110 hover:-translate-y-1 hover:shadow-lg hover:bg-white/20 hover:border-purple-400 hover:text-purple-300 ${
                       isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                     } ${
                       hoveredTech === index

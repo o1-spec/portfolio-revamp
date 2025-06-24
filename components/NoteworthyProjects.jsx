@@ -28,29 +28,6 @@ const projects = [
     github: "https://github.com/o1-spec/Cargo-pulse-logistic-dashboard",
     external: "https://cargo-pulse-logistic-dashboard.vercel.app/",
   },
-  // {
-  //   title: "OctoProfile",
-  //   description:
-  //     "A nicer look at your GitHub profile and repo stats. Includes data visualizations of your top languages, starred repositories, and top repos.",
-  //   tech: ["Next.js", "Chart.js", "GitHub API"],
-  //   github: "https://github.com/",
-  //   external: "https://example.com",
-  // },
-  // {
-  //   title: "Google Keep Clone",
-  //   description: "A simple Google Keep clone built with Vue and Firebase.",
-  //   tech: ["Vue", "Firebase", "CSS3"],
-  //   github: "https://github.com/",
-  //   external: "https://example.com",
-  // },
-  // {
-  //   title: "Apple Music Embeddable Web Player Widget",
-  //   description:
-  //     "Embeddable web player widget for Apple Music that lets users log in and listen to full songs in the browser.",
-  //   tech: ["Spotify API", "Vue", "Scss"],
-  //   github: "",
-  //   external: "https://example.com",
-  // },
 ];
 
 export default function NoteworthyProjects() {
@@ -82,7 +59,7 @@ export default function NoteworthyProjects() {
       ref={sectionRef}
       className="py-40 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900"
     >
-      <div className="container mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div
           className="text-center mb-16"
@@ -92,7 +69,7 @@ export default function NoteworthyProjects() {
             transition: "all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
           }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
             Other Noteworthy Projects
           </h2>
           <button
@@ -108,7 +85,7 @@ export default function NoteworthyProjects() {
           {displayedProjects.map((project, index) => (
             <div
               key={index}
-              className="group relative bg-white/5 backdrop-blur-sm border border-slate-700/50 rounded-lg p-10 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/20"
+              className="group relative bg-white/5 backdrop-blur-sm border border-slate-700/50 rounded-lg p-6 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/20"
               style={{
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "translateY(0)" : "translateY(30px)",
@@ -120,7 +97,7 @@ export default function NoteworthyProjects() {
               <div className="flex items-start justify-between mb-6">
                 <div className="relative">
                   <Folder
-                    className="w-10 h-10 bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500 group-hover:text-teal-300 transition-colors duration-300"
+                    className="w-8 h-8 bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500 group-hover:text-teal-300 transition-colors duration-300"
                     strokeWidth={1.5}
                   />
                   {/* Subtle glow effect */}
@@ -136,7 +113,7 @@ export default function NoteworthyProjects() {
                       className="text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 hover:-translate-y-1"
                       aria-label="GitHub Repository"
                     >
-                      <Github className="w-8 h-8" strokeWidth={1.5} />
+                      <Github className="w-6 h-6" strokeWidth={1.5} />
                     </a>
                   )}
                   {project.external && (
@@ -147,19 +124,19 @@ export default function NoteworthyProjects() {
                       className="text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 hover:-translate-y-1"
                       aria-label="External Link"
                     >
-                      <ExternalLink className="w-8 h-8" strokeWidth={1.5} />
+                      <ExternalLink className="w-6 h-6" strokeWidth={1.5} />
                     </a>
                   )}
                 </div>
               </div>
 
               {/* Project Title */}
-              <h3 className="text-2xl font-semibold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-pink-500 transition-colors duration-300 leading-tight">
+              <h3 className="text-xl font-semibold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-pink-500 transition-colors duration-300 leading-tight">
                 {project.title}
               </h3>
 
               {/* Project Description */}
-              <p className="text-slate-400 text-[18px] leading-relaxed mb-6 group-hover:text-slate-300 transition-colors duration-300">
+              <p className="text-slate-400 text-[15px] leading-relaxed mb-6 group-hover:text-slate-300 transition-colors duration-300">
                 {project.description}
               </p>
 
@@ -168,7 +145,7 @@ export default function NoteworthyProjects() {
                 {project.tech.map((tech, techIndex) => (
                   <span
                     key={techIndex}
-                    className="text-slate-400 font-mono text-[16px] hover:text-pink-400 transition-colors duration-300 cursor-default"
+                    className="text-slate-400 font-mono text-[14px] hover:text-pink-400 transition-colors duration-300 cursor-default"
                     style={{
                       transitionDelay: `${techIndex * 0.05}s`,
                     }}

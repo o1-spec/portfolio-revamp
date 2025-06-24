@@ -70,10 +70,10 @@ export default function ProjectsSection() {
       className="py-16 sm:py-20 lg:pt-40 px-4 sm:px-6 lg:px-8 bg-gray-900"
       aria-labelledby="projects-heading"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Enhanced Header */}
         <header
-          className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-16 lg:mb-24 group"
+          className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-10 lg:mb-14 group"
           style={{
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(30px)",

@@ -8,7 +8,7 @@ const AnimatedGrid = () => {
 
   useEffect(() => {
     const updateGridSize = () => {
-      const cellSize = 40
+      const cellSize = 30
       const rows = Math.ceil(window.innerHeight / cellSize)
       const cols = Math.ceil(window.innerWidth / cellSize)
       setGridSize({ rows, cols })
@@ -49,10 +49,10 @@ const AnimatedGrid = () => {
             key={key}
             style={{
               position: "absolute",
-              left: col * 40,
-              top: row * 40,
-              width: 40,
-              height: 40,
+              left: col * 30,
+              top: row * 30,
+              width: 30,
+              height: 30,
               border: "1px solid rgba(255, 255, 255, 0.1)",
               backgroundColor: isAnimated ? "rgba(255, 255, 255, 0.1)" : "transparent",
               transition: "all 0.5s ease-in-out",
