@@ -17,7 +17,7 @@ function DigitColumn({ digit }) {
   const digits = Array.from({ length: 10 }, (_, i) => i.toString());
   return (
     <div
-      className="relative h-[4rem] w-[2.3rem] overflow-hidden text-white font-light"
+      className="relative h-[3.2rem] md:h-[4rem] w-[1.7rem] md:w-[2.3rem] overflow-hidden text-white font-light"
       style={{
         fontFamily:
           'ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, monospace',
@@ -30,7 +30,7 @@ function DigitColumn({ digit }) {
         {digits.map((d) => (
           <div
             key={d}
-            className="h-[4rem] flex items-center tracking-[1px] justify-center text-[4.5rem]"
+            className="h-[4rem] flex items-center tracking-[1px] justify-center text-[3.4rem] md:text-[4.5rem]"
           >
             {d}
           </div>

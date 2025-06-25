@@ -94,7 +94,7 @@ export default function PortfolioLoader({
 
   return (
     <div className="overflow-hidden fixed inset-0 bg-black z-50">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-6 transition-transform duration-700 ease-in-out overflow-hidden h-[200px] w-[300px]">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-6 transition-transform duration-700 ease-in-out overflow-hidden h-[150px] md:h-[200px] w-[220px] md:w-[300px]">
         <div
           className={`relative bg-gray-800 overflow-hidden rounded-md h-[40px] w-full transition-transform duration-700 ease-out ${
             isComplete ? "-translate-y-32" : "translate-y-0"
@@ -134,7 +134,7 @@ export default function PortfolioLoader({
               {typedText.split("").map((char, i) => (
                 <span
                   key={i}
-                  className={underlineAnimation ? `wave-char delay-${i}` : ""}
+                  className={`font-bold text-xl md:text-3xl ${underlineAnimation ? `wave-char delay-${i}` : ""}`}
                   style={{
                     display: "inline-block",
                   }}
