@@ -28,21 +28,49 @@ const HeroSectionWithArrow = () => {
   });
 
   useEffect(() => {
+    // Set initial position based on screen size
+    const updateInitialPosition = () => {
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+
+      if (windowWidth >= 1024) {
+        // Desktop: top right
+        setCardPosition({
+          x: windowWidth - 300,
+          y: 20,
+        });
+      } else if (windowWidth >= 768) {
+        // Tablet: center right
+        setCardPosition({
+          x: windowWidth - 280,
+          y: windowHeight * 0.3,
+        });
+      } else {
+        // Mobile: bottom center
+        setCardPosition({
+          x: 10,
+          y: 10,
+        });
+      }
+    };
+
+    updateInitialPosition();
+    window.addEventListener("resize", updateInitialPosition);
+
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
 
-      // Handle dragging
       if (isDragging) {
         const newX = e.clientX - dragOffset.x;
         const newY = e.clientY - dragOffset.y;
-
-        // Convert to position from edges (keep the right/top positioning style)
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
+        const cardWidth = window.innerWidth < 768 ? 220 : 250;
+        const cardHeight = window.innerWidth < 768 ? 280 : 320;
 
         setCardPosition({
-          x: Math.max(0, Math.min(windowWidth - 300, newX)), // 300 is card width
-          y: Math.max(0, Math.min(windowHeight - 380, newY)), // 380 is card height
+          x: Math.max(0, Math.min(windowWidth - cardWidth, newX)),
+          y: Math.max(0, Math.min(windowHeight - cardHeight, newY)),
         });
       }
     };
@@ -57,6 +85,7 @@ const HeroSectionWithArrow = () => {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("resize", updateInitialPosition);
     };
   }, [isDragging, dragOffset]);
 
@@ -136,10 +165,10 @@ const HeroSectionWithArrow = () => {
   return (
     <div className="relative w-screen h-screen overflow-hidden">
       {/* Main Content */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10">
+      <div className="absolute top-[41%] md:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10 px-4 md:px-0">
         {/* First Name - Smaller */}
         <h1
-          className="text-[4rem] font-light text-white/80 mb-2 animate-typewriter1 border-r-4 border-white whitespace-nowrap overflow-hidden w-fit mx-auto tracking-[4px]"
+          className="text-[30px] sm:text-3xl md:text-4xl lg:text-[3.7rem] font-light text-white/80 mb-2 md:mb-4 animate-typewriter1 border-r-4 border-white whitespace-nowrap overflow-hidden w-fit mx-auto tracking-[2px] sm:tracking-[4px] translate-y-3 sm:translate-y-0"
           style={{
             textShadow: "2px 2px 4px rgba(0,0,0,0.8)",
             animation: "typewriter1 2s steps(20) 0.5s both",
@@ -150,7 +179,7 @@ const HeroSectionWithArrow = () => {
 
         {/* Last Name - Bigger */}
         <h1
-          className="text-[5.8rem] font-black text-white mb-8 animate-typewriter2 border-r-4 border-white whitespace-nowrap overflow-hidden w-fit mx-auto tracking-[5px]"
+          className="text-[44px] sm:text-4xl md:text-5xl lg:text-[5.8rem] font-black text-white mb-4 sm:mb-8 animate-typewriter2 border-r-4 border-white whitespace-nowrap overflow-hidden w-fit mx-auto tracking-[3px] sm:tracking-[5px]"
           style={{
             textShadow: "3px 3px 6px rgba(0,0,0,0.8)",
             animation: "typewriter2 2.5s steps(25) 2.5s both",
@@ -161,7 +190,7 @@ const HeroSectionWithArrow = () => {
 
         {/* Enhanced Subtitle */}
         <p
-          className="text-[1.7rem] text-white/90 mb-4 font-normal tracking-[1px] animate-fadeInUp"
+          className="text-lg sm:text-xl md:text-2xl lg:text-[1.7rem] text-white/90 mb-2 sm:mb-4 font-normal tracking-[1px] animate-fadeInUp"
           style={{ animation: "fadeInUp 2s ease-out 4s both" }}
         >
           Creative Technologist & Code Artist
@@ -169,7 +198,7 @@ const HeroSectionWithArrow = () => {
 
         {/* Secondary subtitle */}
         <p
-          className="text-[0.9rem] text-white/70 mb-8 italic animate-fadeInUp"
+          className="text-sm sm:text-base lg:text-[0.9rem] text-white/70 mb-4 sm:mb-8 italic animate-fadeInUp"
           style={{ animation: "fadeInUp 2s ease-out 4.5s both" }}
         >
           Building Tomorrow's Web, One Line at a Time
@@ -177,7 +206,7 @@ const HeroSectionWithArrow = () => {
 
         {/* Animated underline */}
         <div
-          className="w-[300px] h-[3px] mx-auto animate-pulse"
+          className="w-[200px] sm:w-[300px] h-[2px] sm:h-[3px] mx-auto animate-pulse"
           style={{
             background:
               "linear-gradient(90deg, transparent, white, transparent)",
@@ -185,9 +214,10 @@ const HeroSectionWithArrow = () => {
               "pulse 2s ease-in-out infinite, fadeIn 1s ease-out 5s both",
           }}
         />
+
         {/* Floating symbols */}
         <div
-          className="absolute -top-[60px] -left-[180px] text-[2.5rem] text-white/25 animate-float"
+          className="absolute top-[20px] md:-top-[60px] -left-[180px] text-[2.5rem] text-white/25 animate-float"
           style={{ animation: "float 3s ease-in-out infinite" }}
         >
           {"</>"}
@@ -208,11 +238,10 @@ const HeroSectionWithArrow = () => {
 
       {/* Vertical Social Links - Left Side */}
       <div
-        className="fixed left-[32px] top-1/2 transform -translate-y-1/2 z-15"
+        className="fixed left-4 sm:left-[32px] top-[72%] md:top-1/2 transform -translate-y-1/2 z-15"
         style={{ animation: "slideInLeft 1s ease-out 5.5s both" }}
       >
-        <div className="flex flex-col items-center gap-3 py-6 px-3 bg-black/40 backdrop-blur-[20px] border border-white/20 rounded-[60px] shadow-2xl">
-          {/* Social Icons */}
+        <div className="flex flex-col items-center gap-3 sm:gap-3 py-4 sm:py-6 px-2 sm:px-3 bg-black/40 backdrop-blur-[20px] border border-white/20 rounded-[40px] sm:rounded-[60px] shadow-2xl">
           {socialLinks.map((social, index) => {
             const IconComponent = social.icon;
             return (
@@ -221,9 +250,9 @@ const HeroSectionWithArrow = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center justify-center w-[40px] h-[40px] rounded-[50%] cursor-pointer transition-all duration-300 ${
+                className={`flex items-center justify-center w-8 h-8 sm:w-[40px] sm:h-[40px] rounded-[50%] cursor-pointer transition-all duration-300 ${
                   hoveredIcon === index
-                    ? "scale-110 translate-x-[5px"
+                    ? "scale-110 translate-x-[3px] sm:translate-x-[5px]"
                     : "scale-100"
                 }`}
                 style={{
@@ -253,12 +282,11 @@ const HeroSectionWithArrow = () => {
         </div>
 
         {/* Tooltip for hovered icon */}
-        {/* Tooltip for hovered icon */}
         {hoveredIcon !== null && (
           <div
             className="absolute bg-black/90 text-white px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap z-20 animate-fadeIn"
             style={{
-              left: "calc(100% + 15px)", 
+              left: "calc(100% + 15px)",
               top: `${46 * hoveredIcon + 30}px`,
               border: `1px solid ${socialLinks[hoveredIcon].color}`,
             }}
@@ -278,11 +306,14 @@ const HeroSectionWithArrow = () => {
 
       {/* Standalone Download CV Button - Bottom Left */}
       <div
-        className="fixed bottom-[40px] left-[8%] transform -translate-x-1/2"
-        style={{ animation: "slideInUp 1s ease-out 6.2s both", zIndex: 192828282 }}
+        className="fixed bottom-5 sm:bottom-[40px] left-12 sm:left-[8%] transform sm:-translate-x-1/2"
+        style={{
+          animation: "slideInUp 1s ease-out 6.2s both",
+          zIndex: 192828282,
+        }}
       >
         <button
-          className="flex items-center gap-[6px] px-[15px] py-[10px] bg-gradient-to-br from-white/20 to-white/10 border-2 border-white/30 rounded-[30px] text-white text-base font-semibold cursor-pointer transition-all duration-300 shadow-xl backdrop-blur-[10px] "
+          className="flex items-center gap-2 px-3 py-2 sm:px-[15px] sm:py-[10px] bg-gradient-to-br from-white/20 to-white/10 border-2 border-white/30 rounded-[20px] sm:rounded-[30px] text-white text-sm sm:text-base font-semibold cursor-pointer transition-all duration-300 shadow-xl backdrop-blur-[10px]"
           onMouseEnter={(e) => {
             e.target.style.transform = "scale(1.05) translateY(-5px)";
             e.target.style.background =
@@ -303,18 +334,19 @@ const HeroSectionWithArrow = () => {
           }}
         >
           <Download size={18} />
-          Download CV
+          <span className="hidden sm:inline">Download CV</span>
+          <span className="sm:hidden">CV</span>
         </button>
       </div>
 
       {/* Animated Bouncing Arrow - Bottom Center */}
       <div
-        className="absolute bottom-[30px] left-1/2 transform -translate-x-1/2 z-15"
+        className="absolute bottom-[20%] sm:bottom-[30px] left-1/2 transform -translate-x-1/2 z-15"
         style={{ animation: "fadeInBounce 1.5s ease-out 7s both" }}
       >
         <button
           onClick={handleScrollDown}
-          className={`flex items-center justify-center w-[45px] h-[45px] rounded-full text-white cursor-pointer transition-all duration-300 animate-bounce`}
+          className="flex items-center justify-center w-10 h-10 sm:w-[45px] sm:h-[45px] rounded-full text-white cursor-pointer transition-all duration-300 animate-bounce"
           style={{
             background: isArrowHovered
               ? "linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15))"
@@ -336,7 +368,7 @@ const HeroSectionWithArrow = () => {
 
         {/* Scroll hint text */}
         <div
-          className={`absolute -top-[60%] -left-[60%] transform -translate-x-1/2 text-white/70 text-xs uppercase font-medium whitespace-nowrap transition-opacity duration-300 ${
+          className={`absolute -top-[75%] -left-[60%] transform -translate-x-1/2 text-white/70 text-xs uppercase font-medium whitespace-nowrap transition-opacity duration-300 ${
             isArrowHovered ? "opacity-100" : "opacity-60"
           }`}
           style={{ animation: "fadeInUp 1s ease-out 7.5s both" }}
@@ -365,21 +397,21 @@ const HeroSectionWithArrow = () => {
             setIsCardFlipped(!isCardFlipped);
           }
         }}
-        className={`absolute w-[250px] h-[320px] select-none ${
-          isDragging ? "z-30" : "z-20"
-        }`}
+        className={`absolute select-none ${isDragging ? "z-30" : "z-20"}`}
         style={{
           left: `${cardPosition.x}px`,
           top: `${cardPosition.y}px`,
           perspective: "1000px",
           userSelect: "none",
+          width: window.innerWidth < 768 ? "150px" : "250px",
+          height: window.innerWidth < 768 ? "190px" : "320px",
         }}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
         {/* Hanging string - only show when not dragging */}
         {!isDragging && (
-          <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 w-0.5 h-5 bg-white/50 transition-opacity duration-300 z-1" />
+          <div className="absolute -top-3 md:-top-5 left-1/2 transform -translate-x-1/2 w-0.5 h-3 md:h-5 bg-white/50 transition-opacity duration-300 z-1" />
         )}
 
         {/* Card Inner Container for 3D flip */}
@@ -397,7 +429,7 @@ const HeroSectionWithArrow = () => {
         >
           {/* Front Side */}
           <div
-            className={`absolute w-full h-full bg-[#191919] backdrop-blur-[10px] rounded-3xl p-8 flex flex-col items-center justify-center ${
+            className={`absolute w-full h-full bg-[#191919] backdrop-blur-[10px] rounded-2xl sm:rounded-3xl p-4 sm:p-8 flex flex-col items-center justify-center ${
               isDragging
                 ? "border-2 border-white/40 shadow-3xl"
                 : "border-2 border-white/20 shadow-xl"
@@ -413,24 +445,24 @@ const HeroSectionWithArrow = () => {
             }}
           >
             {/* Picture */}
-            <div className="w-full h-50 bg-gradient-to-br from-gray-700 to-gray-500 rounded-[10px] mb-4 flex items-center justify-center overflow-hidden relative">
+            <div className="w-full h-24 sm:h-32 md:h-50 bg-gradient-to-br from-gray-700 to-gray-500 rounded-lg mb-3 sm:mb-4 flex items-center justify-center overflow-hidden relative">
               <Image
                 src="/images/luffy-2.jpg"
                 alt="Luffy"
                 width={200}
                 height={200}
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-300 ease-in-out rounded-[10px] max-h-full"
+                className="object-cover grayscale hover:grayscale-0 transition-all duration-300 ease-in-out rounded-lg max-h-full"
               />
             </div>
 
             <p
-              className={`text-white text-center text-[1.1rem] pointer-events-none transition-opacity duration-300 ${
+              className={`text-white text-center text-[10px] sm:text-[1.1rem] pointer-events-none transition-opacity duration-300 ${
                 isHovering || isDragging ? "opacity-100" : "opacity-70"
               }`}
             >
               Meet my coding buddy! <br />
             </p>
-            <p className="text-[13px] text-center pt-6 text-white/80">
+            <p className="text-[8px] sm:text-[13px] text-center pt-3 sm:pt-6 text-white/80">
               {isDragging ? "Dragging..." : "Click to flip & see quotes!"}
             </p>
 
@@ -446,7 +478,7 @@ const HeroSectionWithArrow = () => {
 
           {/* Back Side */}
           <div
-            className="absolute w-full h-full backdrop-blur-[10px] border-2 border-white/30 rounded-3xl p-8 flex flex-col items-center justify-start overflow-hidden shadow-2xl"
+            className="absolute w-full h-full backdrop-blur-[10px] border-2 border-white/30 rounded-2xl sm:rounded-3xl p-4 sm:p-8 flex flex-col items-center justify-start overflow-hidden shadow-2xl"
             style={{
               backfaceVisibility: "hidden",
               transform: "rotateY(180deg)",
@@ -462,10 +494,8 @@ const HeroSectionWithArrow = () => {
                   : "none",
               }}
             >
-              <h3 className="text-white text-[1.1rem] font-semibold mb-1">
-                Daily Inspiration
-              </h3>
-              <div className="w-15 h-0.5 mx-auto bg-gradient-to-r from-transparent via-white to-transparent" />
+               <h3 className="text-white text-[11px] sm:text-[1.1rem] font-semibold mb-1">Daily Inspiration</h3>
+             <div className="w-12 sm:w-15 h-0.5 mx-auto bg-gradient-to-r from-transparent via-white to-transparent" />
             </div>
 
             {/* Scrolling Quotes Container */}
@@ -477,7 +507,6 @@ const HeroSectionWithArrow = () => {
                   "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
               }}
             >
-              {/* Scrolling Quotes */}
               <div
                 className="flex flex-col gap-4"
                 style={{
@@ -493,7 +522,7 @@ const HeroSectionWithArrow = () => {
                 {quotes.map((quote, index) => (
                   <div
                     key={`first-${index}`}
-                    className="text-white/90 text-sm text-center italic px-4 py-3 bg-white/5 rounded-xl border border-white/10 min-h-15 flex items-center justify-center flex-shrink-0"
+                    className="text-white/90 text-[10px] md:text-sm text-center italic px-4 py-3 bg-white/5 rounded-xl border border-white/10 min-h-15 flex items-center justify-center flex-shrink-0"
                   >
                     "{quote}"
                   </div>
@@ -513,7 +542,7 @@ const HeroSectionWithArrow = () => {
 
             {/* Back button hint */}
             <p
-              className="text-white/60 text-[0.8rem] text-center mt-4 z-2"
+              className="text-white/60 text-[10px] sm:text-[0.8rem] text-center mt-4 z-2"
               style={{
                 animation: isCardFlipped
                   ? "fadeIn 1s ease-out 2s both"

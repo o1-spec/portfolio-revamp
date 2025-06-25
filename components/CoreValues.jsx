@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import gsap from "gsap"
 import ScrollTrigger from "gsap/dist/ScrollTrigger"
@@ -63,60 +63,112 @@ const coreValues = [
 const CoreValues = () => {
   const containerRef = useRef(null)
   const cardsRef = useRef(null)
+  const [screenSize, setScreenSize] = useState({ width: 0, height: 0 })
+
+  useEffect(() => {
+    const updateScreenSize = () => {
+      setScreenSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      })
+    }
+
+    updateScreenSize()
+    window.addEventListener("resize", updateScreenSize)
+
+    return () => window.removeEventListener("resize", updateScreenSize)
+  }, [])
 
   useEffect(() => {
     const container = containerRef.current
     const cards = cardsRef.current
 
-    if (!container || !cards) return
+    if (!container || !cards || screenSize.width === 0) return
 
-    // Calculate total width of all cards
+    // Responsive card dimensions
+    const isMobile = screenSize.width < 768
+    const isTablet = screenSize.width >= 768 && screenSize.width < 1024
+
+    let cardWidth, cardHeight, gap, cardPadding
+
+    if (isMobile) {
+      cardWidth = Math.min(300, screenSize.width - 40) // 20px margin on each side
+      cardHeight = 380
+      gap = 16
+      cardPadding = 16
+    } else if (isTablet) {
+      cardWidth = 320
+      cardHeight = 400
+      gap = 20
+      cardPadding = 20
+    } else {
+      cardWidth = 380
+      cardHeight = 420
+      gap = 24
+      cardPadding = 24
+    }
+
     const cardElements = cards.children
-    const cardWidth = 380 // Your card width is w-[450px]
-    const gap = 24 // gap-8 = 32px
     const totalWidth = (cardWidth + gap) * cardElements.length
-    const viewportWidth = window.innerWidth
+    const viewportWidth = screenSize.width
 
-    // Initial offset - make first card 30% visible
-    const initialOffset = viewportWidth - cardWidth * 0.3
+    // Responsive initial positioning
+    const initialOffset = isMobile
+      ? viewportWidth - cardWidth * 0.2 // Show more of first card on mobile
+      : viewportWidth - cardWidth * 0.3
 
-    // Set initial position without animation
+    // Set responsive card dimensions
+    gsap.set(cardElements, {
+      width: cardWidth,
+      height: cardHeight,
+      padding: cardPadding,
+    })
+
+    // Set initial position
     gsap.set(cards, {
       x: initialOffset,
     })
+
+    // Responsive scroll distance
+    const scrollMultiplier = isMobile ? 1.2 : 0.7
+    const endOffset = isMobile
+      ? viewportWidth * 0.2 // Leave less space on mobile
+      : viewportWidth * 0.3
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container,
         start: "top top",
-        end: `+=${totalWidth + viewportWidth * 0.7}`, // Adjusted for initial visibility
+        end: `+=${totalWidth * scrollMultiplier + viewportWidth * scrollMultiplier}`,
         scrub: 1,
         pin: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
+        // Better mobile performance
+        refreshPriority: isMobile ? 1 : 0,
       },
     })
 
-    // Animate cards from initial position to end position
+    // Animate cards with responsive positioning
     tl.to(cards, {
-      x: -totalWidth + viewportWidth * 0.3, // Leave 30% of the last card visible
+      x: -totalWidth + endOffset,
       ease: "none",
     })
 
-    // Stagger animation for individual cards appearing
+    // Responsive stagger animation
     gsap.fromTo(
       cardElements,
       {
         opacity: 0,
-        scale: 0.9,
-        y: 30, // Reduced y movement for subtler animation
+        scale: isMobile ? 0.95 : 0.9,
+        y: isMobile ? 20 : 30,
       },
       {
         opacity: 1,
         scale: 1,
         y: 0,
-        duration: 0.6,
-        stagger: 0.15,
+        duration: isMobile ? 0.4 : 0.6,
+        stagger: isMobile ? 0.1 : 0.15,
         ease: "power2.out",
         scrollTrigger: {
           trigger: container,
@@ -131,7 +183,10 @@ const CoreValues = () => {
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
     }
-  }, [])
+  }, [screenSize])
+
+  const isMobile = screenSize.width < 768
+  const isTablet = screenSize.width >= 768 && screenSize.width < 1024
 
   return (
     <section
@@ -139,68 +194,86 @@ const CoreValues = () => {
       className="h-[100vh] relative overflow-hidden"
       style={{
         backgroundImage: `
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)
-      `,
-        backgroundSize: "50px 50px",
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)
+        `,
+        backgroundSize: isMobile ? "30px 30px" : isTablet ? "40px 40px" : "50px 50px",
       }}
     >
-      <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
+      {/* Responsive Header */}
+      <div className={`absolute ${isMobile ? "top-4" : "top-6"} left-1/2 transform -translate-x-1/2 z-20 px-4 w-full`}>
         <div className="text-center">
           <motion.div
-            className="inline-flex items-center gap-2 mb-4"
+            className="inline-flex items-center gap-2 mb-3 sm:mb-4"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <div className="flex items-center justify-center">
-              <Image
-                src="/images/pythagoras.jpg"
-                alt="Pythagoras Icon"
-                width={32}
-                height={20}
-                className="grayscale hover:grayscale-0 transition-all duration-300 rounded"
-              />
-            </div>
-            <span className="text-gray-400 text-[15px] font-medium tracking-wider uppercase">Philosophy</span>
+            <Image
+              src="/images/pythagoras.jpg"
+              alt="Pythagoras Icon"
+              width={isMobile ? 24 : isTablet ? 28 : 32}
+              height={isMobile ? 16 : isTablet ? 18 : 20}
+              className="grayscale hover:grayscale-0 transition-all duration-300 rounded"
+            />
+            <span
+              className={`text-gray-400 ${isMobile ? "text-xs" : isTablet ? "text-sm" : "text-[15px]"} font-medium tracking-wider uppercase`}
+            >
+              Philosophy
+            </span>
           </motion.div>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">
+          <h2
+            className={`${isMobile ? "text-2xl" : isTablet ? "text-3xl" : "text-3xl md:text-4xl lg:text-5xl"} font-bold text-white mb-3 sm:mb-4 tracking-tight`}
+          >
             Values &<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">Mission</span>
           </h2>
 
-          <p className="text-white/70 text-[15px] max-w-3xl mx-auto leading-relaxed">
+          <p
+            className={`text-white/70 ${isMobile ? "text-sm" : isTablet ? "text-base" : "text-[15px]"} mx-auto leading-relaxed max-w-3xl`}
+          >
             The principles that guide my work and the mission that drives my passion for creating exceptional digital
             experiences.
           </p>
         </div>
       </div>
 
-      <div className="absolute top-[68%] left-0 transform -translate-y-1/2 w-full">
-        <div ref={cardsRef} className="flex gap-6">
+      {/* Responsive Horizontal Scroll Cards */}
+      <div className={`absolute ${isMobile ? "top-[60%]" : "top-[68%]"} left-0 transform -translate-y-1/2 w-full`}>
+        <div ref={cardsRef} className={`flex ${isMobile ? "gap-4" : isTablet ? "gap-5" : "gap-6"}`}>
           {coreValues.map((value) => (
             <div
               key={value.title}
-              className="flex-shrink-0 w-[380px] h-[420px] bg-white/5 shadow-lg backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-purple-500/50 transition-all duration-500 group hover:shadow-[0_20px_50px_-12px_rgba(147,51,234,0.3)] hover:-translate-y-4"
+              className="flex-shrink-0 bg-white/5 shadow-lg backdrop-blur-sm border border-white/10 rounded-xl hover:border-purple-500/50 transition-all duration-500 group hover:shadow-[0_20px_50px_-12px_rgba(147,51,234,0.3)] hover:-translate-y-2 sm:hover:-translate-y-4"
               style={{
                 transformOrigin: "center bottom",
               }}
             >
-              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <value.icon className="w-6 h-6 text-white" />
+              <div
+                className={`${isMobile ? "w-8 h-8" : isTablet ? "w-10 h-10" : "w-12 h-12"} bg-gradient-to-r from-purple-500 to-pink-500 ${isMobile ? "rounded-lg" : "rounded-2xl"} flex items-center justify-center ${isMobile ? "mb-4" : isTablet ? "mb-5" : "mb-6"} group-hover:scale-110 transition-transform duration-300`}
+              >
+                <value.icon className={`${isMobile ? "w-4 h-4" : isTablet ? "w-5 h-5" : "w-6 h-6"} text-white`} />
               </div>
 
-              <h4 className="text-2xl font-bold text-white/80 mb-4 group-hover:text-purple-400 transition-colors">
+              <h4
+                className={`${isMobile ? "text-lg" : isTablet ? "text-xl" : "text-2xl"} font-bold text-white/80 ${isMobile ? "mb-3" : "mb-4"} group-hover:text-purple-400 transition-colors leading-tight`}
+              >
                 {value.title}
               </h4>
 
-              <p className="text-white text-[15px] leading-relaxed mb-6">{value.description}</p>
+              <p
+                className={`text-white ${isMobile ? "text-sm" : "text-[15px]"} leading-relaxed ${isMobile ? "mb-4" : isTablet ? "mb-5" : "mb-6"}`}
+              >
+                {value.description}
+              </p>
 
               <div className="space-y-2">
                 {value.principles.map((principle) => (
-                  <div key={principle} className="flex items-center gap-3 text-gray-400">
-                    <div className="w-2 h-2 rounded-full flex-shrink-0 bg-gradient-to-r from-purple-500 to-pink-500" />
-                    <span className="text-sm">{principle}</span>
+                  <div key={principle} className="flex items-start gap-2 sm:gap-3 text-gray-400">
+                    <div
+                      className={`${isMobile ? "w-1.5 h-1.5 mt-1.5" : "w-2 h-2 mt-2"} rounded-full flex-shrink-0 bg-gradient-to-r from-purple-500 to-pink-500`}
+                    />
+                    <span className={`${isMobile ? "text-xs" : "text-sm"} leading-relaxed`}>{principle}</span>
                   </div>
                 ))}
               </div>
@@ -209,16 +282,26 @@ const CoreValues = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-[15%] left-1/2 transform -translate-x-1/2 flex items-center gap-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500 animate-pulse">
-        <span>Scroll to explore</span>
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      {/* Responsive Scroll Indicator */}
+      <div
+        className={`absolute ${isMobile ? "bottom-[10%]" : "bottom-[15%]"} left-1/2 transform -translate-x-1/2 flex items-center gap-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500 animate-pulse`}
+      >
+        <span className={isMobile ? "text-xs" : "text-sm"}>{isMobile ? "Scroll to explore" : "Scroll to explore"}</span>
+        <svg className={`${isMobile ? "w-4 h-4" : "w-5 h-5"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
       </div>
 
-      <div className="absolute top-24 left-12 w-4 h-4 bg-purple-500 rounded-full opacity-30 animate-pulse" />
-      <div className="absolute top-96 right-16 w-2 h-2 bg-blue-400 rounded-full opacity-40 animate-pulse" />
-      <div className="absolute bottom-48 left-1/4 w-3 h-3 bg-green-400 rounded-full opacity-35 animate-pulse" />
+      {/* Responsive decorative elements */}
+      <div
+        className={`absolute ${isMobile ? "top-16 left-4 w-2 h-2" : isTablet ? "top-20 left-8 w-3 h-3" : "top-24 left-12 w-4 h-4"} bg-purple-500 rounded-full opacity-30 animate-pulse`}
+      />
+      <div
+        className={`absolute ${isMobile ? "top-32 right-6 w-1.5 h-1.5" : isTablet ? "top-48 right-12 w-2 h-2" : "top-96 right-16 w-2 h-2"} bg-blue-400 rounded-full opacity-40 animate-pulse`}
+      />
+      <div
+        className={`absolute ${isMobile ? "bottom-16 left-1/4 w-2 h-2" : isTablet ? "bottom-24 left-1/4 w-2.5 h-2.5" : "bottom-48 left-1/4 w-3 h-3"} bg-green-400 rounded-full opacity-35 animate-pulse`}
+      />    
     </section>
   )
 }

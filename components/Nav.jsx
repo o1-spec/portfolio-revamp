@@ -6,6 +6,7 @@ import Link from "next/link";
 export default function Nav() {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredLink, setHoveredLink] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -37,91 +38,132 @@ export default function Nav() {
   ];
 
   return (
-    <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-40">
-      {/* Thread with subtle swing */}
-      <div
-        className={`w-0.5 bg-gradient-to-b from-gray-600 to-gray-800 mx-auto transition-all duration-1500 ease-out ${
-          isVisible ? "h-10" : "h-0"
-        }`}
-        style={{
-          animation: isVisible ? "threadSwing 4s ease-in-out infinite" : "none",
-          transformOrigin: "top center",
-        }}
-      />
+    <>
+      <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-40 hidden lg:block">
+        {/* Thread with subtle swing */}
+        <div
+          className={`w-0.5 bg-gradient-to-b from-gray-600 to-gray-800 mx-auto transition-all duration-1500 ease-out ${
+            isVisible ? "h-10" : "h-0"
+          }`}
+          style={{
+            animation: isVisible
+              ? "threadSwing 4s ease-in-out infinite"
+              : "none",
+            transformOrigin: "top center",
+          }}
+        />
 
-      <div
-        className={`bg-white/95 backdrop-blur-sm rounded-lg shadow-2xl px-6 py-3 border border-gray-200 relative transition-all duration-1000 ease-out w-[700px] ${
-          isVisible
-            ? "translate-y-0 opacity-100 rotate-0"
-            : "-translate-y-8 opacity-0 rotate-3"
-        }`}
-        style={{
-          transformOrigin: "top center",
-          animation: isVisible ? "navSwing 4s ease-in-out infinite" : "none",
-        }}
-      >
-        {/* Connection point */}
-        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gray-400 rounded-full border-2 border-gray-600 shadow-inner" />
-        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full" />
+        <div
+          className={`bg-white/95 backdrop-blur-sm rounded-lg shadow-2xl px-6 py-3 border border-gray-200 relative transition-all duration-1000 ease-out w-[700px] ${
+            isVisible
+              ? "translate-y-0 opacity-100 rotate-0"
+              : "-translate-y-8 opacity-0 rotate-3"
+          }`}
+          style={{
+            transformOrigin: "top center",
+            animation: isVisible ? "navSwing 4s ease-in-out infinite" : "none",
+          }}
+        >
+          {/* Connection point */}
+          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gray-400 rounded-full border-2 border-gray-600 shadow-inner" />
+          <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full" />
 
-        <div className="flex items-center justify-between space-x-10">
-          <div className="text-xl font-bold text-gray-900 font-mono tracking-wider">
-            o1-spec
-          </div>
+          <div className="flex items-center justify-between space-x-10">
+            <div className="text-xl font-bold text-gray-900 font-mono tracking-wider">
+              o1-spec
+            </div>
 
-          <div className="flex space-x-8 relative">
-            {navLinks.map((link, index) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleScrollToSection(e, link.href)}
-                className="relative text-gray-700 font-medium transition-all text-[15px] duration-300 ease-out group overflow-hidden"
-                onMouseEnter={() => setHoveredLink(index)}
-                onMouseLeave={() => setHoveredLink(null)}
-              >
-                {/* Main text with multiple hover effects */}
-                <span className="relative z-10 block transition-all duration-300 ease-out group-hover:text-gray-900 group-hover:scale-105 group-hover:-translate-y-0.5">
-                  {link.label}
-                </span>
+            <div className="flex space-x-8 relative">
+              {navLinks.map((link, index) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleScrollToSection(e, link.href)}
+                  className="relative text-gray-700 font-medium transition-all text-[15px] duration-300 ease-out group overflow-hidden"
+                  onMouseEnter={() => setHoveredLink(index)}
+                  onMouseLeave={() => setHoveredLink(null)}
+                >
+                  {/* Main text with multiple hover effects */}
+                  <span className="relative z-10 block transition-all duration-300 ease-out group-hover:text-gray-900 group-hover:scale-105 group-hover:-translate-y-0.5">
+                    {link.label}
+                  </span>
 
-                {/* Animated underline */}
-                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left" />
+                  {/* Animated underline */}
+                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left" />
 
-                {/* Glow effect background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 rounded-md transform scale-0 group-hover:scale-100 transition-all duration-300 ease-out opacity-0 group-hover:opacity-100 -z-10" />
+                  {/* Glow effect background */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 rounded-md transform scale-0 group-hover:scale-100 transition-all duration-300 ease-out opacity-0 group-hover:opacity-100 -z-10" />
 
-                {/* Sliding background effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-100/50 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-500 ease-out -z-10" />
+                  {/* Sliding background effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-100/50 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-500 ease-out -z-10" />
 
-                {/* Floating particles effect */}
-                <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 transition-all duration-500 ease-out" />
-                <div className="absolute -top-0.5 left-1/4 transform -translate-x-1/2 w-0.5 h-0.5 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:-translate-y-3 transition-all duration-700 ease-out" />
-                <div className="absolute -top-0.5 right-1/4 transform translate-x-1/2 w-0.5 h-0.5 bg-pink-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:-translate-y-2.5 transition-all duration-600 ease-out" />
+                  {/* Floating particles effect */}
+                  <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 transition-all duration-500 ease-out" />
+                  <div className="absolute -top-0.5 left-1/4 transform -translate-x-1/2 w-0.5 h-0.5 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:-translate-y-3 transition-all duration-700 ease-out" />
+                  <div className="absolute -top-0.5 right-1/4 transform translate-x-1/2 w-0.5 h-0.5 bg-pink-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:-translate-y-2.5 transition-all duration-600 ease-out" />
 
-                {/* Ripple effect */}
-                {hoveredLink === index && (
-                  <div className="absolute inset-0 rounded-md border border-blue-300 animate-ping opacity-30" />
-                )}
+                  {/* Ripple effect */}
+                  {hoveredLink === index && (
+                    <div className="absolute inset-0 rounded-md border border-blue-300 animate-ping opacity-30" />
+                  )}
 
-                {/* Text shadow effect */}
-                <div className="absolute inset-0 text-gray-900 opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm">
-                  {link.label}
-                </div>
-              </Link>
-            ))}
+                  {/* Text shadow effect */}
+                  <div className="absolute inset-0 text-gray-900 opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm">
+                    {link.label}
+                  </div>
+                </Link>
+              ))}
 
-            {/* Dynamic background indicator */}
-            {hoveredLink !== null && (
-              <div
-                className="absolute top-0 h-full bg-gradient-to-r from-blue-100/30 to-purple-100/30 rounded-md transition-all duration-300 ease-out -z-20"
-                style={{
-                  left: `${hoveredLink * 32 + hoveredLink * 8}px`, // Approximate positioning
-                  width: "80px", // Approximate width
-                }}
-              />
-            )}
+              {/* Dynamic background indicator */}
+              {hoveredLink !== null && (
+                <div
+                  className="absolute top-0 h-full bg-gradient-to-r from-blue-100/30 to-purple-100/30 rounded-md transition-all duration-300 ease-out -z-20"
+                  style={{
+                    left: `${hoveredLink * 32 + hoveredLink * 8}px`, // Approximate positioning
+                    width: "80px", // Approximate width
+                  }}
+                />
+              )}
+            </div>
           </div>
         </div>
+      </div>
+      <div className="fixed top-4 right-4 z-50 lg:hidden">
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="bg-white/95 backdrop-blur-sm rounded-lg shadow-lg p-3 border border-gray-200"
+        >
+          <div className="w-6 h-6 flex flex-col justify-center items-center">
+            <span
+              className={`bg-gray-800 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${isMobileMenuOpen ? "rotate-45 translate-y-1.5" : "-translate-y-0.5"}`}
+            ></span>
+            <span
+              className={`bg-gray-800 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm my-0.5 ${isMobileMenuOpen ? "opacity-0" : "opacity-100"}`}
+            ></span>
+            <span
+              className={`bg-gray-800 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : "translate-y-0.5"}`}
+            ></span>
+          </div>
+        </button>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="absolute top-16 right-0 bg-white/95 backdrop-blur-sm rounded-lg shadow-2xl border border-gray-200 py-4 px-6 min-w-[200px]">
+            <div className="text-xl font-bold text-gray-900 font-mono mb-4">o1-spec</div>
+            <div className="space-y-3">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleScrollToSection(e, link.href)}
+                  className="block text-gray-700 font-medium text-[14px] hover:text-gray-900 transition-colors duration-200 py-2"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <style jsx>{`
@@ -183,6 +225,6 @@ export default function Nav() {
           }
         }
       `}</style>
-    </div>
+    </>
   );
 }
