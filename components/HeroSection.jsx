@@ -162,6 +162,14 @@ const HeroSectionWithArrow = () => {
     }
   };
 
+  const downloadCV = () => {
+    const link = document.createElement("a");
+    link.href = "/Oluwafemi-Onadokun-CV.pdf";
+    link.download = "Oluwafemi_Onadokun_CV.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   return (
     <div className="relative w-screen h-screen overflow-hidden">
       {/* Main Content */}
@@ -311,9 +319,7 @@ const HeroSectionWithArrow = () => {
           zIndex: 192828282,
         }}
       >
-        <a
-          href="/Oluwafemi-Onadokun-CV.pdf"
-          download="Oluwafemi_Onadokun_CV.pdf"
+        <button
           className="flex items-center gap-2 px-3 py-2 sm:px-[15px] sm:py-[10px] bg-gradient-to-br from-white/20 to-white/10 border-2 border-white/30 rounded-[20px] sm:rounded-[30px] text-white text-sm sm:text-base font-semibold cursor-pointer transition-all duration-300 shadow-xl backdrop-blur-[10px]"
           onMouseEnter={(e) => {
             e.target.style.transform = "scale(1.05) translateY(-5px)";
@@ -330,11 +336,12 @@ const HeroSectionWithArrow = () => {
           style={{
             boxShadow: "0 8px 20px rgba(0,0,0,0.3)",
           }}
+          onClick={downloadCV}
         >
           <Download size={18} />
           <span className="hidden sm:inline">Download CV</span>
           <span className="sm:hidden">CV</span>
-        </a>
+        </button>
       </div>
 
       {/* Animated Bouncing Arrow - Bottom Center */}
