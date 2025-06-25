@@ -24,7 +24,7 @@ const experiences = [
     duration: "2025",
     period: "6 Months",
     description:
-      "development of core banking systems serving millions of users with 99.9% uptime.",
+      "Development of core banking systems serving millions of users with 99.9% uptime.",
     achievements: [
       "Contributed to the development of a core banking system supporting day-to-day operations such as customer onboarding, transaction processing, and account management.",
       // "Contributed to the development of a core banking system supporting day-to-day operations such as customer onboarding, transaction processing, and account management. Currently in use by Turbo Microfinance Bank.",

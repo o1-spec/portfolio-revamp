@@ -165,7 +165,7 @@ const HeroSectionWithArrow = () => {
   return (
     <div className="relative w-screen h-screen overflow-hidden">
       {/* Main Content */}
-      <div className="absolute top-[41%] md:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10 px-4 md:px-0">
+      <div className="absolute top-[42%] md:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10 px-4 md:px-0">
         {/* First Name - Smaller */}
         <h1
           className="text-[30px] sm:text-3xl md:text-4xl lg:text-[3.7rem] font-light text-white/80 mb-2 md:mb-4 animate-typewriter1 border-r-4 border-white whitespace-nowrap overflow-hidden w-fit mx-auto tracking-[2px] sm:tracking-[4px] translate-y-3 sm:translate-y-0"
@@ -179,7 +179,7 @@ const HeroSectionWithArrow = () => {
 
         {/* Last Name - Bigger */}
         <h1
-          className="text-[44px] sm:text-4xl md:text-5xl lg:text-[5.8rem] font-black text-white mb-4 sm:mb-8 animate-typewriter2 border-r-4 border-white whitespace-nowrap overflow-hidden w-fit mx-auto tracking-[3px] sm:tracking-[5px]"
+          className="text-[46px] sm:text-4xl md:text-5xl lg:text-[5.8rem] font-black text-white mb-4 sm:mb-8 animate-typewriter2 border-r-4 border-white whitespace-nowrap overflow-hidden w-fit mx-auto tracking-[3px] sm:tracking-[5px]"
           style={{
             textShadow: "3px 3px 6px rgba(0,0,0,0.8)",
             animation: "typewriter2 2.5s steps(25) 2.5s both",
@@ -236,9 +236,8 @@ const HeroSectionWithArrow = () => {
         </div>
       </div>
 
-      {/* Vertical Social Links - Left Side */}
       <div
-        className="fixed left-4 sm:left-[32px] top-[72%] md:top-1/2 transform -translate-y-1/2 z-15"
+        className="fixed left-4 sm:left-[32px] top-[72%] md:top-1/2 transform -translate-y-1/2 z-[1727282828]"
         style={{ animation: "slideInLeft 1s ease-out 5.5s both" }}
       >
         <div className="flex flex-col items-center gap-3 sm:gap-3 py-4 sm:py-6 px-2 sm:px-3 bg-black/40 backdrop-blur-[20px] border border-white/20 rounded-[40px] sm:rounded-[60px] shadow-2xl">
@@ -312,7 +311,9 @@ const HeroSectionWithArrow = () => {
           zIndex: 192828282,
         }}
       >
-        <button
+        <a
+          href="/Oluwafemi-Onadokun-CV.pdf"
+          download="Oluwafemi_Onadokun_CV.pdf"
           className="flex items-center gap-2 px-3 py-2 sm:px-[15px] sm:py-[10px] bg-gradient-to-br from-white/20 to-white/10 border-2 border-white/30 rounded-[20px] sm:rounded-[30px] text-white text-sm sm:text-base font-semibold cursor-pointer transition-all duration-300 shadow-xl backdrop-blur-[10px]"
           onMouseEnter={(e) => {
             e.target.style.transform = "scale(1.05) translateY(-5px)";
@@ -329,14 +330,11 @@ const HeroSectionWithArrow = () => {
           style={{
             boxShadow: "0 8px 20px rgba(0,0,0,0.3)",
           }}
-          onClick={() => {
-            console.log("Downloading CV...");
-          }}
         >
           <Download size={18} />
           <span className="hidden sm:inline">Download CV</span>
           <span className="sm:hidden">CV</span>
-        </button>
+        </a>
       </div>
 
       {/* Animated Bouncing Arrow - Bottom Center */}
@@ -494,8 +492,10 @@ const HeroSectionWithArrow = () => {
                   : "none",
               }}
             >
-               <h3 className="text-white text-[11px] sm:text-[1.1rem] font-semibold mb-1">Daily Inspiration</h3>
-             <div className="w-12 sm:w-15 h-0.5 mx-auto bg-gradient-to-r from-transparent via-white to-transparent" />
+              <h3 className="text-white text-[11px] sm:text-[1.1rem] font-semibold mb-1">
+                Daily Inspiration
+              </h3>
+              <div className="w-12 sm:w-15 h-0.5 mx-auto bg-gradient-to-r from-transparent via-white to-transparent" />
             </div>
 
             {/* Scrolling Quotes Container */}
