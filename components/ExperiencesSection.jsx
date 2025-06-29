@@ -22,19 +22,24 @@ const experiences = [
     type: "Full-time",
     location: "Remote",
     duration: "2025",
-    period: "6 Months",
+    period: "6 Months (Ongoing)",
     description:
-      "Development of core banking systems serving millions of users with 99.9% uptime.",
+      "Currently working on multiple banking solutions including core banking systems and digital banking platforms, serving millions of users with 99.9% uptime across both projects.",
     achievements: [
-      "Contributed to the development of a core banking system supporting day-to-day operations such as customer onboarding, transaction processing, and account management.",
-      // "Contributed to the development of a core banking system supporting day-to-day operations such as customer onboarding, transaction processing, and account management. Currently in use by Turbo Microfinance Bank.",
+      // Core Banking System achievements
+      "Contributed to the development of a core banking system supporting day-to-day operations such as customer onboarding, transaction processing, and account management",
       "Collaborated with a team of 6 developers to deliver secure and scalable financial products used internally by bank staff",
       "Assisted in implementing modular services architecture to improve maintainability and reduce system outages",
-      "Built key components for sections like user management, loan processing, and audit logging essential to banking operations",
+      
+      // Digital Banking Platform achievements  
+      "Contributed to the development of a digital banking platform enabling customers to manage accounts, view transactions, and perform transfers online",
+      "Built and integrated user-facing components such as login, dashboard views, and transaction history using modern frontend technologies",
+      "Implemented role-based access control and secure authentication flows to ensure data protection and compliance",
+      "Worked closely with backend engineers to connect APIs for real-time balance updates, payment processing, and notifications",
     ],
     technologies: [
       "Next.js",
-      "TypeScript",
+      "TypeScript", 
       "Material-UI",
       "React Query",
       "MIFOS",
@@ -44,57 +49,34 @@ const experiences = [
         name: "Banking Core System",
         impact: "2M+ daily transactions",
         users: "50K+ active users",
+        description: "Internal banking operations system"
+      },
+      {
+        name: "Digital Banking Platform", 
+        impact: "99.9% uptime achieved",
+        users: "25K+ customers",
+        description: "Customer-facing banking platform"
       },
     ],
     companyInfo: {
       industry: "Custom Software Solutions",
-      size: "20+ employees",
+      size: "20+ employees", 
       website: "https://techservicehub.io/",
     },
   },
   {
     id: 2,
-    company: "TECHSERVICES LIMITED",
-    role: "Frontend Developer",
-    type: "Full-time",
-    location: "Remote",
-    duration: "2025",
-    period: "4 Months",
-    description:
-      "development of digital banking systems serving millions of users with 99.9% uptime.",
-    achievements: [
-      "Contributed to the development of a digital banking platform enabling customers to manage accounts, view transactions, and perform transfers online",
-      "Built and integrated user-facing components such as login, dashboard views, and transaction history using modern frontend technologies",
-      "Implemented role-based access control and secure authentication flows to ensure data protection and compliance",
-      "Worked closely with backend engineers to connect APIs for real-time balance updates, payment processing, and notifications",
-    ],
-    technologies: ["Next.js", "TypeScript", "Material-UI", "React Query"],
-    projects: [
-      {
-        name: "Digital Banking Platform",
-        impact: "99.9% uptime achieved",
-        users: "25K+ customers",
-      },
-    ],
-    companyInfo: {
-      industry: "Custom Software Solutions",
-      size: "20+ employees",
-      website: "https://techservicehub.io/",
-    },
-  },
-  {
-    id: 3,
     company: "Ernext Gadgets",
     role: "Frontend Developer",
     type: "Contract",
-    location: "Lagos, Nigeria",
+    location: "Lagos, Nigeria", 
     duration: "March 2025 - May 2025",
     period: "3 Months",
     description:
       "Built a full-featured e-commerce application for a technology gadget hub, enabling customers to seamlessly browse, order, and purchase gadgets online with secure checkout and real-time inventory updates.",
     achievements: [
       "Developed a complete e-commerce platform for a tech gadget hub with features like product browsing, cart, checkout, and order tracking",
-      "Integrated secure payment gateways and real-time inventory management to enhance shopping experience",
+      "Integrated secure payment gateways and real-time inventory management to enhance shopping experience", 
       "Optimized frontend performance, resulting in faster page loads and smoother navigation across devices",
       "Implemented an admin dashboard for product and order management, improving operational efficiency for store staff",
     ],
@@ -102,7 +84,7 @@ const experiences = [
     projects: [
       {
         name: "E-Commerce Application",
-        impact: "200 concurrent users",
+        impact: "200 concurrent users", 
         users: "85% success rate",
       },
     ],
@@ -113,9 +95,9 @@ const experiences = [
     },
   },
   {
-    id: 4,
+    id: 3,
     company: "HOTKEYS MASTER",
-    role: "Frontend Developer",
+    role: "Frontend Developer", 
     type: "Freelance",
     location: "Remote",
     duration: "Oct 2024 – November 2024",
@@ -124,13 +106,13 @@ const experiences = [
       "Built an interactive, gamified web application that helps users master keyboard shortcuts for popular software like VS Code and Photoshop. Collaborated closely with a backend engineer to implement real-time features and performance tracking tools.",
     achievements: [
       "Designed and implemented the interactive 'game booth' for practicing keyboard shortcuts",
-      "Collaborated with a backend engineer to integrate APIs for leaderboards and performance tracking",
+      "Collaborated with a backend engineer to integrate APIs for leaderboards and performance tracking", 
       "Created responsive and engaging UI using modern frontend frameworks",
       "Contributed to a learning platform that blends gamification with productivity training",
     ],
     technologies: [
       "Next.js",
-      "Tailwind CSS",
+      "Tailwind CSS", 
       "TypeScript",
       "Framer Motion",
       "Appwrite",
@@ -142,7 +124,7 @@ const experiences = [
         users: "Developers, designers, and power users",
       },
       {
-        name: "Leaderboard & Tracking API Integration",
+        name: "Leaderboard & Tracking API Integration", 
         impact: "Encouraged engagement and performance monitoring",
         users: "Global user base (beta)",
       },
