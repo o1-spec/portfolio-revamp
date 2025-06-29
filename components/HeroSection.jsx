@@ -164,7 +164,7 @@ const HeroSectionWithArrow = () => {
 
   const downloadCV = () => {
     const link = document.createElement("a");
-    link.href = "/Oluwafemi-Onadokun-CV.pdf";
+    link.href = "/Onadokun-Oluwafemi-CV.pdf";
     link.download = "Oluwafemi_Onadokun_CV.pdf";
     document.body.appendChild(link);
     link.click();
