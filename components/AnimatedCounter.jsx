@@ -24,7 +24,7 @@ function DigitColumn({ digit }) {
       }}
     >
       <div
-        className="transition-transform duration-300 ease-out"
+        className="transition-transform duration-100 ease-out"  // Reduced from 300ms to 200ms for faster animation
         style={{ transform: `translateY(-${parseInt(digit) * 4}rem)` }}
       >
         {digits.map((d) => (
