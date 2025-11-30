@@ -66,6 +66,49 @@ const experiences = [
   },
   {
     id: 2,
+    company: "EDALA REALTORS",
+    role: "Software Developer",
+    type: "Contract",
+    location: "Remote",
+    duration: "July 2025 - September 2025",
+    period: "3 Months",
+    description:
+      "Developed a comprehensive Realtor Management Platform for a real estate agency, enabling secure authentication, sales tracking, and team management. Built dashboards for realtors to monitor performance metrics and admin tools for oversight and approvals.",
+    achievements: [
+      "Built EDALA Realtor Management Platform with Next.js for secure authentication, sales submissions, and tracking",
+      "Developed realtor dashboards and team tools with detailed sales metrics, referrals, commissions tracking, and profiles",
+      "Implemented advanced admin features for application approvals, performance analytics, realtor oversight and user management",
+      "Integrated Cloudinary for efficient media management and storage of property listings and realtor profiles",
+    ],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Next.js App Router",
+      "Cloudinary",
+    ],
+    projects: [
+      {
+        name: "Realtor Management Platform",
+        impact: "Streamlined sales tracking",
+        users: "Real estate agents and admins",
+        description: "Comprehensive platform for realtor operations"
+      },
+      {
+        name: "Admin Dashboard",
+        impact: "Enhanced oversight capabilities",
+        users: "Agency management team",
+        description: "Performance analytics and approval system"
+      },
+    ],
+    companyInfo: {
+      industry: "Real Estate Technology",
+      size: "Real Estate Agency",
+      website: "#",
+    },
+  },
+  {
+    id: 3,
     company: "Ernext Gadgets",
     role: "Frontend Developer",
     type: "Contract",
@@ -95,7 +138,7 @@ const experiences = [
     },
   },
   {
-    id: 3,
+    id: 4,
     company: "HOTKEYS MASTER",
     role: "Frontend Developer", 
     type: "Freelance",
