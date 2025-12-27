@@ -14,3 +14,26 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.bar {
+  width: 8px;
+  height: 40px;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .wave {
+    gap: 4px;
+  }
+  .bar {
+    width: 6px;
+    height: 30px;
+  }
+}

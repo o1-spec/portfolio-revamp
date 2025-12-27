@@ -5,6 +5,7 @@ import PortfolioLoader from "../components/PortfolioLoader";
 import Homepage from "@/section/Homepage";
 import CustomCursor from "@/components/CustomCursor";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import PortfolioLoaderNew from "@/components/PortfolioLoaderNew";
 
 // function Scene() {
 //   return (
@@ -23,9 +24,13 @@ export default function Home() {
     return (
       <div style={{ width: "100vw", height: "100vh" }}>
         <CustomCursor />
-        <PortfolioLoader
+        {/* <PortfolioLoader
           onComplete={() => setIsLoading(false)}
           showNextSection={showNextSection}
+          setShowNextSection={setShowNextSection}
+        /> */}
+        <PortfolioLoaderNew
+          onComplete={() => setIsLoading(false)}
           setShowNextSection={setShowNextSection}
         />
       </div>
