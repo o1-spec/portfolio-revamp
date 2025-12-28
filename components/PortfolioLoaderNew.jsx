@@ -71,7 +71,7 @@ export default function PortfolioLoaderNew({ onComplete, setShowNextSection }) {
           <motion.div
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="w-full max-w-64 h-2 bg-gray-700 rounded-full overflow-hidden mb-3 md:mb-4"
+            className="w-full max-w-56 md:max-w-64 h-2 bg-gray-700 rounded-full overflow-hidden mb-3 md:mb-4"
           >
             <motion.div
               className="h-full bg-white"
@@ -104,10 +104,10 @@ export default function PortfolioLoaderNew({ onComplete, setShowNextSection }) {
             className="text-black bg-white rounded-lg px-4 py-4 text-center mb-6 md:mb-8"
           >
             <p
-              className="text-lg md:text-xl font-semibold tracking-wide"
+              className="text-lg md:text-xl font-bold tracking-wide"
               style={{
                 fontSize: "clamp(1.25rem, 4vw, 2rem)",
-                fontWeight: "600",
+                fontWeight: "900",
                 letterSpacing: "0.15em",
                 fontFamily:
                   'ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, monospace',
