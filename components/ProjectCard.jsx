@@ -134,14 +134,14 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
                   <>
                     <button
                       onClick={prevImage}
-                      className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/60 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/80 transition-all duration-300 z-20 shadow-lg"
+                      className="absolute left-2 md:left-20 top-1/2 transform -translate-y-1/2 bg-black/60 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/80 transition-all duration-300 z-20 shadow-lg"
                       aria-label="Previous image"
                     >
                       <ChevronLeft size={18} />
                     </button>
                     <button
                       onClick={nextImage}
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/60 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/80 transition-all duration-300 z-20 shadow-lg"
+                      className="absolute right-2 md:right-24 top-1/2 transform -translate-y-1/2 bg-black/60 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/80 transition-all duration-300 z-20 shadow-lg"
                       aria-label="Next image"
                     >
                       <ChevronRight size={18} />
