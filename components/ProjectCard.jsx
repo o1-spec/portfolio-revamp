@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Github, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
+import { Github, ExternalLink, ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 
@@ -9,6 +9,7 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [showAllImages, setShowAllImages] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const cardRef = useRef(null);
 
   useEffect(() => {
@@ -28,6 +29,16 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
     return () => observer.disconnect();
   }, []);
 
+  // Auto-rotate images for mobile projects
+  useEffect(() => {
+    if (images.length > 1 && !showAllImages) {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % images.length);
+      }, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [showAllImages]);
+
   const handleKeyDown = (event, url) => {
     if ((event.key === "Enter" || event.key === " ") && url) {
       event.preventDefault();
@@ -35,8 +46,17 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
     }
   };
 
-  const images = Array.isArray(project.images) ? project.images : [project.image]; // Support both single image and array
-  const mainImage = images[0];
+  const images = Array.isArray(project.images) ? project.images : [project.image]; 
+  const mainImage = images[currentImageIndex];
+  const isMobileProject = images.length > 1 && images.some(img => img.includes('Image-'));
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   return (
     <article
@@ -55,64 +75,134 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
     >
       {/* Responsive Image Section */}
       <div className={`w-full lg:basis-[60%] relative ${reverse ? "lg:ml-auto" : ""} mb-6 sm:mb-8 lg:mb-0`}>
-        <div className="relative overflow-hidden rounded-lg shadow-2xl group-hover:shadow-3xl transition-all duration-500">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-[2px] rounded-lg">
-            <div className="w-full h-full bg-gray-900 rounded-md"></div>
-          </div>
+        <div className={`relative overflow-hidden rounded-lg shadow-2xl group-hover:shadow-3xl transition-all duration-500 ${
+          isMobileProject ? '' : ''
+        }`}>
+          {!isMobileProject && (
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-[2px] rounded-lg">
+              <div className="w-full h-full bg-gray-900 rounded-md"></div>
+            </div>
+          )}
 
-          <div className="relative bg-white overflow-hidden rounded-lg">
-            <div
-              className={`absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20 transition-opacity duration-500 z-10 ${
-                isHovered ? "opacity-20" : "opacity-60"
-              }`}
-            />
+          <div className={`relative ${isMobileProject ? '' : 'bg-white'} overflow-hidden rounded-lg`}>
+            {!isMobileProject && (
+              <div
+                className={`absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20 transition-opacity duration-500 z-10 ${
+                  isHovered ? "opacity-20" : "opacity-60"
+                }`}
+              />
+            )}
 
-            <Image
-              src={mainImage || "/placeholder.svg?height=400&width=600"}
-              alt={`Screenshot of ${project.title} project`}
-              width={600}
-              height={400}
-              className={`object-cover transition-all w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[400px] duration-700 ease-out cursor-pointer ${
-                isHovered
-                  ? `grayscale-0 scale-105 ${
-                      reverse ? "lg:translate-x-2 lg:-translate-y-2" : "lg:-translate-x-2 lg:-translate-y-2"
-                    }`
-                  : "grayscale scale-100"
-              }`}
-              priority={index < 2}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 50vw"
-              onClick={() => setShowAllImages(!showAllImages)} // Toggle accordion on click
-            />
-            {/* Accordion Toggle Icon */}
-            <button
-              onClick={() => setShowAllImages(!showAllImages)}
-              className="absolute bottom-2 right-2 bg-black/50 text-white p-1 rounded-full hover:bg-black/70 transition"
-              aria-label="Toggle more images"
-            >
-              {showAllImages ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-            </button>
+            {isMobileProject ? (
+              // Mobile app layout - single image with navigation
+              <div className="relative flex items-center justify-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentImageIndex}
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    transition={{ duration: 0.5 }}
+                    className="relative w-[280px] sm:w-[320px] md:w-[360px]"
+                  >
+                    <Image
+                      src={mainImage}
+                      alt={`Screenshot ${currentImageIndex + 1} of ${project.title} mobile app`}
+                      width={360}
+                      height={640}
+                      className="object-contain rounded-lg shadow-lg"
+                      priority={index < 2}
+                    />
+                  </motion.div>
+                </AnimatePresence>
+                {/* Navigation buttons */}
+                {images.length > 1 && (
+                  <>
+                    <button
+                      onClick={prevImage}
+                      className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/60 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/80 transition-all duration-300 z-20 shadow-lg"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft size={18} />
+                    </button>
+                    <button
+                      onClick={nextImage}
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/60 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/80 transition-all duration-300 z-20 shadow-lg"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight size={18} />
+                    </button>
+                  </>
+                )}
+                {/* Image counter */}
+                <div className="absolute top-4 right-4 bg-black/80 text-white text-xs px-3 py-1 rounded-full font-medium z-20">
+                  {currentImageIndex + 1} / {images.length}
+                </div>
+              </div>
+            ) : (
+              // Regular web project layout
+              <Image
+                src={mainImage || "/placeholder.svg?height=400&width=600"}
+                alt={`Screenshot of ${project.title} project`}
+                width={600}
+                height={400}
+                className={`object-cover transition-all w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[400px] duration-700 ease-out cursor-pointer ${
+                  isHovered
+                    ? `grayscale-0 scale-105 ${
+                        reverse ? "lg:translate-x-2 lg:-translate-y-2" : "lg:-translate-x-2 lg:-translate-y-2"
+                      }`
+                    : "grayscale scale-100"
+                }`}
+                priority={index < 2}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 50vw"
+                onClick={() => images.length > 1 && setShowAllImages(!showAllImages)}
+              />
+            )}
+            
+            {/* Accordion Toggle Icon with improved styling */}
+            {images.length > 1 && !isMobileProject && (
+              <motion.button
+                onClick={() => setShowAllImages(!showAllImages)}
+                className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/80 transition-all duration-300 z-20 shadow-lg border border-white/20"
+                aria-label="Toggle more images"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <motion.div
+                  animate={{ rotate: showAllImages ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ChevronDown size={18} />
+                </motion.div>
+              </motion.button>
+            )}
           </div>
         </div>
 
-        {/* Accordion: Expanded Images */}
         <AnimatePresence>
-          {showAllImages && images.length > 1 && (
+          {showAllImages && images.length > 1 && !isMobileProject && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.5 }}
-              className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+              className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
             >
               {images.slice(1).map((img, idx) => (
-                <Image
-                  key={idx}
-                  src={img}
-                  alt={`Additional screenshot ${idx + 1} of ${project.title}`}
-                  width={300}
-                  height={200}
-                  className="object-cover rounded-lg shadow-lg hover:scale-105 transition-transform"
-                />
+                <motion.div 
+                  key={idx} 
+                  className="relative"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Image
+                    src={img}
+                    alt={`Additional screenshot ${idx + 1} of ${project.title}`}
+                    width={300}
+                    height={200}
+                    className="object-cover rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                  />
+                </motion.div>
               ))}
             </motion.div>
           )}
@@ -200,7 +290,7 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
               <Github size={18} className="sm:w-5 sm:h-5" />
             </a>
           )}
-          {project.github2 && ( // New second GitHub link
+          {project.github2 && (
             <a
               href={project.github2}
               target="_blank"

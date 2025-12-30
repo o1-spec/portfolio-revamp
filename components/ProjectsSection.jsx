@@ -50,11 +50,11 @@ export default function ProjectsSection() {
       description:
         "A mobile marketplace app built with React Native, similar to Jumia, where buyers and sellers can connect to buy and sell goods. Features include real-time messaging between buyers and sellers powered by WebSockets, secure authentication, and a seamless user experience for transactions.",
       images: [
-        "/images/image-1.png",
-        "/images/image-2.png",
-        "/images/image-3.png",
-        "/images/image-4.png",
-        "/images/image-5.png",
+        "/images/Image-1.png",
+        "/images/Image-2.png",
+        "/images/Image-3.png",
+        "/images/Image-4.png",
+        "/images/Image-5.png",
       ],
       tech: ["React Native", "Expo", "Next.js Route", "Websockets"],
       github: "https://github.com/o1-spec/react-native-marketplace",
