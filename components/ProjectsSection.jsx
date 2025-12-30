@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { useEffect, useState, useRef } from "react"
-import ProjectCard from "./ProjectCard"
+import Image from "next/image";
+import { useEffect, useState, useRef } from "react";
+import ProjectCard from "./ProjectCard";
 
 export default function ProjectsSection() {
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef(null)
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
 
   const featuredProjects = [
     {
@@ -45,24 +45,40 @@ export default function ProjectsSection() {
       github: "https://github.com/o1-spec/Popcorn-movies",
       external: "https://popcorn-movies-black.vercel.app/",
     },
-  ]
+    {
+      title: "Marketplace Mobile App",
+      description:
+        "A mobile marketplace app built with React Native, similar to Jumia, where buyers and sellers can connect to buy and sell goods. Features include real-time messaging between buyers and sellers powered by WebSockets, secure authentication, and a seamless user experience for transactions.",
+      images: [
+        "/images/image-1.png",
+        "/images/image-2.png",
+        "/images/image-3.png",
+        "/images/image-4.png",
+        "/images/image-5.png",
+      ],
+      tech: ["React Native", "Expo", "Next.js Route", "Websockets"],
+      github: "https://github.com/o1-spec/react-native-marketplace",
+      github2: "https://github.com/o1-spec/marketplace-backend",
+      external: "https://expo.dev/@yourusername/your-app",
+    },
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true)
+          setIsVisible(true);
         }
       },
-      { threshold: 0.1, rootMargin: "100px" },
-    )
+      { threshold: 0.1, rootMargin: "100px" }
+    );
 
     if (sectionRef.current) {
-      observer.observe(sectionRef.current)
+      observer.observe(sectionRef.current);
     }
 
-    return () => observer.disconnect()
-  }, [])
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
@@ -105,10 +121,15 @@ export default function ProjectsSection() {
         {/* Responsive Projects Grid */}
         <div className="space-y-12 sm:space-y-16 lg:space-y-24 xl:space-y-40">
           {featuredProjects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} reverse={index % 2 !== 0} />
+            <ProjectCard
+              key={project.title}
+              project={project}
+              index={index}
+              reverse={index % 2 !== 0}
+            />
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

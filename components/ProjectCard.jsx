@@ -1,38 +1,42 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { Github, ExternalLink } from "lucide-react"
-import { motion } from "framer-motion"
-import { useEffect, useState, useRef } from "react"
+import Image from "next/image";
+import { Github, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 
 export default function ProjectCard({ project, index = 0, reverse = false }) {
-  const [isVisible, setIsVisible] = useState(false)
-  const [isHovered, setIsHovered] = useState(false)
-  const cardRef = useRef(null)
+  const [isVisible, setIsVisible] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [showAllImages, setShowAllImages] = useState(false);
+  const cardRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true)
+          setIsVisible(true);
         }
       },
       { threshold: 0.1, rootMargin: "50px" },
-    )
+    );
 
     if (cardRef.current) {
-      observer.observe(cardRef.current)
+      observer.observe(cardRef.current);
     }
 
-    return () => observer.disconnect()
-  }, [])
+    return () => observer.disconnect();
+  }, []);
 
   const handleKeyDown = (event, url) => {
     if ((event.key === "Enter" || event.key === " ") && url) {
-      event.preventDefault()
-      window.open(url, "_blank", "noopener,noreferrer")
+      event.preventDefault();
+      window.open(url, "_blank", "noopener,noreferrer");
     }
-  }
+  };
+
+  const images = Array.isArray(project.images) ? project.images : [project.image]; // Support both single image and array
+  const mainImage = images[0];
 
   return (
     <article
@@ -64,11 +68,11 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
             />
 
             <Image
-              src={project.image || "/placeholder.svg?height=400&width=600"}
+              src={mainImage || "/placeholder.svg?height=400&width=600"}
               alt={`Screenshot of ${project.title} project`}
               width={600}
               height={400}
-              className={`object-cover transition-all w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[400px] duration-700 ease-out ${
+              className={`object-cover transition-all w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[400px] duration-700 ease-out cursor-pointer ${
                 isHovered
                   ? `grayscale-0 scale-105 ${
                       reverse ? "lg:translate-x-2 lg:-translate-y-2" : "lg:-translate-x-2 lg:-translate-y-2"
@@ -77,9 +81,42 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
               }`}
               priority={index < 2}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 50vw"
+              onClick={() => setShowAllImages(!showAllImages)} // Toggle accordion on click
             />
+            {/* Accordion Toggle Icon */}
+            <button
+              onClick={() => setShowAllImages(!showAllImages)}
+              className="absolute bottom-2 right-2 bg-black/50 text-white p-1 rounded-full hover:bg-black/70 transition"
+              aria-label="Toggle more images"
+            >
+              {showAllImages ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </button>
           </div>
         </div>
+
+        {/* Accordion: Expanded Images */}
+        <AnimatePresence>
+          {showAllImages && images.length > 1 && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            >
+              {images.slice(1).map((img, idx) => (
+                <Image
+                  key={idx}
+                  src={img}
+                  alt={`Additional screenshot ${idx + 1} of ${project.title}`}
+                  width={300}
+                  height={200}
+                  className="object-cover rounded-lg shadow-lg hover:scale-105 transition-transform"
+                />
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Responsive Content Section */}
@@ -163,6 +200,18 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
               <Github size={18} className="sm:w-5 sm:h-5" />
             </a>
           )}
+          {project.github2 && ( // New second GitHub link
+            <a
+              href={project.github2}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-green-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1 p-2 rounded-full hover:bg-gray-800/50 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:ring-offset-gray-900"
+              aria-label={`View ${project.title} secondary repo on GitHub`}
+              onKeyDown={(e) => handleKeyDown(e, project.github2)}
+            >
+              <Github size={18} className="sm:w-5 sm:h-5" />
+            </a>
+          )}
           {project.external && (
             <a
               href={project.external}
@@ -178,5 +227,5 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
         </div>
       </div>
     </article>
-  )
+  );
 }
