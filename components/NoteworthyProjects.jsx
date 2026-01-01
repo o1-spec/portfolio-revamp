@@ -1,22 +1,32 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { Folder, Github, ExternalLink } from "lucide-react"
+import { useState, useEffect, useRef } from "react";
+import { Folder, Github, ExternalLink } from "lucide-react";
 
 const projects = [
   {
     title: "PDF API",
-    description: "Building a simple API to convert PDF files to text, images, and more. Built with Python and Django.",
+    description:
+      "Building a simple API to convert PDF files to text, images, and more. Built with Python and Django.",
     tech: ["Python", "Django", "HTML / CSS"],
     github: "https://github.com/o1-spec/Pdf-Api",
     external: "",
   },
   {
     title: "Three.js Solar System",
-    description: "A 3D solar system simulation using Three.js, showcasing planets and their orbits.",
+    description:
+      "A 3D solar system simulation using Three.js, showcasing planets and their orbits.",
     tech: ["JavaScript", "Three.js", "CSS3"],
     github: "https://github.com/o1-spec/Three-Js-Solar-System/",
     external: "https://o1-spec-three-js-solar-system.vercel.app/",
+  },
+  {
+    title: "Real-Time Messaging Platform",
+    description:
+      "A full-stack messaging application with real-time communication using WebSockets. Features include instant messaging, typing indicators, and push notifications.",
+    tech: ["React", "Node.js", "MongoDB", "WebSockets", "Express"],
+    github: "https://github.com/o1-spec/messaging-platform",
+    external: "",
   },
   {
     title: "A Logistic Dashboard",
@@ -26,31 +36,31 @@ const projects = [
     github: "https://github.com/o1-spec/Cargo-pulse-logistic-dashboard",
     external: "https://cargo-pulse-logistic-dashboard.vercel.app/",
   },
-]
+];
 
 export default function NoteworthyProjects() {
-  const [isVisible, setIsVisible] = useState(false)
-  const [showMore, setShowMore] = useState(false)
-  const sectionRef = useRef(null)
+  const [isVisible, setIsVisible] = useState(false);
+  const [showMore, setShowMore] = useState(false);
+  const sectionRef = useRef(null);
 
-  const displayedProjects = showMore ? projects : projects.slice(0, 6)
+  const displayedProjects = showMore ? projects : projects.slice(0, 6);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true)
+          setIsVisible(true);
         }
       },
-      { threshold: 0.1 },
-    )
+      { threshold: 0.1 }
+    );
 
     if (sectionRef.current) {
-      observer.observe(sectionRef.current)
+      observer.observe(sectionRef.current);
     }
 
-    return () => observer.disconnect()
-  }, [])
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
@@ -79,11 +89,15 @@ export default function NoteworthyProjects() {
         </div>
 
         {/* Responsive Projects Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 justify-items-center">
           {displayedProjects.map((project, index) => (
             <div
               key={index}
-              className="group relative bg-white/5 backdrop-blur-sm border border-slate-700/50 rounded-lg sm:rounded-xl p-4 sm:p-6 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:-translate-y-1 sm:hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/20 min-h-[280px] sm:min-h-[320px] flex flex-col"
+              className={`group relative bg-white/5 backdrop-blur-sm border border-slate-700/50 rounded-lg sm:rounded-xl p-4 sm:p-6 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:-translate-y-1 sm:hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/20 min-h-[280px] sm:min-h-[320px] flex flex-col w-full ${
+                displayedProjects.length === 4 && index === 3
+                  ? "lg:col-span-3 lg:max-w-md lg:mx-auto"
+                  : ""
+              }`}
               style={{
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "translateY(0)" : "translateY(30px)",
@@ -111,7 +125,10 @@ export default function NoteworthyProjects() {
                       className="text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 hover:-translate-y-1 p-1 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-800"
                       aria-label={`View ${project.title} on GitHub`}
                     >
-                      <Github className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.5} />
+                      <Github
+                        className="w-5 h-5 sm:w-6 sm:h-6"
+                        strokeWidth={1.5}
+                      />
                     </a>
                   )}
                   {project.external && (
@@ -122,7 +139,10 @@ export default function NoteworthyProjects() {
                       className="text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 hover:-translate-y-1 p-1 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-800"
                       aria-label={`View ${project.title} live demo`}
                     >
-                      <ExternalLink className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.5} />
+                      <ExternalLink
+                        className="w-5 h-5 sm:w-6 sm:h-6"
+                        strokeWidth={1.5}
+                      />
                     </a>
                   )}
                 </div>
@@ -177,7 +197,9 @@ export default function NoteworthyProjects() {
               className="group px-4 sm:px-8 py-2 sm:py-3 border border-teal-400/50 text-teal-400 rounded-lg font-mono text-sm hover:bg-teal-400/10 hover:border-teal-400 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-slate-900"
             >
               <span className="group-hover:text-teal-300 transition-colors duration-300">
-                {showMore ? "Show Less" : `Show More (${projects.length - 6} more)`}
+                {showMore
+                  ? "Show Less"
+                  : `Show More (${projects.length - 6} more)`}
               </span>
             </button>
           </div>
@@ -190,5 +212,5 @@ export default function NoteworthyProjects() {
         <div className="absolute bottom-1/4 right-1/4 w-48 h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 bg-blue-500/5 rounded-full blur-3xl" />
       </div>
     </section>
-  )
+  );
 }
