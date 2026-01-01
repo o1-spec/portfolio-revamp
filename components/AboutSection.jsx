@@ -14,6 +14,8 @@ export default function AboutSection() {
     "Next.js",
     "TypeScript",
     "Node.js",
+    "Express.js",
+    "MongoDB",
     "Python",
     "Django",
     "Tailwind CSS",
@@ -22,6 +24,7 @@ export default function AboutSection() {
     "Firebase",
     "Github",
     "React Native",
+    "Expo",
   ];
 
   const passions = [
