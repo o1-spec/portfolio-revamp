@@ -10,6 +10,39 @@ export default function ProjectsSection() {
 
   const featuredProjects = [
     {
+      title: "Distributed File Processing Pipeline",
+      description:
+        "A scalable system for handling large file uploads and asynchronous processing using Redis queues and distributed workers. Files are uploaded via presigned URLs, processed by specialized workers, and stored in object storage.",
+      image: "/images/file-processing.png",
+      tech: [
+        "Node.js",
+        "Express",
+        "Redis",
+        "BullMQ",
+        "PostgreSQL",
+        "MinIO",
+        "Docker",
+      ],
+      github: "https://github.com/o1-spec/file-processing-pipeline",
+      external: "",
+    },
+    {
+      title: "Rate-Limited API Gateway",
+      description:
+        "A production-style API gateway that protects backend services using distributed rate limiting. Implements fixed window, sliding window, and token bucket algorithms with Redis-backed counters.",
+      image: "/images/api-gateway.png",
+      tech: [
+        "Node.js",
+        "Express",
+        "Redis",
+        "Lua Scripts",
+        "System Design",
+        "Distributed Systems",
+      ],
+      github: "https://github.com/o1-spec/rate-limited-api-gateway",
+      external: "",
+    },
+    {
       title: "Ernext Gadgets",
       description:
         "A robust and fully responsive e-commerce platform built for a tech gadget hub. Users can browse products, place orders, and complete secure payments with ease. The platform features real-time inventory updates, sleek animations, and an intuitive admin dashboard. Built with Next.js and AppWrite for high performance, scalability, and a seamless shopping experience across devices.",
@@ -70,7 +103,7 @@ export default function ProjectsSection() {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1, rootMargin: "100px" }
+      { threshold: 0.1, rootMargin: "100px" },
     );
 
     if (sectionRef.current) {
