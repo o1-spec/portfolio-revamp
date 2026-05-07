@@ -22,16 +22,14 @@ const experiences = [
     type: "Full-time",
     location: "Remote",
     duration: "2025",
-    period: "6 Months (Ongoing)",
+    period: "9 Months (April 2025 - December 2025)",
     description:
-      "Currently working on multiple banking solutions including core banking systems and digital banking platforms, serving millions of users with 99.9% uptime across both projects.",
+      "Worked on multiple banking solutions including core banking systems and digital banking platforms, serving millions of users with 99.9% uptime across both projects. Role concluded December 2025.",
     achievements: [
-      // Core Banking System achievements
       "Contributed to the development of a core banking system supporting day-to-day operations such as customer onboarding, transaction processing, and account management",
       "Collaborated with a team of 6 developers to deliver secure and scalable financial products used internally by bank staff",
       "Assisted in implementing modular services architecture to improve maintainability and reduce system outages",
       
-      // Digital Banking Platform achievements  
       "Contributed to the development of a digital banking platform enabling customers to manage accounts, view transactions, and perform transfers online",
       "Built and integrated user-facing components such as login, dashboard views, and transaction history using modern frontend technologies",
       "Implemented role-based access control and secure authentication flows to ensure data protection and compliance",

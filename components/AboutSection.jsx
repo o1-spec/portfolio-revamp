@@ -16,15 +16,18 @@ export default function AboutSection() {
     "Node.js",
     "Express.js",
     "MongoDB",
+    "NestJS",
+    "Docker",
     "Python",
     "Django",
     "Tailwind CSS",
-    "Docker",
     "Three.js",
     "Firebase",
     "Github",
     "React Native",
     "Expo",
+    "System Design",
+    "Distributed Systems",
   ];
 
   const passions = [
@@ -112,15 +115,15 @@ export default function AboutSection() {
               }`}
               style={{ transitionDelay: "1.4s" }}
             >
-              Hello! My name is Onadokun Oluwafemi, and I'm passionate about
-              crafting digital experiences that make a difference. My journey
-              into software development began in 2022, I have always been
-              fascinated by how things work — from the logic behind everyday
-              apps to the intelligence powering AI systems. I've always been
-              curious about the "why" and "how" behind tech products. This
-              curiosity led me to explore the world of software development,
-              where I found my passion for creating innovative solutions that
-              solve real-world problems.
+              I'm Oluwafemi Onadokun, a Full-Stack Software Engineer focused on
+              building scalable web applications, backend systems, realtime
+              infrastructure, and mobile experiences. My interest in software
+              engineering started from a curiosity about how systems work
+              beneath the surface — from everyday applications to distributed
+              platforms and AI-powered systems. Over time, that curiosity
+              evolved into a passion for building products that solve
+              real-world problems through thoughtful engineering and scalable
+              architecture.
             </p>
 
             <p
@@ -131,14 +134,28 @@ export default function AboutSection() {
               }`}
               style={{ transitionDelay: "2.0s" }}
             >
-              Today, I work at TECHSERVICES, where we build and sell custom
-              applications to businesses. I've contributed to the development of
-              a core banking system and a digital banking platform — both built
-              to deliver secure and scalable solutions for financial
-              institutions — as well as other applications for industries.
-              Outside of coding, I enjoy reading books, exploring technical
-              documentation, and strengthening my problem-solving skills through
-              data structures and algorithms.
+              I work across the frontend, backend, and mobile ecosystem using
+              technologies such as React, Next.js, React Native, Node.js,
+              NestJS, PostgreSQL, Redis, and Docker. I particularly enjoy
+              working on realtime systems, asynchronous processing, API
+              architecture, and infrastructure-focused problem solving.<br></br> <br></br>
+              Previously at TECHSERVICES, I contributed to enterprise
+              applications including a core banking system and a digital
+              banking platform built for secure and scalable financial
+              operations.
+            </p>
+
+            <p
+              className={`text-sm sm:text-base lg:text-[17px] leading-relaxed transition-all duration-2000 ease-out ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-20"
+              }`}
+              style={{ transitionDelay: "2.6s" }}
+            >
+              Beyond development, I actively study system design, backend
+              engineering, and data structures & algorithms to deepen my
+              understanding of modern scalable systems.
             </p>
 
             {/* Responsive Passion Cards */}
