@@ -10,21 +10,21 @@ export default function ProjectsSection() {
 
   const featuredProjects = [
     {
-      title: "Distributed File Processing Pipeline",
+      title: "FileFlow",
       description:
-        "A scalable system for handling large file uploads and asynchronous processing using Redis queues and distributed workers. Files are uploaded via presigned URLs, processed by specialized workers, and stored in object storage.",
-      image: "/images/file-processing.png",
+        "An enterprise-grade file management and processing platform designed for massive file uploads and real-time synchronization. Features direct-to-S3 routing with presigned URLs, asynchronous Redis worker queues, and comprehensive KYC/media pipelines. Built to scale without crashing your API.",
+      image: "/images/file-flow.png",
       tech: [
         "Node.js",
-        "Express",
+        "Next.js",
+        "React",
         "Redis",
-        "BullMQ",
-        "PostgreSQL",
-        "MinIO",
+        "MongoDB",
         "Docker",
+        "System Design",
       ],
-      github: "https://github.com/o1-spec/file-processing-pipeline",
-      external: "",
+      github: "https://github.com/o1-spec/File-flow",
+      external: "https://fileflow-frontend.vercel.app/",
     },
     {
       title: "Rate-Limited API Gateway",
