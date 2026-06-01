@@ -16,6 +16,7 @@ const HeroSectionWithArrow = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [hoveredIcon, setHoveredIcon] = useState(null);
   const [isArrowHovered, setIsArrowHovered] = useState(false);
+  const [showCVDropdown, setShowCVDropdown] = useState(false);
   const cardRef = useRef(null);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
 
@@ -162,13 +163,23 @@ const HeroSectionWithArrow = () => {
     }
   };
 
-  const downloadCV = () => {
+  const downloadCV = (type = "fullstack") => {
+    let fileName = "Oluwafemi_Onadokun_CV";
+    let filePath = "/Onadokun-Oluwafemi-CV-2.0.pdf";
+
+    if (type === "frontend") {
+      fileName = "Oluwafemi_Onadokun_CV_Frontend";
+      filePath = "/Onadokun-Oluwafemi-CV.pdf";
+    }
+
     const link = document.createElement("a");
-    link.href = "/Onadokun-Oluwafemi-CV.pdf";
-    link.download = "Oluwafemi_Onadokun_CV.pdf";
+    link.href = filePath;
+    link.download = `${fileName}.pdf`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    
+    setShowCVDropdown(false);
   };
   return (
     <div className="relative w-screen h-screen overflow-hidden">
@@ -319,29 +330,52 @@ const HeroSectionWithArrow = () => {
           zIndex: 192828282,
         }}
       >
-        <button
-          className="flex items-center gap-2 px-3 py-2 sm:px-[15px] sm:py-[10px] bg-gradient-to-br from-white/20 to-white/10 border-2 border-white/30 rounded-[20px] sm:rounded-[30px] text-white text-sm sm:text-base font-semibold cursor-pointer transition-all duration-300 shadow-xl backdrop-blur-[10px]"
-          onMouseEnter={(e) => {
-            e.target.style.transform = "scale(1.05) translateY(-5px)";
-            e.target.style.background =
-              "linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15))";
-            e.target.style.boxShadow = "0 12px 25px rgba(0,0,0,0.4)";
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.transform = "scale(1) translateY(0)";
-            e.target.style.background =
-              "linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1))";
-            e.target.style.boxShadow = "0 8px 20px rgba(0,0,0,0.3)";
-          }}
-          style={{
-            boxShadow: "0 8px 20px rgba(0,0,0,0.3)",
-          }}
-          onClick={downloadCV}
-        >
-          <Download size={18} />
-          <span className="hidden sm:inline">Download CV</span>
-          <span className="sm:hidden">CV</span>
-        </button>
+        <div className="relative">
+          <button
+            className="flex items-center gap-2 px-3 py-2 sm:px-[15px] sm:py-[10px] bg-gradient-to-br from-white/20 to-white/10 border-2 border-white/30 rounded-[20px] sm:rounded-[30px] text-white text-sm sm:text-base font-semibold cursor-pointer transition-all duration-300 shadow-xl backdrop-blur-[10px]"
+            onMouseEnter={(e) => {
+              e.target.style.transform = "scale(1.05) translateY(-5px)";
+              e.target.style.background =
+                "linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15))";
+              e.target.style.boxShadow = "0 12px 25px rgba(0,0,0,0.4)";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = "scale(1) translateY(0)";
+              e.target.style.background =
+                "linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1))";
+              e.target.style.boxShadow = "0 8px 20px rgba(0,0,0,0.3)";
+            }}
+            style={{
+              boxShadow: "0 8px 20px rgba(0,0,0,0.3)",
+            }}
+            onClick={() => setShowCVDropdown(!showCVDropdown)}
+          >
+            <Download size={18} />
+            <span className="hidden sm:inline">Download CV</span>
+            <span className="sm:hidden">CV</span>
+          </button>
+
+          {/* Dropdown Menu */}
+          {showCVDropdown && (
+            <div className="absolute bottom-full left-0 mb-2 bg-slate-800/95 backdrop-blur-lg border border-white/20 rounded-xl shadow-2xl overflow-hidden min-w-[200px] animate-in fade-in zoom-in-95 duration-200">
+              <button
+                onClick={() => downloadCV("fullstack")}
+                className="w-full px-4 py-3 text-left text-white hover:bg-white/10 transition-colors duration-200 flex items-center gap-2 text-sm"
+              >
+                <Download size={16} />
+                Full Stack CV
+              </button>
+              <div className="border-t border-white/10"></div>
+              <button
+                onClick={() => downloadCV("frontend")}
+                className="w-full px-4 py-3 text-left text-white hover:bg-white/10 transition-colors duration-200 flex items-center gap-2 text-sm"
+              >
+                <Download size={16} />
+                Frontend CV
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Animated Bouncing Arrow - Bottom Center */}
