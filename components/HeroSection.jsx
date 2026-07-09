@@ -165,11 +165,11 @@ const HeroSectionWithArrow = () => {
 
   const downloadCV = (type = "fullstack") => {
     let fileName = "Oluwafemi_Onadokun_CV";
-    let filePath = "/Onadokun-Oluwafemi-CV-2.0.pdf";
+    let filePath = "/Onadokun-Oluwafemi-CV-22.0.pdf";
 
     if (type === "frontend") {
       fileName = "Oluwafemi_Onadokun_CV_Frontend";
-      filePath = "/Onadokun-Oluwafemi-CV.pdf";
+      filePath = "/Onadokun-Oluwafemi-CV-19.0.pdf";
     }
 
     const link = document.createElement("a");
