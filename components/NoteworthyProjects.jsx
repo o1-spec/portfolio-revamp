@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Folder, Github, ExternalLink } from "lucide-react";
+import { Folder, Github, ExternalLink, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const projects = [
   {
@@ -67,7 +68,8 @@ export default function NoteworthyProjects() {
   const [showMore, setShowMore] = useState(false);
   const sectionRef = useRef(null);
 
-  const displayedProjects = showMore ? projects : projects.slice(0, 6);
+  const initialProjects = projects.slice(0, 6);
+  const extraProjects = projects.slice(6);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -85,6 +87,81 @@ export default function NoteworthyProjects() {
 
     return () => observer.disconnect();
   }, []);
+
+  const renderProjectCard = (project, index) => (
+    <div
+      key={project.title || index}
+      className="group relative bg-white/5 backdrop-blur-sm border border-slate-700/50 rounded-lg sm:rounded-xl p-4 sm:p-6 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:-translate-y-1 sm:hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/20 min-h-[280px] sm:min-h-[320px] flex flex-col w-full"
+    >
+      {/* Responsive Header with icons */}
+      <div className="flex items-start justify-between mb-4 sm:mb-6">
+        <div className="relative">
+          <Folder
+            className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400 group-hover:text-pink-400 transition-colors duration-300"
+            strokeWidth={1.5}
+          />
+          {/* Subtle glow effect */}
+          <div className="absolute inset-0 bg-purple-400/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md scale-150" />
+        </div>
+
+        <div className="flex gap-2 sm:gap-3">
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 hover:-translate-y-1 p-1 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-800"
+              aria-label={`View ${project.title} on GitHub`}
+            >
+              <Github className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.5} />
+            </a>
+          )}
+          {project.external && (
+            <a
+              href={project.external}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 hover:-translate-y-1 p-1 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-800"
+              aria-label={`View ${project.title} live demo`}
+            >
+              <ExternalLink
+                className="w-5 h-5 sm:w-6 sm:h-6"
+                strokeWidth={1.5}
+              />
+            </a>
+          )}
+        </div>
+      </div>
+
+      {/* Responsive Project Title */}
+      <h3 className="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-pink-500 transition-colors duration-300 leading-tight">
+        {project.title}
+      </h3>
+
+      {/* Responsive Project Description */}
+      <p className="text-slate-400 text-sm sm:text-[15px] leading-relaxed mb-4 sm:mb-6 group-hover:text-slate-300 transition-colors duration-300 flex-grow">
+        {project.description}
+      </p>
+
+      {/* Responsive Tech Stack */}
+      <div className="flex flex-wrap gap-2 sm:gap-3 mt-auto">
+        {project.tech.map((tech, techIndex) => (
+          <span
+            key={techIndex}
+            className="text-slate-400 font-mono text-xs sm:text-[14px] hover:text-pink-400 transition-colors duration-300 cursor-default px-2 py-1 bg-slate-800/50 rounded border border-slate-700/50 hover:border-pink-400/50"
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+
+      {/* Hover border effect */}
+      <div className="absolute inset-0 border border-purple-500/0 group-hover:border-purple-500/30 rounded-lg sm:rounded-xl transition-colors duration-300 pointer-events-none" />
+
+      {/* Subtle background gradient on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-pink-500/0 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg sm:rounded-xl pointer-events-none" />
+    </div>
+  );
 
   return (
     <section
@@ -104,127 +181,83 @@ export default function NoteworthyProjects() {
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 px-4 leading-tight">
             Other Noteworthy Projects
           </h2>
-          <button
-            onClick={() => setShowMore(!showMore)}
-            className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500 font-mono text-base sm:text-lg transition-colors duration-300 hover:underline focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-2 py-1"
-          >
-            {showMore ? "show less" : "view the archive"}
-          </button>
         </div>
 
-        {/* Responsive Projects Grid */}
+        {/* Responsive Projects Grid - Initial 6 items */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 justify-items-center">
-          {displayedProjects.map((project, index) => (
+          {initialProjects.map((project, index) => (
             <div
-              key={index}
-              className={`group relative bg-white/5 backdrop-blur-sm border border-slate-700/50 rounded-lg sm:rounded-xl p-4 sm:p-6 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:-translate-y-1 sm:hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/20 min-h-[280px] sm:min-h-[320px] flex flex-col w-full ${
-                displayedProjects.length === 4 && index === 3
-                  ? "lg:col-span-3 lg:max-w-md lg:mx-auto"
-                  : ""
-              }`}
+              key={project.title}
               style={{
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "translateY(0)" : "translateY(30px)",
                 transition: "all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-                transitionDelay: `${index * 0.1}s`,
+                transitionDelay: `${index * 0.08}s`,
+                width: "100%",
               }}
             >
-              {/* Responsive Header with icons */}
-              <div className="flex items-start justify-between mb-4 sm:mb-6">
-                <div className="relative">
-                  <Folder
-                    className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400 group-hover:text-teal-300 transition-colors duration-300"
-                    strokeWidth={1.5}
-                  />
-                  {/* Subtle glow effect */}
-                  <div className="absolute inset-0 bg-purple-400/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md scale-150" />
-                </div>
-
-                <div className="flex gap-2 sm:gap-3">
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 hover:-translate-y-1 p-1 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-800"
-                      aria-label={`View ${project.title} on GitHub`}
-                    >
-                      <Github
-                        className="w-5 h-5 sm:w-6 sm:h-6"
-                        strokeWidth={1.5}
-                      />
-                    </a>
-                  )}
-                  {project.external && (
-                    <a
-                      href={project.external}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 hover:-translate-y-1 p-1 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-800"
-                      aria-label={`View ${project.title} live demo`}
-                    >
-                      <ExternalLink
-                        className="w-5 h-5 sm:w-6 sm:h-6"
-                        strokeWidth={1.5}
-                      />
-                    </a>
-                  )}
-                </div>
-              </div>
-
-              {/* Responsive Project Title */}
-              <h3 className="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-pink-500 transition-colors duration-300 leading-tight">
-                {project.title}
-              </h3>
-
-              {/* Responsive Project Description */}
-              <p className="text-slate-400 text-sm sm:text-[15px] leading-relaxed mb-4 sm:mb-6 group-hover:text-slate-300 transition-colors duration-300 flex-grow">
-                {project.description}
-              </p>
-
-              {/* Responsive Tech Stack */}
-              <div className="flex flex-wrap gap-2 sm:gap-3 mt-auto">
-                {project.tech.map((tech, techIndex) => (
-                  <span
-                    key={techIndex}
-                    className="text-slate-400 font-mono text-xs sm:text-[14px] hover:text-pink-400 transition-colors duration-300 cursor-default px-2 py-1 bg-slate-800/50 rounded border border-slate-700/50 hover:border-pink-400/50"
-                    style={{
-                      transitionDelay: `${techIndex * 0.05}s`,
-                    }}
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {/* Hover border effect */}
-              <div className="absolute inset-0 border border-purple-500/0 group-hover:border-purple-500/30 rounded-lg sm:rounded-xl transition-colors duration-300 pointer-events-none" />
-
-              {/* Subtle background gradient on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-pink-500/0 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg sm:rounded-xl pointer-events-none" />
+              {renderProjectCard(project, index)}
             </div>
           ))}
         </div>
 
-        {/* Responsive Show More/Less Button */}
+        {/* Extra Projects with Smooth AnimatePresence Reveal */}
+        <AnimatePresence>
+          {showMore && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="overflow-hidden"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 justify-items-center pt-4 sm:pt-6 lg:pt-8">
+                {extraProjects.map((project, index) => (
+                  <motion.div
+                    key={project.title}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: index * 0.08,
+                      ease: "easeOut",
+                    }}
+                    className="w-full"
+                  >
+                    {renderProjectCard(project, index)}
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Styled Show More / Show Less Button */}
         {projects.length > 6 && (
           <div
-            className="text-center mt-8 sm:mt-12"
+            className="text-center mt-10 sm:mt-14"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateY(0)" : "translateY(20px)",
-              transition: "all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s",
+              transition: "all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s",
             }}
           >
             <button
               onClick={() => setShowMore(!showMore)}
-              className="group px-4 sm:px-8 py-2 sm:py-3 border border-teal-400/50 text-teal-400 rounded-lg font-mono text-sm hover:bg-teal-400/10 hover:border-teal-400 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-slate-900"
+              className="group inline-flex items-center gap-2.5 px-6 sm:px-8 py-3 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-purple-500/10 border border-purple-500/30 hover:border-purple-500/60 rounded-full text-white font-mono text-sm sm:text-base backdrop-blur-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(168,85,247,0.35)] cursor-pointer"
             >
-              <span className="group-hover:text-teal-300 transition-colors duration-300">
+              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent group-hover:from-purple-300 group-hover:to-pink-300 font-semibold transition-colors duration-300">
                 {showMore
                   ? "Show Less"
-                  : `Show More (${projects.length - 6} more)`}
+                  : `Show More (${extraProjects.length} more)`}
               </span>
+              <ChevronDown
+                size={18}
+                className={`text-purple-400 group-hover:text-pink-300 transition-transform duration-300 ${
+                  showMore ? "rotate-180" : ""
+                }`}
+              />
             </button>
           </div>
         )}

@@ -13,7 +13,7 @@ export default function ProjectsSection() {
       title: "QueueWatch",
       description:
         "An operational diagnostics and observability platform for background jobs, queues, workers, retries, failures, and dead-letter queues. Built to help engineering teams monitor distributed job systems, detect failures early, and understand worker health in real time.",
-      image: "/images/queuewatch.png",
+      image: "/images/project-5.png",
       tech: [
         "Next.js",
         "NestJS",
@@ -30,7 +30,7 @@ export default function ProjectsSection() {
       title: "Foundry",
       description:
         "A multi-agent command center and telemetry studio for running, tracking, and reviewing AI agent workflows. It provides visibility into agent execution, task progress, retries, logs, cost tracking, and human-in-the-loop review.",
-      image: "/images/foundry.png",
+      image: "/images/project-6.png",
       tech: [
         "Next.js",
         "React Flow",
