@@ -10,6 +10,23 @@ export default function ProjectsSection() {
 
   const featuredProjects = [
     {
+      title: "NanoURL",
+      description:
+        "A high-performance URL shortening and analytics platform featuring instant redirection, custom aliases, click analytics, and Redis caching. Built to handle low-latency URL resolution, rate limiting, and real-time click tracking at scale.",
+      image: "/images/project-7.png",
+      tech: [
+        "Next.js",
+        "Node.js",
+        "TypeScript",
+        "Redis",
+        "PostgreSQL",
+        "Express",
+      ],
+      github: "https://github.com/o1-spec/nano-url-backend",
+      github2: "https://github.com/o1-spec/nano-url-frontend",
+      external: "https://nano-url-frontend.vercel.app/",
+    },
+    {
       title: "QueueWatch",
       description:
         "An operational diagnostics and observability platform for background jobs, queues, workers, retries, failures, and dead-letter queues. Built to help engineering teams monitor distributed job systems, detect failures early, and understand worker health in real time.",
