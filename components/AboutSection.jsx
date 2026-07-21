@@ -14,18 +14,17 @@ export default function AboutSection() {
     "Next.js",
     "TypeScript",
     "Node.js",
+    "NestJS",
+    "PostgreSQL",
+    "Redis",
+    "Docker",
+    "BullMQ",
+    "Socket.IO",
     "Express.js",
     "MongoDB",
-    "NestJS",
-    "Docker",
     "Python",
-    "Django",
     "Tailwind CSS",
-    "Three.js",
-    "Firebase",
-    "Github",
     "React Native",
-    "Expo",
     "System Design",
     "Distributed Systems",
   ];
@@ -116,14 +115,10 @@ export default function AboutSection() {
               style={{ transitionDelay: "1.4s" }}
             >
               I'm Oluwafemi Onadokun, a Full-Stack Software Engineer focused on
-              building scalable web applications, backend systems, realtime
-              infrastructure, and mobile experiences. My interest in software
-              engineering started from a curiosity about how systems work
-              beneath the surface — from everyday applications to distributed
-              platforms and AI-powered systems. Over time, that curiosity
-              evolved into a passion for building products that solve
-              real-world problems through thoughtful engineering and scalable
-              architecture.
+              building fintech products, backend systems, APIs, dashboards, and
+              distributed workflows. I have worked on core banking, digital
+              banking, and real estate platforms, and I enjoy building systems
+              that solve real operational problems.
             </p>
 
             <p

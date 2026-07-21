@@ -5,6 +5,30 @@ import { Folder, Github, ExternalLink } from "lucide-react";
 
 const projects = [
   {
+    title: "SocketChat",
+    description:
+      "A real-time messaging platform built with Socket.IO and WebSockets for persistent chat history, instant message delivery, user presence, and low-latency communication.",
+    tech: ["Node.js", "Socket.IO", "Redis", "PostgreSQL", "Express", "React"],
+    github: "https://github.com/o1-spec/SocketChat",
+    external: "",
+  },
+  {
+    title: "Ernext Gadgets",
+    description:
+      "A full-featured e-commerce application for a technology gadget hub with product browsing, cart management, checkout, order tracking, and admin product management.",
+    tech: ["Next.js", "Appwrite", "Cloudinary", "Redux", "Tailwind CSS"],
+    github: "https://github.com/o1-spec/ernext-gadgets",
+    external: "https://www.ernextgadgets.ng/",
+  },
+  {
+    title: "Chatter",
+    description:
+      "A modern interactive blogging platform for writers and readers with rich text editing, social features like likes/comments, and real-time notifications.",
+    tech: ["React", "Firebase", "Context API", "Framer Motion", "TypeScript"],
+    github: "https://github.com/o1-spec/Chatter",
+    external: "https://chatter-jade.vercel.app/blog/feed",
+  },
+  {
     title: "PDF API",
     description:
       "Building a simple API to convert PDF files to text, images, and more. Built with Python and Django.",

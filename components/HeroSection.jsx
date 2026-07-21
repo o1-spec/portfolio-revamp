@@ -209,19 +209,51 @@ const HeroSectionWithArrow = () => {
 
         {/* Enhanced Subtitle */}
         <p
-          className="text-lg sm:text-xl md:text-2xl lg:text-[1.7rem] text-white/90 mb-2 sm:mb-4 font-normal tracking-[1px] animate-fadeInUp"
+          className="text-lg sm:text-xl md:text-2xl lg:text-[1.8rem] font-bold text-white/95 mb-3 sm:mb-4 tracking-[1px] animate-fadeInUp"
           style={{ animation: "fadeInUp 2s ease-out 4s both" }}
         >
-          Creative Technologist & Code Artist
+          Full-Stack Software Engineer
         </p>
 
         {/* Secondary subtitle */}
         <p
-          className="text-sm sm:text-base lg:text-[0.9rem] text-white/70 mb-4 sm:mb-8 italic animate-fadeInUp"
+          className="text-sm sm:text-base lg:text-[1rem] text-white/80 max-w-2xl mx-auto mb-6 sm:mb-8 font-normal leading-relaxed animate-fadeInUp"
           style={{ animation: "fadeInUp 2s ease-out 4.5s both" }}
         >
-          Building Tomorrow's Web, One Line at a Time
+          Building fintech products, backend systems, APIs, and distributed workflows with React, Next.js, NestJS, PostgreSQL, Redis, and Docker.
         </p>
+
+        {/* Action Buttons */}
+        <div
+          className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 mb-6 sm:mb-8 animate-fadeInUp"
+          style={{ animation: "fadeInUp 2s ease-out 4.8s both" }}
+        >
+          <button
+            onClick={() => {
+              const el = document.getElementById("projects");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="px-5 py-2.5 bg-white text-slate-950 font-semibold text-sm sm:text-base rounded-full hover:bg-white/90 transition-all duration-300 shadow-lg hover:scale-105 cursor-pointer"
+          >
+            View Projects
+          </button>
+          <button
+            onClick={() => setShowCVDropdown(!showCVDropdown)}
+            className="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white font-semibold text-sm sm:text-base rounded-full border border-white/30 backdrop-blur-md transition-all duration-300 shadow-lg hover:scale-105 cursor-pointer flex items-center gap-2"
+          >
+            <Download size={16} />
+            Download CV
+          </button>
+          <button
+            onClick={() => {
+              const el = document.getElementById("contact");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white font-semibold text-sm sm:text-base rounded-full border border-white/30 backdrop-blur-md transition-all duration-300 shadow-lg hover:scale-105 cursor-pointer"
+          >
+            Contact Me
+          </button>
+        </div>
 
         {/* Animated underline */}
         <div

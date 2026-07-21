@@ -24,7 +24,7 @@ const experiences = [
     duration: "2025",
     period: "9 Months (April 2025 - December 2025)",
     description:
-      "Worked on multiple banking solutions including core banking systems and digital banking platforms, serving millions of users with 99.9% uptime across both projects. Role concluded December 2025.",
+      "Worked on banking solutions including core banking and digital banking platforms, contributing to customer onboarding, transaction workflows, account management, authentication, RBAC, and API integrations.",
     achievements: [
       "Contributed to the development of a core banking system supporting day-to-day operations such as customer onboarding, transaction processing, and account management",
       "Collaborated with a team of 6 developers to deliver secure and scalable financial products used internally by bank staff",
@@ -45,14 +45,14 @@ const experiences = [
     projects: [
       {
         name: "Banking Core System",
-        impact: "2M+ daily transactions",
-        users: "50K+ active users",
+        impact: "Core operational workflows",
+        users: "Bank staff operations",
         description: "Internal banking operations system"
       },
       {
         name: "Digital Banking Platform", 
-        impact: "99.9% uptime achieved",
-        users: "25K+ customers",
+        impact: "High availability platform",
+        users: "Digital banking customers",
         description: "Customer-facing banking platform"
       },
     ],
@@ -276,8 +276,7 @@ export default function ExperienceSection() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            My professional journey through the world of software development,
-            from junior developer to leading complex projects and teams.
+            My professional journey across fintech, real estate, and full-stack product engineering.
           </motion.p>
         </motion.div>
 

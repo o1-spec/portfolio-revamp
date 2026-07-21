@@ -10,18 +10,51 @@ export default function ProjectsSection() {
 
   const featuredProjects = [
     {
+      title: "QueueWatch",
+      description:
+        "An operational diagnostics and observability platform for background jobs, queues, workers, retries, failures, and dead-letter queues. Built to help engineering teams monitor distributed job systems, detect failures early, and understand worker health in real time.",
+      image: "/images/queuewatch.png",
+      tech: [
+        "Next.js",
+        "NestJS",
+        "PostgreSQL",
+        "Redis",
+        "BullMQ",
+        "WebSockets",
+        "Docker",
+      ],
+      github: "https://github.com/o1-spec/queuewatch",
+      external: "https://queuewatch-web.vercel.app/",
+    },
+    {
+      title: "Foundry",
+      description:
+        "A multi-agent command center and telemetry studio for running, tracking, and reviewing AI agent workflows. It provides visibility into agent execution, task progress, retries, logs, cost tracking, and human-in-the-loop review.",
+      image: "/images/foundry.png",
+      tech: [
+        "Next.js",
+        "React Flow",
+        "TypeScript",
+        "AI Agents",
+        "Telemetry",
+        "Workflow Automation",
+      ],
+      github: "https://github.com/o1-spec/foundry-ai-platform",
+      external: "",
+    },
+    {
       title: "FileFlow",
       description:
-        "An enterprise-grade file management and processing platform designed for massive file uploads and real-time synchronization. Features direct-to-S3 routing with presigned URLs, asynchronous Redis worker queues, and comprehensive KYC/media pipelines. Built to scale without crashing your API.",
+        "A distributed file processing pipeline for handling uploads, background jobs, retries, worker-based processing, and real-time status tracking. Built with queue-based workflows to process files reliably without blocking the main application.",
       image: "/images/file-flow.png",
       tech: [
-        "Node.js",
         "Next.js",
-        "React",
+        "Node.js",
+        "BullMQ",
         "Redis",
-        "MongoDB",
+        "PostgreSQL",
+        "MinIO",
         "Docker",
-        "System Design",
       ],
       github: "https://github.com/o1-spec/File-flow",
       external: "https://fileflow-frontend.vercel.app/",
@@ -41,24 +74,6 @@ export default function ProjectsSection() {
       ],
       github: "https://github.com/o1-spec/rate-limited-api-gateway",
       external: "",
-    },
-    {
-      title: "Ernext Gadgets",
-      description:
-        "A robust and fully responsive e-commerce platform built for a tech gadget hub. Users can browse products, place orders, and complete secure payments with ease. The platform features real-time inventory updates, sleek animations, and an intuitive admin dashboard. Built with Next.js and AppWrite for high performance, scalability, and a seamless shopping experience across devices.",
-      image: "/images/project-1.png",
-      tech: ["Next.js", "Cloudinary", "AppWrite", "Framer Motion", "Redux"],
-      github: "https://github.com/",
-      external: "https://www.ernextgadgets.ng/",
-    },
-    {
-      title: "Chatter",
-      description:
-        "A modern and interactive blogging platform designed for writers and readers alike. Chatter offers rich text editing, social features like likes and comments, and real-time notifications to enhance engagement. Built with React and Firebase, it provides a distraction-free reading experience with smooth transitions powered by Framer Motion. Ideal for sharing thoughtful content and building community.",
-      image: "/images/project-2.png",
-      tech: ["React", "Firebase", "Context API", "Framer Motion", "TypeScript"],
-      github: "https://github.com/o1-spec/Chatter",
-      external: "https://chatter-jade.vercel.app/blog/feed",
     },
     {
       title: "Citadela",
