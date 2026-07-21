@@ -48,7 +48,8 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
     : [project.image];
   const mainImage = images[currentImageIndex];
   const isMobileProject =
-    images.length > 1 && images.some((img) => img.includes("Image-"));
+    images.length > 1 &&
+    images.some((img) => img.includes("Image-") || img.includes("pneumo"));
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
@@ -335,6 +336,18 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
               className="text-slate-400 hover:text-green-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1 p-2 rounded-full hover:bg-gray-800/50 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:ring-offset-gray-900"
               aria-label={`View ${project.title} secondary repo on GitHub`}
               onKeyDown={(e) => handleKeyDown(e, project.github2)}
+            >
+              <Github size={18} className="sm:w-5 sm:h-5" />
+            </a>
+          )}
+          {project.github3 && (
+            <a
+              href={project.github3}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-purple-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1 p-2 rounded-full hover:bg-gray-800/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-gray-900"
+              aria-label={`View ${project.title} third repo on GitHub`}
+              onKeyDown={(e) => handleKeyDown(e, project.github3)}
             >
               <Github size={18} className="sm:w-5 sm:h-5" />
             </a>

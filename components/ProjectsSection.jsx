@@ -94,6 +94,31 @@ export default function ProjectsSection() {
       external: "https://popcorn-movies-black.vercel.app/",
     },
     {
+      title: "PneumoDetect AI",
+      description:
+        "PneumoDetect AI is a healthcare-focused platform designed to support AI-assisted chest X-ray analysis for pneumonia screening workflows. The system includes backend services for managing patient records, scan uploads, authentication, scan history, diagnostic results, and TensorFlow AI inference requests.",
+      images: [
+        "/images/pneumo-1.png",
+        "/images/pneumo-2.png",
+        "/images/pneumo-3.png",
+        "/images/pneumo-4.png",
+        "/images/pneumo-5.png",
+        "/images/pneumo-6.png",
+      ],
+      tech: [
+        "NestJS",
+        "PostgreSQL",
+        "TensorFlow",
+        "React Native",
+        "REST APIs",
+        "AI Integration",
+      ],
+      github: "https://github.com/o1-spec/PneumoDetect-Backend",
+      github2: "https://github.com/o1-spec/PneumoDetect",
+      github3: "https://github.com/o1-spec/PneumoDetect-ai-endpoints",
+      external: "",
+    },
+    {
       title: "Marketplace Mobile App",
       description:
         "A mobile marketplace app built with React Native, similar to Jumia, where buyers and sellers can connect to buy and sell goods. Features include real-time messaging between buyers and sellers powered by WebSockets, secure authentication, and a seamless user experience for transactions.",
