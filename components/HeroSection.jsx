@@ -220,8 +220,9 @@ const HeroSectionWithArrow = () => {
           className="text-sm sm:text-base lg:text-[1rem] text-white/80 max-w-2xl mx-auto mb-6 sm:mb-8 font-normal leading-relaxed animate-fadeInUp"
           style={{ animation: "fadeInUp 2s ease-out 4.5s both" }}
         >
-          Building production grade backend systems, APIs, and distributed
-          workflows with React, Next.js, NestJS, PostgreSQL, Redis, and Docker.
+          Building production grade frontend systems, backend systems, APIs, and
+          distributed workflows with React, Next.js, NestJS, PostgreSQL, Redis,
+          and Docker.
         </p>
 
         {/* Action Buttons */}
