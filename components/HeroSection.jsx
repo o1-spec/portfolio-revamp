@@ -178,7 +178,7 @@ const HeroSectionWithArrow = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    
+
     setShowCVDropdown(false);
   };
   return (
@@ -220,7 +220,8 @@ const HeroSectionWithArrow = () => {
           className="text-sm sm:text-base lg:text-[1rem] text-white/80 max-w-2xl mx-auto mb-6 sm:mb-8 font-normal leading-relaxed animate-fadeInUp"
           style={{ animation: "fadeInUp 2s ease-out 4.5s both" }}
         >
-          Building fintech products, backend systems, APIs, and distributed workflows with React, Next.js, NestJS, PostgreSQL, Redis, and Docker.
+          Building production grade backend systems, APIs, and distributed
+          workflows with React, Next.js, NestJS, PostgreSQL, Redis, and Docker.
         </p>
 
         {/* Action Buttons */}
@@ -236,13 +237,6 @@ const HeroSectionWithArrow = () => {
             className="px-5 py-2.5 bg-white text-slate-950 font-semibold text-sm sm:text-base rounded-full hover:bg-white/90 transition-all duration-300 shadow-lg hover:scale-105 cursor-pointer"
           >
             View Projects
-          </button>
-          <button
-            onClick={() => setShowCVDropdown(!showCVDropdown)}
-            className="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white font-semibold text-sm sm:text-base rounded-full border border-white/30 backdrop-blur-md transition-all duration-300 shadow-lg hover:scale-105 cursor-pointer flex items-center gap-2"
-          >
-            <Download size={16} />
-            Download CV
           </button>
           <button
             onClick={() => {
