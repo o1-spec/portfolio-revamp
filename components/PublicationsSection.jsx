@@ -13,7 +13,7 @@ const articles = [
     date: "July 18, 2026",
     readTime: "4 min read",
     tech: ["Telemetry", "Background Jobs", "BullMQ", "Observability"],
-    link: "https://medium.com/@oluwafemionadokun",
+    link: "https://medium.com/@oluwafemionadokun/telemetry-systems-understanding-what-your-background-jobs-are-trying-to-tell-you-b80593de2d1e?sharedUserId=oluwafemionadokun",
   },
   {
     title:
@@ -23,7 +23,7 @@ const articles = [
     date: "June 6, 2026",
     readTime: "5 min read",
     tech: ["Distributed Systems", "DLQ", "Error Handling", "System Design"],
-    link: "https://medium.com/@oluwafemionadokun",
+    link: "https://medium.com/@oluwafemionadokun/why-retries-are-not-enough-the-role-of-dead-letter-queues-in-reliable-systems-aba164215086?sharedUserId=oluwafemionadokun",
   },
 ];
 
