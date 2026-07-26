@@ -9,6 +9,7 @@ import CoreValues from "@/components/CoreValues";
 import AnimatedBackground from "@/components/WhiteGrid";
 import ProjectsSection from "@/components/ProjectsSection";
 import NoteworthyProjects from "@/components/NoteworthyProjects";
+import PublicationsSection from "@/components/PublicationsSection";
 
 function Homepage() {
   return (
@@ -24,6 +25,9 @@ function Homepage() {
       <div id="projects">
         <ProjectsSection />
         <NoteworthyProjects />
+      </div>
+      <div id="publications">
+        <PublicationsSection />
       </div>
       <div id="core-values">
         <CoreValues />

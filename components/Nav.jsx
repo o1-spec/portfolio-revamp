@@ -33,6 +33,7 @@ export default function Nav() {
     { href: "#about", label: "About" },
     { href: "#Experiences", label: "Experiences" },
     { href: "#projects", label: "Projects" },
+    { href: "#publications", label: "Publications" },
     { href: "#core-values", label: "Core Values" },
     { href: "#contact", label: "Contact" },
   ];
@@ -54,7 +55,7 @@ export default function Nav() {
         />
 
         <div
-          className={`bg-white/95 backdrop-blur-sm rounded-lg shadow-2xl px-6 py-3 border border-gray-200 relative transition-all duration-1000 ease-out w-[700px] ${
+          className={`bg-white/95 backdrop-blur-sm rounded-lg shadow-2xl px-6 py-3 border border-gray-200 relative transition-all duration-1000 ease-out w-[820px] ${
             isVisible
               ? "translate-y-0 opacity-100 rotate-0"
               : "-translate-y-8 opacity-0 rotate-3"
