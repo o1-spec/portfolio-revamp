@@ -16,23 +16,23 @@ function Homepage() {
     <div className="overflow-x-hidden">
       <Nav />
       <HeroSection />
-      <div id="about">
+      <div id="about" className="scroll-mt-24">
         <AboutSection />
       </div>
-      <div id="Experiences">
+      <div id="Experiences" className="scroll-mt-24">
         <ExperienceSection />
       </div>
-      <div id="projects">
+      <div id="projects" className="scroll-mt-24">
         <ProjectsSection />
         <NoteworthyProjects />
       </div>
-      <div id="publications">
+      <div id="publications" className="scroll-mt-24">
         <PublicationsSection />
       </div>
-      <div id="core-values">
+      <div id="core-values" className="scroll-mt-24">
         <CoreValues />
       </div>
-      <div id="contact">
+      <div id="contact" className="scroll-mt-24">
         <AnimatedBackground>
           <ContactSection />
         </AnimatedBackground>

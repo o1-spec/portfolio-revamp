@@ -51,7 +51,7 @@ export default function PublicationsSection() {
   return (
     <section
       ref={sectionRef}
-      id="publications"
+      id="publications-inner"
       className="py-16 sm:py-24 lg:py-24 lg:pb-40 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
       style={{
         backgroundImage: `
@@ -71,10 +71,10 @@ export default function PublicationsSection() {
             transition: "all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
           }}
         >
-          <div className="inline-flex items-center gap-2 mb-4 bg-purple-500/10 border border-purple-500/20 px-3 py-1 rounded-full text-purple-400 font-mono text-xs sm:text-sm uppercase tracking-wider">
+          {/* <div className="inline-flex items-center gap-2 mb-4 bg-purple-500/10 border border-purple-500/20 px-3 py-1 rounded-full text-purple-400 font-mono text-xs sm:text-sm uppercase tracking-wider">
             <BookOpen size={14} />
             Technical Writing
-          </div>
+          </div> */}
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
             Articles &{" "}
