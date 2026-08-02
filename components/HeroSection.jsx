@@ -10,6 +10,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import Image from "next/image";
+import { track } from "@vercel/analytics";
 
 const HeroSectionWithArrow = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -197,6 +198,9 @@ const MediumIcon = ({ size = 18, ...props }) => (
     link.click();
     document.body.removeChild(link);
 
+    // Track CV download event
+    track("cv_download", { type });
+
     setShowCVDropdown(false);
   };
   return (
@@ -313,6 +317,7 @@ const MediumIcon = ({ size = 18, ...props }) => (
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => track("social_click", { platform: social.label })}
                 className={`flex items-center justify-center w-8 h-8 sm:w-[40px] sm:h-[40px] rounded-[50%] cursor-pointer transition-all duration-300 ${
                   hoveredIcon === index
                     ? "scale-110 translate-x-[3px] sm:translate-x-[5px]"

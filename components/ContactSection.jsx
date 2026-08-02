@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { Mail, Phone, MapPin, Send, Github, Linkedin, ArrowUpRight, Sparkles, X } from "lucide-react"
+import { track } from "@vercel/analytics"
 
 export default function ResponsiveContactSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -110,17 +111,20 @@ export default function ResponsiveContactSection() {
 
       if (response.ok) {
         setSubmitStatus("success")
+        track("contact_form_submit", { status: "success" })
         setFormData({ name: "", email: "", subject: "", message: "" })
 
         setTimeout(() => {
           setSubmitStatus("idle")
         }, 5000)
       } else {
+        track("contact_form_submit", { status: "failure" })
         throw new Error("Form submission failed")
       }
     } catch (error) {
       console.error("Form submission error:", error)
       setSubmitStatus("error")
+      track("contact_form_submit", { status: "error" })
 
       setTimeout(() => {
         setSubmitStatus("idle")

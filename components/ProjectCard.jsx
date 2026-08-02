@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
+import { track } from "@vercel/analytics";
 
 export default function ProjectCard({ project, index = 0, reverse = false }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -321,6 +322,7 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => track("project_github_click", { project: project.title, repo: "primary" })}
               className="text-slate-400 hover:text-blue-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1 p-2 rounded-full hover:bg-gray-800/50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-900"
               aria-label={`View ${project.title} source code on GitHub`}
               onKeyDown={(e) => handleKeyDown(e, project.github)}
@@ -333,6 +335,7 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
               href={project.github2}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => track("project_github_click", { project: project.title, repo: "secondary" })}
               className="text-slate-400 hover:text-green-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1 p-2 rounded-full hover:bg-gray-800/50 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:ring-offset-gray-900"
               aria-label={`View ${project.title} secondary repo on GitHub`}
               onKeyDown={(e) => handleKeyDown(e, project.github2)}
@@ -345,6 +348,7 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
               href={project.github3}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => track("project_github_click", { project: project.title, repo: "tertiary" })}
               className="text-slate-400 hover:text-purple-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1 p-2 rounded-full hover:bg-gray-800/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-gray-900"
               aria-label={`View ${project.title} third repo on GitHub`}
               onKeyDown={(e) => handleKeyDown(e, project.github3)}
@@ -357,6 +361,7 @@ export default function ProjectCard({ project, index = 0, reverse = false }) {
               href={project.external}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => track("project_live_click", { project: project.title })}
               className="text-slate-400 hover:text-blue-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1 p-2 rounded-full hover:bg-gray-800/50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-900"
               aria-label={`Visit ${project.title} live site`}
               onKeyDown={(e) => handleKeyDown(e, project.external)}
