@@ -130,6 +130,18 @@ const MediumIcon = ({ size = 18, ...props }) => (
   </svg>
 );
 
+const LeetCodeIcon = ({ size = 18, ...props }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    fill="currentColor"
+    {...props}
+  >
+    <path d="M13.483 0a1.374 1.374 0 00-.961.414l-9.777 9.778a1.38 1.38 0 000 1.951l.005.005a1.377 1.377 0 001.951 0l9.778-9.778A1.378 1.378 0 0013.483 0zm5.102 5.093a1.378 1.378 0 00-.962.411l-3.093 3.098a1.371 1.371 0 00.957 2.348h3.1a1.374 1.374 0 001.377-1.376V6.47a1.377 1.377 0 00-1.379-1.377zM4.382 12.046a1.376 1.376 0 00-.378.969v3.07a1.377 1.377 0 001.377 1.377h3.07a1.377 1.377 0 00.969-.378L18.89 7.613a1.374 1.374 0 00.174-1.802l-.012-.015a1.378 1.378 0 00-1.8-.174L4.382 12.046zM12.04 18.89a1.377 1.377 0 00.968-.379l3.07-3.07a1.377 1.377 0 00-.968-2.348h-3.07a1.376 1.376 0 00-1.377 1.377v3.07a1.377 1.377 0 001.377 1.377z" />
+  </svg>
+);
+
   const socialLinks = [
     {
       icon: Github,
@@ -142,6 +154,12 @@ const MediumIcon = ({ size = 18, ...props }) => (
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/oluwafemionadokun",
       color: "#0077b5",
+    },
+    {
+      icon: LeetCodeIcon,
+      label: "LeetCode",
+      href: "https://leetcode.com/u/femi19/",
+      color: "#ffa116",
     },
     {
       icon: MediumIcon,
