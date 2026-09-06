@@ -7,6 +7,16 @@ import { motion } from "framer-motion";
 const articles = [
   {
     title:
+      "When AI Agents Don't Know if an Action Succeeded: Building MCPX for Reliable WebMCP Workflows",
+    description:
+      "Exploring the blind execution problem in agentic systems and building MCPX to enable verifiable tool execution, state observation, and reliable WebMCP workflows.",
+    date: "September 2026",
+    readTime: "5 min read",
+    tech: ["AI Agents", "MCP", "WebMCP", "System Design"],
+    link: "https://medium.com/@oluwafemionadokun/when-ai-agents-dont-know-if-an-action-succeeded-building-mcpx-for-reliable-webmcp-workflows-9cdcd0ea86c8?sharedUserId=oluwafemionadokun",
+  },
+  {
+    title:
       "Telemetry Systems: Understanding What Your Background Jobs Are Trying to Tell You",
     description:
       "A Dead Letter Queue can tell you that a job failed. However, a robust telemetry system goes further, helping you understand failure patterns and worker performance in real time.",
@@ -84,13 +94,13 @@ export default function PublicationsSection() {
           </h2>
 
           <p className="text-gray-400 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed">
-            Writing about backend scalability, queue-based background workflows,
-            system design, and caching strategies.
+            Writing about AI agents, backend scalability, queue-based background workflows,
+            and distributed system design.
           </p>
         </div>
 
         {/* Articles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
           {articles.map((article, index) => (
             <motion.a
               key={index}
