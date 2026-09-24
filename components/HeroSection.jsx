@@ -202,11 +202,11 @@ const LeetCodeIcon = ({ size = 18, ...props }) => (
 
   const downloadCV = (type = "fullstack") => {
     let fileName = "Oluwafemi_Onadokun_CV";
-    let filePath = "/Onadokun-Oluwafemi-CV-22.0.pdf";
+    let filePath = "/Onadokun Oluwafemi cv.pdf";
 
     if (type === "frontend") {
       fileName = "Oluwafemi_Onadokun_CV_Frontend";
-      filePath = "/Onadokun-Oluwafemi-CV-19.0.pdf";
+      filePath = "/Onadokun Oluwafemi cv.pdf";
     }
 
     const link = document.createElement("a");
